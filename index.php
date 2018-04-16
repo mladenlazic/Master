@@ -1,7 +1,7 @@
 <html ng-app = "vrp">
 	<head>
 		<title>
-			VRP
+			Vehicle routing problem
 		</title>
 
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
