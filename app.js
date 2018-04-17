@@ -75,36 +75,71 @@ var app = angular.module('vrp', ['ngRoute'])
 })
 .controller("gmapController", function($location, $scope, $http)
 {
-	angular.element(document).ready(function() {
-        initMap();
-    })
 
-	function initMap() {
+	var dataStartPosition = [];
+    var dataEndPosition = [];
 
-    	var loc = {};
+	var map = new google.maps.Map(document.getElementById('gmapMap'), {
+		zoom: 8,
+    	center: {lat: 44.787197, lng: 20.457273}
+	});
 
-		if (navigator.geolocation) {
-        	navigator.geolocation.getCurrentPosition(function(position){
-        		
-        		loc.lat = position.coords.latitude;
-	            loc.lng = position.coords.longitude;
+	// Configure start position text field
+	var inputStartPosition = document.getElementById('txtInsertStartPosition');
+    var searchBoxStartPosition = new google.maps.places.SearchBox(inputStartPosition);
 
-	           	var uluru = {lat: loc.lat, lng: loc.lng};
-				var map = new google.maps.Map(document.getElementById('gmapMap'), {
-		    		zoom: 14,
-			    	center: uluru
-				});
-		        
-		        var marker = new google.maps.Marker({
-			        position: uluru,
-			        map: map
-		        });
-        	});
+    // Configure end position text field
+	var inputEndPosition = document.getElementById('txtInsertEndPosition');
+    var searchBoxEndtPosition = new google.maps.places.SearchBox(inputEndPosition);
 
-    	}
-    	else {
-    		console.log("navigator.geolocation does not define");
-    	}
+    function addMapMarker(name, lat, lng) {
+    	
+        var infowindow = new google.maps.InfoWindow({
+          content: name
+        });
+
+        var latlng = {lat: lat, lng: lng};
+    	var marker = new google.maps.Marker({
+            position: latlng,
+            map: map
+        });
+
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+    }
+
+	$scope.addStartPositions = function() {
+
+		var places = searchBoxStartPosition.getPlaces();
+		var name = places[0].vicinity;
+		var lat = places[0].geometry.location.lat();
+		var lng = places[0].geometry.location.lng();
+
+		dataStartPosition.push('{"name":' + name + ', "lat":' + lat + ', "lng":' + lng + '}');
+		addMapMarker(name, lat, lng);
+		
+	}
+
+	$scope.addEndPositions = function() {
+
+		var places = searchBoxEndtPosition.getPlaces();
+		var name = places[0].vicinity;
+		var lat = places[0].geometry.location.lat();
+		var lng = places[0].geometry.location.lng();
+
+		dataEndPosition.push('{"lat":' + lat + ', "lng":' + lng + '}');
+		addMapMarker(name, lat, lng);
 
 	}
+
+	$scope.computeRoute = function() {
+
+		var objStartPosition = JSON.parse(dataStartPosition);
+		var objEndPosition = JSON.parse(dataEndPosition);
+		console.log(objStartPosition);
+		console.log(objEndPosition);
+		// TO DO Send this to server.
+	}	
+
 })
