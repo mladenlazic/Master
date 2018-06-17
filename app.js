@@ -76,6 +76,9 @@ var app = angular.module('vrp', ['ngRoute'])
 .controller("gmapController", function($location, $scope, $http)
 {
 
+	document.getElementById("gmapPositionsBox").style.visibility = "hidden";
+	document.getElementById("gmapVehiclesBox").style.visibility = "hidden";
+
 	var dataStartPosition = [];
     var dataEndPosition = [];
 
@@ -84,24 +87,17 @@ var app = angular.module('vrp', ['ngRoute'])
     	center: {lat: 44.787197, lng: 20.457273}
 	});
 
-	// Configure start position text field
-	var inputStartPosition = document.getElementById('txtInsertStartPosition');
-    var searchBoxStartPosition = new google.maps.places.SearchBox(inputStartPosition);
-
-    // Configure end position text field
-	var inputEndPosition = document.getElementById('txtInsertEndPosition');
-    var searchBoxEndtPosition = new google.maps.places.SearchBox(inputEndPosition);
-
-    function addMapMarker(name, lat, lng) {
+    function addMapMarker(name, lat, lng, marker_color) {
     	
         var infowindow = new google.maps.InfoWindow({
-          content: name
+          content: '<div id="namePlace">' + name + '</div>'
         });
 
         var latlng = {lat: lat, lng: lng};
     	var marker = new google.maps.Marker({
             position: latlng,
-            map: map
+            map: map,
+            icon: marker_color
         });
 
         marker.addListener('click', function() {
@@ -111,35 +107,94 @@ var app = angular.module('vrp', ['ngRoute'])
 
 	$scope.addStartPositions = function() {
 
-		var places = searchBoxStartPosition.getPlaces();
-		var name = places[0].vicinity;
-		var lat = places[0].geometry.location.lat();
-		var lng = places[0].geometry.location.lng();
+		console.log("Enter in addStartPositions");
 
-		dataStartPosition.push('{"name":' + name + ', "lat":' + lat + ', "lng":' + lng + '}');
-		addMapMarker(name, lat, lng);
+		document.getElementById("legendSpanValue").textContent = "Add start stations";
+		document.getElementById("gmapPositionsBox").style.visibility = "visible";
+		document.getElementById("gmapVehiclesBox").style.visibility = "hidden";
+
+		var inputPositionsBox = document.getElementById('txtInsertPosition');
+		var searchBoxStartPosition = new google.maps.places.SearchBox(inputPositionsBox);
+
+		// var places = searchBoxStartPosition.getPlaces();
+		// console.log(places);
+		// var name = places[0].vicinity;
+		// var lat = places[0].geometry.location.lat();
+		// var lng = places[0].geometry.location.lng();
+		// var marker_color = "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+
+		// var obj = { "lat": lat, "lng":lng };
+		// dataStartPosition.push(obj);
+
+		// addMapMarker(name, lat, lng, marker_color);
 		
 	}
 
 	$scope.addEndPositions = function() {
 
-		var places = searchBoxEndtPosition.getPlaces();
-		var name = places[0].vicinity;
-		var lat = places[0].geometry.location.lat();
-		var lng = places[0].geometry.location.lng();
+		document.getElementById("legendSpanValue").textContent = "Add end stations";
+		document.getElementById("gmapPositionsBox").style.visibility = "visible";
+		document.getElementById("gmapVehiclesBox").style.visibility = "hidden";
 
-		dataEndPosition.push('{"lat":' + lat + ', "lng":' + lng + '}');
-		addMapMarker(name, lat, lng);
+		// var places = searchBoxEndtPosition.getPlaces();
+		// var name = places[0].vicinity;
+		// var lat = places[0].geometry.location.lat();
+		// var lng = places[0].geometry.location.lng();
+		// var marker_color = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+
+		// var obj = { "lat": lat, "lng":lng };
+		// dataEndPosition.push(obj);
+
+		// addMapMarker(name, lat, lng, marker_color);
+
+	}
+
+	$scope.addVehicles = function() {
+
+		document.getElementById("gmapPositionsBox").style.visibility = "hidden";
+		document.getElementById("gmapVehiclesBox").style.visibility = "visible";
 
 	}
 
 	$scope.computeRoute = function() {
 
-		var objStartPosition = JSON.parse(dataStartPosition);
-		var objEndPosition = JSON.parse(dataEndPosition);
-		console.log(objStartPosition);
-		console.log(objEndPosition);
-		// TO DO Send this to server.
-	}	
+		var service = new google.maps.DistanceMatrixService;
+        service.getDistanceMatrix({
+          origins: dataStartPosition,
+          destinations: dataEndPosition,
+          travelMode: 'DRIVING',
+          unitSystem: google.maps.UnitSystem.METRIC,
+        }, function(response, status) {
+          if (status !== 'OK') {
+            alert('Error was: ' + status);
+          } else {
+				console.log(response)
+            }
+        });
 
+
+        function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+	        directionsService.route({
+	          origin: "Belgrade, Serbia",
+	          destination: "Novi Sad, Serbia",
+	          travelMode: 'DRIVING'
+	        }, function(response, status) {
+	          if (status === 'OK') {
+	            directionsDisplay.setDirections(response);
+	          } else {
+	            window.alert('Directions request failed due to ' + status);
+	          }
+	        });
+	    }
+
+
+	    console.log(JSON.stringify(dataStartPosition));
+	    console.log(JSON.stringify(dataEndPosition));
+
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        directionsDisplay.setMap(map);
+        calculateAndDisplayRoute(directionsService, directionsDisplay);
+
+	}
 })

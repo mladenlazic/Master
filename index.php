@@ -19,7 +19,8 @@
 	</head>
 	
 	<body>
-		<div ng-view>
+		<div ng-view id="mainLayout">
+
 		</div>
 	</body>
 </html>
