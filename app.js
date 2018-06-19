@@ -76,9 +76,6 @@ var app = angular.module('vrp', ['ngRoute'])
 .controller("gmapController", function($location, $scope, $http)
 {
 
-	document.getElementById("gmapPositionsBox").style.visibility = "hidden";
-	document.getElementById("gmapVehiclesBox").style.visibility = "hidden";
-
 	var dataStartPosition = [];
     var dataEndPosition = [];
 
