@@ -75,7 +75,15 @@ var app = angular.module('vrp', ['ngRoute'])
 })
 .controller("gmapController", function($location, $scope, $http)
 {
+	console.log(window.innerHeight);
+	var gmapRowNav = document.getElementById('gmapRowNav').offsetHeight ;
+	var gmapRowInputPlaces = document.getElementById('gmapRowInputPlaces').offsetHeight ;
+	var gmapRowBtnCompute = document.getElementById('gmapRowBtnCompute').offsetHeight ;
 
+	document.getElementById("mainLayout").style.height = window.innerHeight;
+	var mainLayout = document.getElementById('mainLayout').offsetHeight;
+	document.getElementById("gmapMap").style.height = mainLayout-40;
+	document.getElementById("txtaAddPositions").style.height = mainLayout - 40 - gmapRowNav - gmapRowInputPlaces - gmapRowBtnCompute;
 	var dataStartPosition = [];
     var dataEndPosition = [];
 
@@ -106,9 +114,9 @@ var app = angular.module('vrp', ['ngRoute'])
 
 		console.log("Enter in addStartPositions");
 
-		document.getElementById("legendSpanValue").textContent = "Add start stations";
-		document.getElementById("gmapPositionsBox").style.visibility = "visible";
-		document.getElementById("gmapVehiclesBox").style.visibility = "hidden";
+		// document.getElementById("legendSpanValue").textContent = "Add start stations";
+		// document.getElementById("gmapPositionsBox").style.visibility = "visible";
+		// document.getElementById("gmapVehiclesBox").style.visibility = "hidden";
 
 		var inputPositionsBox = document.getElementById('txtInsertPosition');
 		var searchBoxStartPosition = new google.maps.places.SearchBox(inputPositionsBox);
