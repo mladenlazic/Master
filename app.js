@@ -76,14 +76,17 @@ var app = angular.module('vrp', ['ngRoute'])
 .controller("gmapController", function($location, $scope, $http)
 {
 	console.log(window.innerHeight);
+	document.getElementById("mainLayout").style.height = window.innerHeight;
+
 	var gmapRowNav = document.getElementById('gmapRowNav').offsetHeight ;
-	var gmapRowInputPlaces = document.getElementById('gmapRowInputPlaces').offsetHeight ;
+	var gmapRowInputText = document.getElementById('gmapRowInputText').offsetHeight ;
+	var gmapRowBtnAdd = document.getElementById('gmapRowBtnAdd').offsetHeight ;
+
 	var gmapRowBtnCompute = document.getElementById('gmapRowBtnCompute').offsetHeight ;
 
-	document.getElementById("mainLayout").style.height = window.innerHeight;
 	var mainLayout = document.getElementById('mainLayout').offsetHeight;
 	document.getElementById("gmapMap").style.height = mainLayout-40;
-	document.getElementById("txtaAddPositions").style.height = mainLayout - 40 - gmapRowNav - gmapRowInputPlaces - gmapRowBtnCompute;
+	document.getElementById("txtaAddPositions").style.height = mainLayout - 40 - gmapRowBtnAdd - gmapRowNav - gmapRowInputText - gmapRowBtnCompute;
 	var dataStartPosition = [];
     var dataEndPosition = [];
 
@@ -120,6 +123,7 @@ var app = angular.module('vrp', ['ngRoute'])
 
 		var inputPositionsBox = document.getElementById('txtInsertPosition');
 		var searchBoxStartPosition = new google.maps.places.SearchBox(inputPositionsBox);
+		document.getElementById("txtInsertPosition").placeholder = "Enter start position...";
 
 		// var places = searchBoxStartPosition.getPlaces();
 		// console.log(places);
@@ -137,9 +141,14 @@ var app = angular.module('vrp', ['ngRoute'])
 
 	$scope.addEndPositions = function() {
 
-		document.getElementById("legendSpanValue").textContent = "Add end stations";
-		document.getElementById("gmapPositionsBox").style.visibility = "visible";
-		document.getElementById("gmapVehiclesBox").style.visibility = "hidden";
+		// document.getElementById("legendSpanValue").textContent = "Add end stations";
+		// document.getElementById("gmapPositionsBox").style.visibility = "visible";
+		// document.getElementById("gmapVehiclesBox").style.visibility = "hidden";
+
+		var inputPositionsBox = document.getElementById('txtInsertPosition');
+		var searchBoxStartPosition = new google.maps.places.SearchBox(inputPositionsBox);
+		document.getElementById("txtInsertPosition").placeholder = "Enter end position...";
+
 
 		// var places = searchBoxEndtPosition.getPlaces();
 		// var name = places[0].vicinity;

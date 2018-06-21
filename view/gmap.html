@@ -8,7 +8,7 @@
                     </div>
                 </div>
                 <div class="row" id="gmapRowNav">
-                    <div class="col-lg-12" style="background-color:  #999999;">
+                    <div class="col-lg-12" style="background-color:  #999999;" >
                         <nav class="navbar navbar-expand-lg navbar-light bg-light">
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
@@ -24,7 +24,7 @@
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                             <a class="dropdown-item" href="" ng-click="addStartPositions()">Add Start Possition</a>
-                                            <a class="dropdown-item" href="">Add End Position</a>
+                                            <a class="dropdown-item" href="" ng-click="addEndPositions()">Add End Position</a>
                                         </div>
                                     </li>
                                     <li class="nav-item">
@@ -38,23 +38,27 @@
                         </nav>
                     </div>
                 </div>
-                <div class="row" id="gmapRowInputPlaces"style="padding-top: 5px;padding-bottom: 5px">
-                    <div class=col-lg-8 >
-                        <input class="form-control" id="txtInsertPosition" type="text">
-                    </div>
-                    <div class=col-lg-4>
-                        <button class="btn btn-primary btn-block">Add</button>
+                <div class="row" id="gmapRowInputText">
+                    <div class="col-lg-12"  style="padding-top: 5px">
+                        <input type="text" id="txtInsertPosition" style="width: 100%; padding-left: 5px">
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12" id="addPositions" style="background-color:  #999999;">
+                <div class="row" id="gmapRowBtnAdd" >
+                    <div class="col-lg-4" style="padding-bottom: 5px">
+                        <button style="width: 100%;">Add</button>
+                    </div>
+                    <div class="col-lg-8">
+                    </div>
+                </div>
+                <div class="row" >
+                    <div class="col-lg-12" id="addPositions" style="background-color:  #999999;" >
                         <textarea id="txtaAddPositions">
                         </textarea>
                     </div>
                 </div>
-                <div class="row" id="gmapRowBtnCompute" style="padding-top: 5px;padding-bottom: 5px">
-                    <div class="col-lg-12 btnGmapCalculate" style="background-color: #999999;">
-                        <button class="btn btn-primary btn-block">
+                <div class="row" id="gmapRowBtnCompute" >
+                    <div class="col-lg-12 btnGmapCalculate" style="background-color: #999999;padding-top: 5px;padding-bottom: 5px">
+                        <button style="width: 100%">
                         Calculate
                         </button>
                     </div>
