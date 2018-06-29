@@ -75,20 +75,23 @@ var app = angular.module('vrp', ['ngRoute'])
 })
 .controller("gmapController", function($location, $scope, $http)
 {
-	console.log(window.innerHeight);
+	document.getElementById("insertDataMessage").style.padding = "50% 0";
+	document.getElementById("addPositions").style.display = "none";
 	document.getElementById("mainLayout").style.height = window.innerHeight;
-
-	var gmapRowNav = document.getElementById('gmapRowNav').offsetHeight ;
-	var gmapRowInputText = document.getElementById('gmapRowInputText').offsetHeight ;
-	var gmapRowBtnAdd = document.getElementById('gmapRowBtnAdd').offsetHeight ;
-
-	var gmapRowBtnCompute = document.getElementById('gmapRowBtnCompute').offsetHeight ;
-
+	var gmapTitleLine = 40;
 	var mainLayout = document.getElementById('mainLayout').offsetHeight;
-	document.getElementById("gmapMap").style.height = mainLayout-40;
-	document.getElementById("txtaAddPositions").style.height = mainLayout - 40 - gmapRowBtnAdd - gmapRowNav - gmapRowInputText - gmapRowBtnCompute;
+	var gmapRowNav = document.getElementById('gmapRowNav').offsetHeight ;
+	var gmapRowBtnCompute = document.getElementById('gmapRowBtnCompute').offsetHeight ;
+	gmapInputDataHeight = mainLayout-gmapTitleLine-gmapRowBtnCompute-gmapRowNav;
+	document.getElementById("gmapMap").style.height = mainLayout-gmapTitleLine;
+	document.getElementById("gmapInputData").style.height = gmapInputDataHeight;
+	var mainLayout = document.getElementById('insertDataMessage').offsetHeight;
+	document.getElementById("gmapInputData").style.border = "1px white solid";
+
+	var insertingStartPosition = 1;
 	var dataStartPosition = [];
     var dataEndPosition = [];
+    var searchBoxPosition;
 
 	var map = new google.maps.Map(document.getElementById('gmapMap'), {
 		zoom: 8,
@@ -113,65 +116,77 @@ var app = angular.module('vrp', ['ngRoute'])
         });
     }
 
-	$scope.addStartPositions = function() {
-
-		console.log("Enter in addStartPositions");
-
-		// document.getElementById("legendSpanValue").textContent = "Add start stations";
-		// document.getElementById("gmapPositionsBox").style.visibility = "visible";
-		// document.getElementById("gmapVehiclesBox").style.visibility = "hidden";
-
+    function setUpStartEndPositionDesignSettings() {
+    	document.getElementById("addPositions").style.display = "block";
+		document.getElementById("insertDataMessage").style.display = "none";
 		var inputPositionsBox = document.getElementById('txtInsertPosition');
-		var searchBoxStartPosition = new google.maps.places.SearchBox(inputPositionsBox);
+		searchBoxPosition = new google.maps.places.SearchBox(inputPositionsBox);
+		var gmapRowInputText = document.getElementById('gmapRowInputText').offsetHeight ;
+		var gmapRowBtnAdd = document.getElementById('gmapRowBtnAdd').offsetHeight ;
+		document.getElementById("txtaAddPositions").style.height = gmapInputDataHeight - gmapRowInputText - gmapRowBtnAdd;
+		document.getElementById("gmapInputData").style.border = "none";
+		inputPositionsBox.value="";
+    }
+
+    function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+    	console.log("Enter in calculateAndDisplayRoute");
+        directionsService.route({
+          origin: "Belgrade, Serbia",
+          destination: "Novi Sad, Serbia",
+          travelMode: 'DRIVING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+    }
+
+	$scope.reloadPage = function() {
+		location.reload();
+	}
+
+	$scope.addStartPositions = function() {
+		setUpStartEndPositionDesignSettings();
 		document.getElementById("txtInsertPosition").placeholder = "Enter start position...";
-
-		// var places = searchBoxStartPosition.getPlaces();
-		// console.log(places);
-		// var name = places[0].vicinity;
-		// var lat = places[0].geometry.location.lat();
-		// var lng = places[0].geometry.location.lng();
-		// var marker_color = "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
-
-		// var obj = { "lat": lat, "lng":lng };
-		// dataStartPosition.push(obj);
-
-		// addMapMarker(name, lat, lng, marker_color);
-		
+		insertingStartPosition = 1;
 	}
 
 	$scope.addEndPositions = function() {
-
-		// document.getElementById("legendSpanValue").textContent = "Add end stations";
-		// document.getElementById("gmapPositionsBox").style.visibility = "visible";
-		// document.getElementById("gmapVehiclesBox").style.visibility = "hidden";
-
-		var inputPositionsBox = document.getElementById('txtInsertPosition');
-		var searchBoxStartPosition = new google.maps.places.SearchBox(inputPositionsBox);
+		setUpStartEndPositionDesignSettings();
 		document.getElementById("txtInsertPosition").placeholder = "Enter end position...";
+		insertingStartPosition = 0;
+	}
 
-
-		// var places = searchBoxEndtPosition.getPlaces();
-		// var name = places[0].vicinity;
-		// var lat = places[0].geometry.location.lat();
-		// var lng = places[0].geometry.location.lng();
-		// var marker_color = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-
-		// var obj = { "lat": lat, "lng":lng };
-		// dataEndPosition.push(obj);
-
-		// addMapMarker(name, lat, lng, marker_color);
+	$scope.addPositionToArray = function() {
+		var places = searchBoxPosition.getPlaces();
+		console.log(places);
+		var name = places[0].vicinity;
+		var lat = places[0].geometry.location.lat();
+		var lng = places[0].geometry.location.lng();
+		var location_name = places[0].formatted_address;
+		var obj = {"lat": lat, "lng":lng };
+		if (insertingStartPosition) {
+			dataStartPosition.push(obj);
+			var marker_color = "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+		}
+		else {
+			dataEndPosition.push(obj);
+			var marker_color = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+		}
+		addMapMarker(name, lat, lng, marker_color);
+		document.getElementById('txtInsertPosition').value="";
 
 	}
 
 	$scope.addVehicles = function() {
-
-		document.getElementById("gmapPositionsBox").style.visibility = "hidden";
-		document.getElementById("gmapVehiclesBox").style.visibility = "visible";
-
+		//TODO
 	}
 
 	$scope.computeRoute = function() {
-
+		// TO DO Check if the data is okay
+		// alert("Insert or check your input data!");
 		var service = new google.maps.DistanceMatrixService;
         service.getDistanceMatrix({
           origins: dataStartPosition,
@@ -182,33 +197,18 @@ var app = angular.module('vrp', ['ngRoute'])
           if (status !== 'OK') {
             alert('Error was: ' + status);
           } else {
+          	//Response from google map server
+          	//Format matrix and sent it to the server to calculating the best route for each vehicle
 				console.log(response)
             }
         });
 
-
-        function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-	        directionsService.route({
-	          origin: "Belgrade, Serbia",
-	          destination: "Novi Sad, Serbia",
-	          travelMode: 'DRIVING'
-	        }, function(response, status) {
-	          if (status === 'OK') {
-	            directionsDisplay.setDirections(response);
-	          } else {
-	            window.alert('Directions request failed due to ' + status);
-	          }
-	        });
-	    }
-
-
-	    console.log(JSON.stringify(dataStartPosition));
-	    console.log(JSON.stringify(dataEndPosition));
+	    // console.log(JSON.stringify(dataStartPosition));
+	    // console.log(JSON.stringify(dataEndPosition));
 
         var directionsService = new google.maps.DirectionsService;
         var directionsDisplay = new google.maps.DirectionsRenderer;
         directionsDisplay.setMap(map);
         calculateAndDisplayRoute(directionsService, directionsDisplay);
-
 	}
 })
