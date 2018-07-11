@@ -41,8 +41,33 @@ class Position {
     }
 }
 
+class Vehicles {
+    constructor(vehicle_name, vehicle_lat, vehicle_lng) {
+        this.vehicle_name = vehicle_name;
+        this.vehicle_lng = vehicle_lng;
+        this.vehicle_lat = vehicle_lat;
+    }
+
+    getVehicleName() {
+        return this.vehicle_name;
+    }
+
+    getVehicleLat() {
+        return this.vehicle_lat;
+    }
+
+    getVehicleLng() {
+        return this.vehicle_lng;
+    }
+}
+
+// Location array
 var g_Positions = [];
 var g_PositionsNumber = 0;
+
+// Vehicle array
+var g_Vehicles = [];
+var g_VehiclesNumber = 0;
 
 var app = angular.module('vrp', ['ngRoute']);
 app.config(function($routeProvider)
@@ -187,7 +212,7 @@ app.controller("indexController", function($location, $scope)
                         console.log(this.responseText);
                     }
                 }
-                xmlhttp.open("GET", "server/main.php?q=" + "Lazic", true);
+                xmlhttp.open("POST", "server/main.php?q=" + "Lazic", true);
                 xmlhttp.send();
             }
         });
