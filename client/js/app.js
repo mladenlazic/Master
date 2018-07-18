@@ -42,32 +42,30 @@ class Position {
 }
 
 class Vehicles {
-    constructor(vehicle_name, vehicle_lat, vehicle_lng) {
+    constructor(vehicle_id, vehicle_name, vehicle_location) {
+        this.vehicle_id = vehicle_id;
         this.vehicle_name = vehicle_name;
-        this.vehicle_lng = vehicle_lng;
-        this.vehicle_lat = vehicle_lat;
+        this.vehicle_location = vehicle_location;
+    }
+
+    getVehicleId() {
+        return this.vehicle_id;
     }
 
     getVehicleName() {
         return this.vehicle_name;
     }
 
-    getVehicleLat() {
-        return this.vehicle_lat;
-    }
-
-    getVehicleLng() {
-        return this.vehicle_lng;
+    getVehicleLocation() {
+        return this.vehicle_location;
     }
 }
 
 // Location array
 var g_Positions = [];
-var g_PositionsNumber = 0;
 
 // Vehicle array
 var g_Vehicles = [];
-var g_VehiclesNumber = 0;
 
 var app = angular.module('vrp', ['ngRoute']);
 app.config(function($routeProvider)
@@ -90,11 +88,12 @@ app.controller("indexController", function($location, $scope)
     });
     
     //HARDCORDED VALUE FOR TESTING
-    // g_Positions[g_PositionsNumber++] = new Position(1, "Belgrade, Serbia", 44.786568, 20.44892159999995);
-    // g_Positions[g_PositionsNumber++] = new Position(0, "Novi Sad, Serbia", 45.2671352, 19.83354959999997);
+    // g_Positions[g_Positions.length] = new Position(1, "Belgrade, Serbia", 44.786568, 20.44892159999995);
+    // g_Positions[g_Positions.length] = new Position(0, "Novi Sad, Serbia", 45.2671352, 19.83354959999997);
     var gmapTitleLine = 40;
 	document.getElementById("insertDataMessage").style.padding = "50% 0";
-	document.getElementById("addPositions").style.display = "none";
+    document.getElementById("addPositions").style.display = "none";
+    document.getElementById("addVehiclePosition").style.display = "none";
 	document.getElementById("mainLayout").style.height = window.innerHeight;
 	var mainLayout = document.getElementById('mainLayout').offsetHeight;
 	var gmapRowNav = document.getElementById('gmapRowNav').offsetHeight ;
@@ -106,15 +105,27 @@ app.controller("indexController", function($location, $scope)
 	document.getElementById("gmapInputData").style.border = "1px white solid";
 
     function setUpStartEndPositionDesignSettings() {
+        document.getElementById("addVehiclePosition").style.display = "none";
     	document.getElementById("addPositions").style.display = "block";
 		document.getElementById("insertDataMessage").style.display = "none";
 		var inputPositionsBox = document.getElementById('txtInsertPosition');
 		searchBoxPosition = new google.maps.places.SearchBox(inputPositionsBox);
-		var gmapRowInputText = document.getElementById('gmapRowInputText').offsetHeight ;
+		var gmapRowInputText = document.getElementById('gmapRowInputText').offsetHeight;
 		var gmapRowBtnAdd = document.getElementById('gmapRowBtnAdd').offsetHeight ;
 		document.getElementById("txtaAddPositions").style.height = gmapInputDataHeight - gmapRowInputText - gmapRowBtnAdd;
 		document.getElementById("gmapInputData").style.border = "none";
 		inputPositionsBox.value="";
+    }
+
+    function setUpAddVehiclesPositionDesignSettings() {
+        document.getElementById("addVehiclePosition").style.display = "block";
+        document.getElementById("addPositions").style.display = "none";
+        document.getElementById("insertDataMessage").style.display = "none";
+        document.getElementById("gmapInputData").style.border = "none";
+        var selectPossibleVehiclePosition = document.getElementById('selectPossibleVehiclePosition').offsetHeight;
+        var btnAddVehicleStartPosition = document.getElementById('btnAddVehicleStartPosition').offsetHeight;
+        document.getElementById("txtaAddVehicles").style.height = gmapInputDataHeight - selectPossibleVehiclePosition - btnAddVehicleStartPosition;
+
     }
 
     function calculateAndDisplayRoute(directionsService, directionsDisplay) {
@@ -130,6 +141,16 @@ app.controller("indexController", function($location, $scope)
             window.alert('Directions request failed due to ' + status);
           }
         });
+    }
+
+    function getAllLocationName() {
+        var p = [];
+
+        for (i = 0; i < g_Positions.length; i++) {
+            p.push(g_Positions[i].getLocationName());
+        }
+
+        return p;
     }
 
     function addToInfoList()
@@ -162,7 +183,7 @@ app.controller("indexController", function($location, $scope)
         var lat = places[0].geometry.location.lat();
 		var lng = places[0].geometry.location.lng();
 
-        g_Positions[g_PositionsNumber++] = new Position(location_kind, location_name, lat, lng);
+        g_Positions[g_Positions.length] = new Position(location_kind, location_name, lat, lng);
 
         if (location_kind) {
 			var marker_color = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
@@ -170,12 +191,28 @@ app.controller("indexController", function($location, $scope)
 		else {
 			var marker_color = "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
 		}
-		g_Positions[g_PositionsNumber-1].addMapMarker(map, marker_color);
+		g_Positions[g_Positions.length-1].addMapMarker(map, marker_color);
 		document.getElementById('txtInsertPosition').value="";
 	}
 
-	$scope.addVehicles = function() {
-		//TODO
+    $scope.addVehicle = function() {
+
+        var name = "vehicle" + g_Vehicles.length;
+        var location = document.getElementById("selectVehicleLocation").value;
+        if (!(location == "")) {
+            g_Vehicles[g_Vehicles.length] = new Vehicles(g_Vehicles.length, name, location);
+        }
+    }
+
+	$scope.addVehiclesPosition = function() {
+		console.log("Enter in add vehicle position");
+        setUpAddVehiclesPositionDesignSettings();
+
+        $('#selectVehicleLocation').children().remove().end().append('<option value="" selected disabled hidden>Choose here</option>');
+        var locations = getAllLocationName();
+        for (i = 0; i < locations.length; i++) {
+            $("#selectVehicleLocation").append('<option value=\"'+locations[i]+'\">'+locations[i]+'</option>');
+        }
 	}
 
 	$scope.computeRoute = function() {
@@ -183,7 +220,7 @@ app.controller("indexController", function($location, $scope)
         var startPosition = [];
         var endPosition = [];
 
-        for(var i = 0; i < g_PositionsNumber; i++)
+        for(var i = 0; i < g_Positions.length; i++)
         {
             console.log(g_Positions[i].getLocationKind() + g_Positions[i].getLocationName() + g_Positions[i].getLatitude() + g_Positions[i].getLongitude());
             var obj = {"lat": g_Positions[i].getLatitude(), "lng": g_Positions[i].getLongitude()};
@@ -194,6 +231,18 @@ app.controller("indexController", function($location, $scope)
                 endPosition.push(obj);
             }
         }
+
+        var strVehicles = "{\"vehicles\":[";
+        for (i = 0; i < g_Vehicles.length; i++) {
+            var id = "\"id\":" + "\"" + g_Vehicles[i].getVehicleId() + "\"";
+            var location = "\"location\":" + "\"" + g_Vehicles[i].getVehicleLocation() + "\"";
+            strVehicles += "{" + id + "," + location + "}";
+            if (i < (g_Vehicles.length-1)) {
+                strVehicles += ",";
+            }
+        }
+        strVehicles += "]}";
+        console.log(strVehicles);
 
         var service = new google.maps.DistanceMatrixService;
         service.getDistanceMatrix({
@@ -212,7 +261,8 @@ app.controller("indexController", function($location, $scope)
                         console.log(this.responseText);
                     }
                 }
-                xmlhttp.open("POST", "server/main.php?q=" + "Lazic", true);
+                console.log(gmResponse);
+                xmlhttp.open("POST", "server/main.php?l=" + JSON.stringify(gmResponse)+"&v=" + strVehicles,  true);
                 xmlhttp.send();
             }
         });

@@ -1,11 +1,8 @@
 <?php
-	$q = $_REQUEST["q"];
+	$locations = $_REQUEST["l"];
+	$vehicles = $_REQUEST["v"];
     
-    $json = '{"foo-bar": 12345}';
-
-    $obj = json_decode($json);
-    echo $obj->{'foo-bar'}; // 12345
-
-
-
+  	$json_locations = json_decode($locations);  	
+  	$json_vehicles = json_decode($vehicles);
+    echo $json_vehicles->{"vehicles"}[0]->{"id"};
 ?>
