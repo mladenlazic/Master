@@ -156,10 +156,6 @@ form[role=login] {
 	padding-top: 20px;
 }
 
-#gmapVehiclesBox {
-
-}
-
 #btnInsertPosition {
 	background-color: #4CAF50;
     color: white;
@@ -167,9 +163,6 @@ form[role=login] {
     height: 28px;
     font-size: 16px;
     border: none;
-}
-
-#txtaAddPositions {
 }
 
 .vertical-center {
