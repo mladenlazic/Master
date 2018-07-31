@@ -1,162 +1,275 @@
 <div ng-controller="indexController">
-   <div class="container-fluid">
-      <div class="row" id="mainLayout">
-         <div class="col-lg-4" id="gmapControl" style="background-color:  #999999;">
+  <div class="container-fluid">
+    <div class="row" id="mainLayout">
+      <div class="col-lg-4" id="gmapControl" style="background-color:  #999999;">
+        <div class="row">
+          <div class="col-lg-12" style="background-color: #555555;border-left: 10px red solid; height: 40px; color:white">
+            Vehicle Routing Problem
+          </div>
+        </div>
+        <div class="row" id="gmapRowNav" style="padding-bottom: 5px">
+          <div class="col-lg-12" style="background-color:  #999999;" >
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="" ng-click="reloadPage()">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Stations
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="" ng-click="addStartLocation()">Add Start Possition</a>
+                      <a class="dropdown-item" href="" ng-click="addEndLocation()">Add End Position</a>
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="" ng-click="addVehiclesPosition()">Vehicles</a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+        </div>
+        <div id=gmapInputData style="text-align: center;">
+          <p id="insertDataMessage" style="color:white; font-size: 50px;">Insert data...</p>
+          <div id="addPositions">
+            <div class="row" id="gmapRowInputText">
+              <div class="col-lg-12"  style="padding-top: 5px; text-align: left">
+                <p style="color:white; margin-bottom: 0px";>Please add start and end positions</p>
+                <input type="text" id="txtInsertPosition" style="width: 100%; padding-left: 5px; height: 30px;">
+              </div>
+            </div>
+            <div class="row" id="gmapRowBtnAdd" >
+              <div class="col-lg-4" style="padding-bottom: 5px">
+                <button style="width: 100%;" ng-click="addStartEndLocation()">Add</button>
+              </div>
+              <div class="col-lg-8">
+              </div>
+            </div>
+            <div class="row" >
+              <div class="col-lg-12">
+                <div id="txtaAddPositions" style="background-color: white;padding-top: 5px;position: relative;">
+
+
+                    <div class="container-fluid">
+                    <div class="row itemlistinfo" id="linfoitem1">
+                      <div class="col-lg-11 divplistinfo">
+                        <p class="plistinfo" id="item1">  </p>
+                      </div>
+                      <div class="col-lg-1 divbtnlistinfo">
+                        <button class="buttonlistinfo" ng-click="deleteItem(0)">X</button>
+                      </div>
+                    </div>
+                    <div class="row itemlistinfo" id="linfoitem2">
+                      <div class="col-lg-11 divplistinfo">
+                        <p class="plistinfo" id="item2">  </p>
+                      </div>
+                      <div class="col-lg-1 divbtnlistinfo">
+                        <button class="buttonlistinfo" ng-click="deleteItem(1)">X</button>
+                      </div>
+                    </div>
+                    <div class="row itemlistinfo" id="linfoitem3">
+                      <div class="col-lg-11 divplistinfo">
+                        <p class="plistinfo" id="item3">  </p>
+                      </div>
+                      <div class="col-lg-1 divbtnlistinfo">
+                        <button class="buttonlistinfo" ng-click="deleteItem(2)">X</button>
+                      </div>
+                    </div>
+                    <div class="row itemlistinfo" id="linfoitem4">
+                      <div class="col-lg-11 divplistinfo">
+                        <p class="plistinfo" id="item4">  </p>
+                      </div>
+                      <div class="col-lg-1 divbtnlistinfo">
+                        <button class="buttonlistinfo" ng-click="deleteItem(3)">X</button>
+                      </div>
+                    </div>
+                    <div class="row itemlistinfo" id="linfoitem5">
+                      <div class="col-lg-11 divplistinfo">
+                        <p class="plistinfo" id="item5">  </p>
+                      </div>
+                      <div class="col-lg-1 divbtnlistinfo">
+                        <button class="buttonlistinfo" ng-click="deleteItem(4)">X</button>
+                      </div>
+                    </div>
+                    <div class="row itemlistinfo" id="linfoitem6">
+                      <div class="col-lg-11 divplistinfo">
+                        <p class="plistinfo" id="item6">  </p>
+                      </div>
+                      <div class="col-lg-1 divbtnlistinfo">
+                        <button class="buttonlistinfo" ng-click="deleteItem(5)">X</button>
+                      </div>
+                    </div>
+                    <div class="row itemlistinfo" id="linfoitem7">
+                      <div class="col-lg-11 divplistinfo">
+                        <p class="plistinfo" id="item7">  </p>
+                      </div>
+                      <div class="col-lg-1 divbtnlistinfo">
+                        <button class="buttonlistinfo" ng-click="deleteItem(6)">X</button>
+                      </div>
+                    </div>
+                    <div class="row itemlistinfo" id="linfoitem8">
+                      <div class="col-lg-11 divplistinfo">
+                        <p class="plistinfo" id="item8">  </p>
+                      </div>
+                      <div class="col-lg-1 divbtnlistinfo">
+                        <button class="buttonlistinfo" ng-click="deleteItem(7)">X</button>
+                      </div>
+                    </div>
+                    <div class="row itemlistinfo" id="linfoitem9">
+                      <div class="col-lg-11 divplistinfo">
+                        <p class="plistinfo" id="item9">  </p>
+                      </div>
+                      <div class="col-lg-1 divbtnlistinfo">
+                        <button class="buttonlistinfo" ng-click="deleteItem(8)">X</button>
+                      </div>
+                    </div>
+                    <div class="row itemlistinfo" id="linfoitem10">
+                      <div class="col-lg-11 divplistinfo">
+                        <p class="plistinfo" id="item10">  </p>
+                      </div>
+                      <div class="col-lg-1 divbtnlistinfo">
+                        <button class="buttonlistinfo" ng-click="deleteItem(9)">X</button>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="addVehiclePosition"">
+            <div class="row" id="selectPossibleVehiclePosition" style="padding-top: 5px" >
+              <div class="col-lg-12" style="text-align: left" >
+                <p style="color:white; margin-bottom: 0px";>Please add vehicles positions</p>
+                <select id="selectVehicleLocation" style="width:100%; height: 30px;">
+                </select>
+              </div>
+            </div>
+            <div class="row" id="btnAddVehicleStartPosition" >
+              <div class="col-lg-4" style="padding-bottom: 5px">
+                <button style="width: 100%;" ng-click="addVehicle()">Add</button>
+              </div>
+              <div class="col-lg-8">
+              </div>
+            </div>
             <div class="row">
-               <div class="col-lg-12" style="background-color: #555555;border-left: 10px red solid; height: 40px; color:white">
-                  Vehicle Routing Problem
-               </div>
-            </div>
-            <div class="row" id="gmapRowNav" style="padding-bottom: 5px">
-               <div class="col-lg-12" style="background-color:  #999999;" >
-                  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                     <span class="navbar-toggler-icon"></span>
-                     </button>
-                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav mr-auto">
-                           <li class="nav-item active">
-                              <a class="nav-link" href="" ng-click="reloadPage()">Home <span class="sr-only">(current)</span></a>
-                           </li>
-                           <li class="nav-item dropdown">
-                              <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Stations
-                              </a>
-                              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                 <a class="dropdown-item" href="" ng-click="addStartPositions()">Add Start Possition</a>
-                                 <a class="dropdown-item" href="" ng-click="addEndPositions()">Add End Position</a>
-                              </div>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="" ng-click="addVehiclesPosition()">Vehicles</a>
-                           </li>
-                        </ul>
-                     </div>
-                  </nav>
-               </div>
-            </div>
-            <div id=gmapInputData style="text-align: center;">
-               <p id="insertDataMessage" style="color:white; font-size: 50px;">Insert data...</p>
-               <div id="addPositions">
-                  <div class="row" id="gmapRowInputText">
-                     <div class="col-lg-12"  style="padding-top: 5px; text-align: left">
-                                            <p style="color:white; margin-bottom: 0px";>Please add start and end positions</p>
-
-                        <input type="text" id="txtInsertPosition" style="width: 100%; padding-left: 5px; height: 30px;">
-                     </div>
+              <div class="col-lg-12" id="listOfVehicles" style="background-color:  #999999;" >
+                <div id="txtaAddVehicles" style="background-color: white;padding-top: 5px;">
+                  <div class="container-fluid">
+                    <div class="row itemlistinfo" id="vinfoitem1">
+                      <div class="col-lg-11 divplistinfo">
+                        <p class="plistinfo" id="item1">  </p>
+                      </div>
+                      <div class="col-lg-1 divbtnlistinfo">
+                        <button class="buttonlistinfo" ng-click="deleteItem(0)">X</button>
+                      </div>
+                    </div>
+                    <div class="row itemlistinfo" id="vinfoitem2">
+                      <div class="col-lg-11 divplistinfo">
+                        <p class="plistinfo" id="item2">  </p>
+                      </div>
+                      <div class="col-lg-1 divbtnlistinfo">
+                        <button class="buttonlistinfo" ng-click="deleteItem(1)">X</button>
+                      </div>
+                    </div>
+                    <div class="row itemlistinfo" id="vinfoitem3">
+                      <div class="col-lg-11 divplistinfo">
+                        <p class="plistinfo" id="item3">  </p>
+                      </div>
+                      <div class="col-lg-1 divbtnlistinfo">
+                        <button class="buttonlistinfo" ng-click="deleteItem(2)">X</button>
+                      </div>
+                    </div>
+                    <div class="row itemlistinfo" id="vinfoitem4">
+                      <div class="col-lg-11 divplistinfo">
+                        <p class="plistinfo" id="item4">  </p>
+                      </div>
+                      <div class="col-lg-1 divbtnlistinfo">
+                        <button class="buttonlistinfo" ng-click="deleteItem(3)">X</button>
+                      </div>
+                    </div>
+                    <div class="row itemlistinfo" id="vinfoitem5">
+                      <div class="col-lg-11 divplistinfo">
+                        <p class="plistinfo" id="item5">  </p>
+                      </div>
+                      <div class="col-lg-1 divbtnlistinfo">
+                        <button class="buttonlistinfo" ng-click="deleteItem(4)">X</button>
+                      </div>
+                    </div>
+                    <div class="row itemlistinfo" id="vinfoitem6">
+                      <div class="col-lg-11 divplistinfo">
+                        <p class="plistinfo" id="item6">  </p>
+                      </div>
+                      <div class="col-lg-1 divbtnlistinfo">
+                        <button class="buttonlistinfo" ng-click="deleteItem(5)">X</button>
+                      </div>
+                    </div>
+                    <div class="row itemlistinfo" id="vinfoitem7">
+                      <div class="col-lg-11 divplistinfo">
+                        <p class="plistinfo" id="item7">  </p>
+                      </div>
+                      <div class="col-lg-1 divbtnlistinfo">
+                        <button class="buttonlistinfo" ng-click="deleteItem(6)">X</button>
+                      </div>
+                    </div>
+                    <div class="row itemlistinfo" id="vinfoitem8">
+                      <div class="col-lg-11 divplistinfo">
+                        <p class="plistinfo" id="item8">  </p>
+                      </div>
+                      <div class="col-lg-1 divbtnlistinfo">
+                        <button class="buttonlistinfo" ng-click="deleteItem(7)">X</button>
+                      </div>
+                    </div>
+                    <div class="row itemlistinfo" id="vinfoitem9">
+                      <div class="col-lg-11 divplistinfo">
+                        <p class="plistinfo" id="item9">  </p>
+                      </div>
+                      <div class="col-lg-1 divbtnlistinfo">
+                        <button class="buttonlistinfo" ng-click="deleteItem(8)">X</button>
+                      </div>
+                    </div>
+                    <div class="row itemlistinfo" id="vinfoitem10">
+                      <div class="col-lg-11 divplistinfo">
+                        <p class="plistinfo" id="item10">  </p>
+                      </div>
+                      <div class="col-lg-1 divbtnlistinfo">
+                        <button class="buttonlistinfo" ng-click="deleteItem(9)">X</button>
+                      </div>
+                    </div>
                   </div>
-                  <div class="row" id="gmapRowBtnAdd" >
-                     <div class="col-lg-4" style="padding-bottom: 5px">
-                        <button style="width: 100%;" ng-click="addPosition()">Add</button>
-                     </div>
-                     <div class="col-lg-8">
-                     </div>
-                  </div>
-                  <div class="row" >
-                     <div class="col-lg-12">
-                        <div id="txtaAddPositions" style="background-color: white;padding-top: 5px;position: relative;">
-                        
- <div style="background-color: #66D6AE; height: 20px; width: 100%; position: absolute;">
-                                 </div>
-                                                 <div style="background-color: #66D6AE; height: 20px; width: 100%; position: absolute;">
-                                 </div>
-                                                 <div style="background-color: #66D6AE; top:30px; height: 20px; width: 100%; position: absolute;">
-                                 </div>
-                                                 <div style="background-color: #66D6AE; top:55px; height: 20px; width: 100%; position: absolute;">
-                                 </div>
-                                                 <div style="background-color: #66D6AE; top:80px; height: 20px; width: 100%; position: absolute;">
-                                 </div>
-                                                 <div style="background-color: #66D6AE; top:105px; height: 20px; width: 100%; position: absolute;">
-                                 </div>
-                                                 <div style="background-color: #66D6AE; top:130px; height: 20px; width: 100%; position: absolute;">
-                                 </div>
-                                                 <div style="background-color: #66D6AE; top:155px; height: 20px; width: 100%; position: absolute;">
-                                 </div>
-                                                 <div style="background-color: #66D6AE; top:180px; height: 20px; width: 100%; position: absolute;">
-                                 </div>
-                                                 <div style="background-color: #66D6AE; top:205px; height: 20px; width: 100%; position: absolute;">
-                                 </div>                                 
-                                 <div style="background-color: #66D6AE; top:230px; height: 20px; width: 100%; position: absolute;">
-                                 </div>
-                  
-
-                        </div>
-                    
-
-                     </div>
-                  </div>
-               </div>
-               <div id="addVehiclePosition"">
-                  <div class="row" id="selectPossibleVehiclePosition" style="padding-top: 5px" >
-                     <div class="col-lg-12" style="text-align: left" >
-                        <p style="color:white; margin-bottom: 0px";>Please add vehicles positions</p>
-                        <select id="selectVehicleLocation" style="width:100%; height: 30px;">
-                        </select>
-                     </div>
-                  </div>
-                  <div class="row" id="btnAddVehicleStartPosition" >
-                     <div class="col-lg-4" style="padding-bottom: 5px">
-                        <button style="width: 100%;" ng-click="addVehicle()">Add</button>
-                     </div>
-                     <div class="col-lg-8">
-                     </div>
-                  </div>
-                  <div class="row">
-                     <div class="col-lg-12" id="listOfVehicles" style="background-color:  #999999;" >
-                        <div id="txtaAddVehicles" style="background-color: white;padding-top: 5px; position: relative;">
-
-                 
-                                 <div style="background-color: #66D6AE; height: 20px; width: 100%; position: absolute;">
-                                 </div>
-                                                 <div style="background-color: #66D6AE; height: 20px; width: 100%; position: absolute;">
-                                 </div>
-                                                 <div style="background-color: #66D6AE; top:30px; height: 20px; width: 100%; position: absolute;">
-                                 </div>
-                                                 <div style="background-color: #66D6AE; top:55px; height: 20px; width: 100%; position: absolute;">
-                                 </div>
-                                                 <div style="background-color: #66D6AE; top:80px; height: 20px; width: 100%; position: absolute;">
-                                 </div>
-                                                 <div style="background-color: #66D6AE; top:105px; height: 20px; width: 100%; position: absolute;">
-                                 </div>
-                                                 <div style="background-color: #66D6AE; top:130px; height: 20px; width: 100%; position: absolute;">
-                                 </div>
-                                                 <div style="background-color: #66D6AE; top:155px; height: 20px; width: 100%; position: absolute;">
-                                 </div>
-                                                 <div style="background-color: #66D6AE; top:180px; height: 20px; width: 100%; position: absolute;">
-                                 </div>
-                                                 <div style="background-color: #66D6AE; top:205px; height: 20px; width: 100%; position: absolute;">
-                                 </div>                                 
-                                 <div style="background-color: #66D6AE; top:230px; height: 20px; width: 100%; position: absolute;">
-                                 </div>
-                        
-
-                        
-
-
-                        </div>
-                     </div>
-                  </div>
-               </div>
+                </div>
+              </div>
             </div>
-            <div class="row" id="gmapRowBtnCompute" >
-               <div class="col-lg-12 btnGmapCalculate" style="background-color: #999999;padding-top: 5px;padding-bottom: 5px">
-                  <button style="width: 100%" ng-click="computeRoute()">
-                  Calculate
-                  </button>
-               </div>
-            </div>
-         </div>
-         <div class="col-lg-8" id="gmapMapContent" style="background-color:  #999999;">
-            <div class="row">
-               <div class="col-lg-12" style="background-color: #555555;border-left: 10px blue solid;height: 40px; color:white;">
-                  Google Map
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-lg-12" id="gmapMap" style="background-color:  #999999;">
-               </div>
-            </div>
-         </div>
+          </div>
+        </div>
+        <div class="row" id="gmapRowBtnCompute" >
+          <div class="col-lg-12 btnGmapCalculate" style="background-color: #999999;padding-top: 5px;padding-bottom: 5px">
+            <button style="width: 100%" ng-click="computeRoute()">
+            Calculate
+            </button>
+          </div>
+        </div>
       </div>
-   </div>
+      <div class="col-lg-8" id="gmapMapContent" style="background-color:  #999999;">
+        <div class="row">
+          <div class="col-lg-12" style="background-color: #555555;border-left: 10px blue solid;height: 40px; color:white;">
+            Google Map
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12" id="gmapMap" style="background-color:  #999999;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

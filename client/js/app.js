@@ -79,6 +79,15 @@ app.config(function($routeProvider)
 
 app.controller("indexController", function($location, $scope)
 {
+    function hiddenInfoListItem() 
+    {
+        for (i = 0; i < 10; i++) {
+            var id = "vinfoitem" + (i + 1);
+            document.getElementById(id).style.visibility = "hidden";
+        }
+    }
+
+    hiddenInfoListItem();
     var locationKind;
     var searchBoxPosition;
     
@@ -153,29 +162,50 @@ app.controller("indexController", function($location, $scope)
         return p;
     }
 
-    function addToInfoList()
+    function updateLocationInfoList()
     {
-        //TO DO
+        console.log("Enter in updateLocationInfoList");
+        //read location from the class and add to the info list. The list always reflesh after some change.
+
     }
 
+    function updateVehicleInfoList()
+    {
+        console.log("Enter in updateVehicleInfoList");
+        for (i = 0; i < g_Vehicles.length; i++) {
+            var currentItem = "item" + (i  + 1);
+            var currentItemDiv = "vinfoitem" + (i + 1);
+            document.getElementById(currentItem).innerHTML = g_Vehicles[i].getVehicleName();
+            document.getElementById(currentItemDiv).style.visibility = "visible";
+
+        }
+    }
+
+    $scope.deleteItem = function(index) {
+        g_Vehicles.splice(index, 1);
+        hiddenInfoListItem();
+        updateVehicleInfoList();
+
+    }
 
 	$scope.reloadPage = function() {
+        
 		location.reload();
 	}
 
-	$scope.addStartPositions = function() {
+	$scope.addStartLocation = function() {
 		setUpStartEndPositionDesignSettings();
 		document.getElementById("txtInsertPosition").placeholder = "Enter start position...";
 		locationKind = 1;
 	}
 
-	$scope.addEndPositions = function() {
+	$scope.addEndLocation = function() {
 		setUpStartEndPositionDesignSettings();
 		document.getElementById("txtInsertPosition").placeholder = "Enter end position...";
 		locationKind = 0;
 	}
 
-	$scope.addPosition = function() {
+	$scope.addStartEndLocation = function() {
 		var places = searchBoxPosition.getPlaces();
         
         var location_name = places[0].formatted_address;
@@ -193,19 +223,22 @@ app.controller("indexController", function($location, $scope)
 		}
 		g_Positions[g_Positions.length-1].addMapMarker(map, marker_color);
 		document.getElementById('txtInsertPosition').value="";
+        updateLocationInfoList();
 	}
 
     $scope.addVehicle = function() {
 
-        var name = "vehicle" + g_Vehicles.length;
+        var name = "vehicle_" + g_Vehicles.length;
         var location = document.getElementById("selectVehicleLocation").value;
         if (!(location == "")) {
             g_Vehicles[g_Vehicles.length] = new Vehicles(g_Vehicles.length, name, location);
         }
+
+        updateVehicleInfoList();
+
     }
 
 	$scope.addVehiclesPosition = function() {
-		console.log("Enter in add vehicle position");
         setUpAddVehiclesPositionDesignSettings();
 
         $('#selectVehicleLocation').children().remove().end().append('<option value="" selected disabled hidden>Choose here</option>');
