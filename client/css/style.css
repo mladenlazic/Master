@@ -185,6 +185,8 @@ form[role=login] {
 height: 25px; 
 width: 20px; 
 padding: 0px;
+background-color: blue;
+color: white;
 }
 
 .divplistinfo {
@@ -200,4 +202,10 @@ padding: 0px;
 
 .itemlistinfo {
 	margin-bottom: 5px;
+}
+
+#calculateListItem {
+	color: blue; 
+	font-weight: bold; 
+	background-color: rgba(0, 0, 0, 0.3);
 }
