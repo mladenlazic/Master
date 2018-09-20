@@ -117,9 +117,11 @@ app.controller("indexController", function($location, $scope)
     });
     
     //HARDCORDED VALUE FOR TESTING
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Belgrade, Serbia", 44.786568, 20.44892159999995, 300);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Novi Sad, Serbia", 45.2671352, 19.83354959999997, 400);
-    // g_Vehicles[g_Vehicles.length] = new Vehicles(1, "Mercedes MAN", 400);
+    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Belgrade, Serbia", 44.786568, 20.44892159999995, 10);
+    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Novi Sad, Serbia", 45.2671352, 19.83354959999997, 40);
+    // g_DepotLocation = JSON.parse('{"depot_name": "Ruma, Serbia", "lat": "45.0079235", "lng": "19.82261570000003"}');
+    // g_Vehicles[g_Vehicles.length] = new Vehicles(1, "Mercedes", 40);
+    // g_Vehicles[g_Vehicles.length] = new Vehicles(2, "Fiat", 50);
 
     var mainTitleHeight = 40;
     // Hide all input forms
@@ -251,9 +253,7 @@ app.controller("indexController", function($location, $scope)
             var currentItemDiv = "locationInfoItem" + (i + 1);
             document.getElementById(currentItem).innerHTML = g_DeliveryLocations[i].getLocationName() + " " + g_DeliveryLocations[i].getQuantity();
             document.getElementById(currentItemDiv).style.visibility = "visible";
-
         }
-
     }
 
     function updateDepotInfoList()
@@ -356,7 +356,7 @@ app.controller("indexController", function($location, $scope)
     }
 
     // Add delivery location to the global array g_DeliveryLocations
-	$scope.addDeliveryLocationToArray = function() {
+	$scope.addDeliveryLocationAndGoodsToArray = function() {
 		var places = googleMapSearchBox.getPlaces();
         
         var location_name = places[0].formatted_address;
@@ -396,6 +396,7 @@ app.controller("indexController", function($location, $scope)
         depot_location += "}";
         g_DepotLocation = JSON.parse(depot_location);
 
+        console.log(g_DepotLocation);
         document.getElementById('depotInsertName').value="";
         addDepotMarker();
         updateDepotInfoList();
@@ -426,56 +427,64 @@ app.controller("indexController", function($location, $scope)
 
 	$scope.calculeteTheBestRoutes = function() {
 
-        // var locations = [];
+        var locations = [];
+        var obj = {"lat": parseFloat(g_DepotLocation['lat']), "lng": parseFloat(g_DepotLocation['lng'])};
+        locations.push(obj);
 
-        // for(var i = 0; i < g_DeliveryLocations.length; i++)
-        // {
-        //     //console.log(g_DeliveryLocations[i].getLocationName() + g_DeliveryLocations[i].getLatitude() + g_DeliveryLocations[i].getLongitude());
-        //     var obj = {"lat": g_DeliveryLocations[i].getLatitude(), "lng": g_DeliveryLocations[i].getLongitude()};
-        //     locations.push(obj);
-        // }
+        for(var i = 0; i < g_DeliveryLocations.length; i++){
+            //console.log(g_DeliveryLocations[i].getLocationName() + g_DeliveryLocations[i].getLatitude() + g_DeliveryLocations[i].getLongitude());
+            obj = {"lat": g_DeliveryLocations[i].getLatitude(), "lng": g_DeliveryLocations[i].getLongitude()};
+            locations.push(obj);
+        }
 
-        // var strVehicles = "{\"vehicles\":[";
-        // for (i = 0; i < g_Vehicles.length; i++) {
-        //     var id = "\"id\":" + "\"" + g_Vehicles[i].getVehicleId() + "\"";
-        //     var capacity = "\"capacity\":" + "\"" + g_Vehicles[i].getVehicleCapacity() + "\"";
-        //     strVehicles += "{" + id + "," + capacity + "}";
-        //     if (i < (g_Vehicles.length-1)) {
-        //         strVehicles += ",";
-        //     }
-        // }
-        // strVehicles += "]}";
-        // console.log(strVehicles);
+        console.log(locations);
 
-        // var service = new google.maps.DistanceMatrixService;
-        // service.getDistanceMatrix({
-        //     origins: locations,
-        //     destinations: locations,
-        //     travelMode: 'DRIVING',
-        //     unitSystem: google.maps.UnitSystem.METRIC,
-        // },function(gmResponse, gmStatus) {
-        //     if (gmStatus !== 'OK') {
-        //         alert("Distance matrix seriver: error while finding the distances");
-        //     } 
-        //     else {
-        //         var xmlhttp = new XMLHttpRequest();
-        //         xmlhttp.onreadystatechange = function() {
-        //             if (this.readyState == 4 && this.status == 200) {
-        //                 // Response from vrp server
-        //                 console.log("Response from VRP server");
-        //                 console.log(this.responseText);
-        //             }
-        //         }
-        //         // gmResponse from google map api server
-        //         console.log(gmResponse);
-        //         xmlhttp.open("POST", "server/main.php?l=" + JSON.stringify(gmResponse) +"&v=" + strVehicles,  true);
-        //         xmlhttp.send();
-        //     }
-        // });
+        var goodsPerLocations = [];
+        for(var i = 0; i < g_DeliveryLocations.length; i++) {
+            goodsPerLocations.push(g_DeliveryLocations[i].getQuantity());
+        }
+
+        var strVehicles = "{\"vehicles\":[";
+        for (i = 0; i < g_Vehicles.length; i++) {
+            var id = "\"id\":" + "\"" + g_Vehicles[i].getVehicleId() + "\"";
+            var capacity = "\"capacity\":" + "\"" + g_Vehicles[i].getVehicleCapacity() + "\"";
+            strVehicles += "{" + id + "," + capacity + "}";
+            if (i < (g_Vehicles.length-1)) {
+                strVehicles += ",";
+            }
+        }
+        strVehicles += "]}";
+        console.log(strVehicles);
+
+        var service = new google.maps.DistanceMatrixService;
+        service.getDistanceMatrix({
+            origins: locations,
+            destinations: locations,
+            travelMode: 'DRIVING',
+            unitSystem: google.maps.UnitSystem.METRIC,
+        },function(gmResponse, gmStatus) {
+            if (gmStatus !== 'OK') {
+                alert("Distance matrix seriver: error while finding the distances");
+            }
+            else {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        // Response from vrp server
+                        console.log("Response from VRP server");
+                        console.log(this.responseText);
+                    }
+                }
+                // gmResponse from google map api server
+                console.log(gmResponse);
+                xmlhttp.open("POST", "server/main.php?l=" + JSON.stringify(gmResponse) +"&v=" + strVehicles +"&g=" + JSON.stringify(goodsPerLocations),  true);
+                xmlhttp.send();
+            }
+        });
 
         var directionsService = new google.maps.DirectionsService;
         var directionsDisplay = new google.maps.DirectionsRenderer({map: map, suppressMarkers: true});
        // directionsDisplay.setMap(map);
-        calculateAndDisplayRoute(directionsService, directionsDisplay);
+        //calculateAndDisplayRoute(directionsService, directionsDisplay);
 	}
 })
