@@ -129,8 +129,8 @@ app.controller("indexController", function($location, $scope) {
     // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Novi Sad, Serbia", 45.2671352, 19.83354959999997, 40);
     // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Valjevo, Serbia", 44.2743141, 19.890339799999992, 1);
     // g_DepotLocation = JSON.parse('{"depot_name":  "Bijeljina, Bosnia and Herzegovina", "lat": "44.75695109999999", "lng": "19.215022399999953"}');
-    // g_Vehicles[g_Vehicles.length] = new Vehicles(1, "Mercedes", 50);
-    // g_Vehicles[g_Vehicles.length] = new Vehicles(2, "Fiat", 40);
+    // g_Vehicles[g_Vehicles.length] = new Vehicles(0, "Mercedes", 50);
+    // g_Vehicles[g_Vehicles.length] = new Vehicles(1, "Fiat", 40);
 
     var mainTitleHeight = 40;
     // Hide all input forms
@@ -316,8 +316,7 @@ app.controller("indexController", function($location, $scope) {
 
         var routeColor = ["#0094ff", "#479f67", "#3c9a94", "#a17b4b",
             "#4ad98a", "#50cfe1", "#8ad3a4", "#40cbf1",
-            "#5ecf98", "#17c31f"
-        ];
+            "#5ecf98", "#17c31f"];
 
         depot = g_DepotLocation['depot_name'];
 
@@ -326,12 +325,12 @@ app.controller("indexController", function($location, $scope) {
             var vehicle_name = "";
             var vehicle_road = 0;
             for (j = 0; j < data[i].length; j++) {
-                if (j == 1) {
+                if (j == 0) {
                     vehicle_name = data[i][j];
-                } else if (j == 2) {
+                } else if (j == 1) {
                     vehicle_road = data[i][j];
                 }
-                if (j >= 2) {
+                else {
                     waypts.push({
                         location: data[i][j],
                         stopover: true
@@ -365,7 +364,6 @@ app.controller("indexController", function($location, $scope) {
                 }
             }
         }
-
         drawRoute(json_data);
     }
 
@@ -571,7 +569,7 @@ app.controller("indexController", function($location, $scope) {
                 //setTimeout(function(){
 
                 var distanceBetweenLocations = distanceMatrixBetweenLocations(gmResponse);
-                //call from depot distance from each locations
+                //call for depot distance
                 service.getDistanceMatrix({
                     origins: depot,
                     destinations: locations,
@@ -598,14 +596,10 @@ app.controller("indexController", function($location, $scope) {
                         }
                         xmlhttp.open("POST", "server/main.php?l=" + JSON.stringify(distanceBetweenLocations) + "&d=" + JSON.stringify(distanceDepotFromLocations) + "&v=" + strVehicles + "&g=" + JSON.stringify(goodsPerLocations), true);
                         xmlhttp.send();
-
                     }
                 });
-
                 //}, 3000);
-
             }
         });
-
     }
 })
