@@ -26,42 +26,38 @@ def factorial(number):
     else:
         return number * factorial(number-1)
 
-def fillVehicle(locations, locationsGoods, vehiclesCapacity):
+def fillVehicle(locations, goodsPerLocations, vehicleIndex, vehiclesCapacity):
 	numberOfLocations = len(locations)
 	numberOfVehicles = len(vehiclesCapacity)
-	sumOfLocationsGoods = sum(locationsGoods)
-
-	vehicleNumber = 0;
-	locationNumber = 0;
 
 	if (numberOfLocations <= 0 and numberOfVehicles <= 0):
 		return -1
 
-	currentVehicleFreeCapacity = vehiclesCapacity[vehicleNumber];
 	pathPerVehicle = [];
 
 	for i in range(numberOfVehicles):
-		vehicle = i
-		pathPerVehicle.append([vehicle])
+		pathPerVehicle.append([vehicleIndex[i]])
 
-	while (sumOfLocationsGoods != 0):
-		# print("vehicle " + str(vehicleNumber))
-		# print("location " + str(locationNumber))
+	vehicleNumber = 0;
+	locationNumber = 0;
+	currentVehicleFreeCapacity = vehiclesCapacity[vehicleIndex[vehicleNumber]];
+	sumOfGoodsPerLocations = sum(goodsPerLocations)
+
+	while (sumOfGoodsPerLocations):
 
 		if(vehicleNumber == numberOfVehicles):
 			return -1
 
-		goods = locationsGoods[locations[locationNumber]-1]
-		if(goods <= currentVehicleFreeCapacity):
-			sumOfLocationsGoods -= locationsGoods[locations[locationNumber]-1]
-		#	print(sumOfLocationsGoods);
+		goods = goodsPerLocations[locations[locationNumber]]
 
-			currentVehicleFreeCapacity -= locationsGoods[locations[locationNumber]-1]
+		if(goods <= currentVehicleFreeCapacity):
+			sumOfGoodsPerLocations -= goodsPerLocations[locations[locationNumber]]
+			currentVehicleFreeCapacity -= goodsPerLocations[locations[locationNumber]]
 			pathPerVehicle[vehicleNumber].append(locations[locationNumber])
 			locationNumber += 1
 		else:
 			vehicleNumber += 1
 			if (vehicleNumber != numberOfVehicles):
-				currentVehicleFreeCapacity = vehiclesCapacity[vehicleNumber];
+				currentVehicleFreeCapacity = vehiclesCapacity[vehicleIndex[vehicleNumber]];
 
 	return pathPerVehicle

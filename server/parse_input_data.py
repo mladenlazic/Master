@@ -3,7 +3,7 @@ import json
 
 import utils
 
-def parseVehicleToArray(vehicles):
+def parseVehicleCapacityToArray(vehicles):
 
 	vehiclesCapacity = []
 	json_vehicle = json.loads(vehicles)
@@ -12,6 +12,16 @@ def parseVehicleToArray(vehicles):
 		vehiclesCapacity.append(int(i['capacity']))
 
 	return vehiclesCapacity;
+
+def parseVehicleIndexToArray(vehicles):
+
+	vehiclesIndex = []
+	json_vehicle = json.loads(vehicles)
+
+	for i in json_vehicle['vehicles']:
+		vehiclesIndex.append(int(i['id']))
+
+	return vehiclesIndex;
 
 def parseLocationToMatrix(locations):
 	distanceBetweenLocations = []
