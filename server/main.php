@@ -1,4 +1,5 @@
 <?php
+	ini_set('max_execution_time', 3600);
 	$locations = $_REQUEST["l"];
 	$depot = $_REQUEST["d"];
 	$vehicles = $_REQUEST["v"];

@@ -2,7 +2,7 @@
 var g_DeliveryLocations = [];
 
 // Delivery Locations Markers
-var g_DeliveryLocattionsMarkers = [];
+var g_DeliveryLocationsMarkers = [];
 
 // Depot location
 var g_DepotLocation = null;
@@ -59,7 +59,7 @@ class Location {
             icon: marker_color
         });
 
-        g_DeliveryLocattionsMarkers.push(marker);
+        g_DeliveryLocationsMarkers.push(marker);
         marker.addListener('click', function() {
             infowindow.open(map, marker);
         });
@@ -239,9 +239,15 @@ app.controller("indexController", function($location, $scope) {
         }
     }
 
+    function deleteRouteFromMap() {
+        for (i = 0; i < g_currentDirections.length; i++) {
+            g_currentDirections[i].setMap(null);
+        }
+    }
+
     // Delete marker from the array
     function deleteMapMarker(index) {
-        g_DeliveryLocattionsMarkers[index].setMap(null);
+        g_DeliveryLocationsMarkers[index].setMap(null);
     }
 
     function addDepotMarker() {
@@ -308,15 +314,12 @@ app.controller("indexController", function($location, $scope) {
 
     function drawRoute(data) {
 
-        console.log(data);
-
-        for (i = 0; i < g_currentDirections.length; i++) {
-            g_currentDirections[i].setMap(null);
-        }
+        deleteRouteFromMap();
 
         var routeColor = ["#0094ff", "#479f67", "#3c9a94", "#a17b4b",
             "#4ad98a", "#50cfe1", "#8ad3a4", "#40cbf1",
-            "#5ecf98", "#17c31f"];
+            "#5ecf98", "#17c31f"
+        ];
 
         depot = g_DepotLocation['depot_name'];
 
@@ -329,8 +332,7 @@ app.controller("indexController", function($location, $scope) {
                     vehicle_name = data[i][j];
                 } else if (j == 1) {
                     vehicle_road = data[i][j];
-                }
-                else {
+                } else {
                     waypts.push({
                         location: data[i][j],
                         stopover: true
@@ -370,13 +372,14 @@ app.controller("indexController", function($location, $scope) {
     $scope.deleteDepotLocation = function() {
         g_DepotLocation = null;
         deleteDepotMarker();
+        deleteRouteFromMap();
         document.getElementById("depotInfoItem").style.visibility = "hidden";
     }
 
     // Delete selected location from the array
     $scope.deleteItem = function(index) {
         deleteMapMarker(index);
-        g_DeliveryLocattionsMarkers.splice(index, 1);
+        g_DeliveryLocationsMarkers.splice(index, 1);
         g_DeliveryLocations.splice(index, 1);
         hiddenLocationInfoList();
         updateLocationInfoList();
@@ -387,6 +390,7 @@ app.controller("indexController", function($location, $scope) {
     // Delete selected vehicle from the array
     $scope.deleteVehicleItem = function(index) {
         g_Vehicles.splice(index, 1);
+        deleteRouteFromMap();
         hiddenVehicleInfoList();
         updateVehicleInfoList();
     }
@@ -414,23 +418,63 @@ app.controller("indexController", function($location, $scope) {
         document.getElementById("vehicleInsertCapacity").placeholder = "Enter vehicle capacity...";
     }
 
+    function isNumeric(num) {
+        return !isNaN(num)
+    }
+
+    function isEmpty(str) {
+        return (!str || 0 === str.length);
+    }
+
+    function clearInputDeliveryFields() {
+        document.getElementById('locationInsertName').value = "";
+        document.getElementById('locationInsertQuantity').value = "";
+    }
+
     // Add delivery location to the global array g_DeliveryLocations
     $scope.addDeliveryLocationAndGoodsToArray = function() {
-        var places = googleMapSearchBox.getPlaces();
 
-        var location_name = places[0].formatted_address;
-        var lat = places[0].geometry.location.lat();
-        var lng = places[0].geometry.location.lng();
+        if (g_DeliveryLocations.length == 10) {
+            alert("Maximum number of instance is 10.");
+            clearInputDeliveryFields();
+            return;
+        }
+
+        var places = googleMapSearchBox.getPlaces();
         var quantity = document.getElementById("locationInsertQuantity").value;
+
+        try {
+
+            var location_name = places[0].formatted_address;
+            var lat = places[0].geometry.location.lat();
+            var lng = places[0].geometry.location.lng();
+
+        } catch (err) {
+            alert("Please insert correct data. Place is not correct.");
+            clearInputDeliveryFields();
+            return;
+        }
+
+        if (isEmpty(quantity)) {
+            alert("Please insert correct data. Quantity is not correct.");
+            clearInputDeliveryFields();
+            return;
+        }
+        if (!isNumeric(quantity)) {
+            alert("Quantity must be a number.");
+            clearInputDeliveryFields();
+            return;
+        }
 
         g_DeliveryLocations[g_DeliveryLocations.length] = new Location(location_name, lat, lng, quantity);
         console.log(g_DeliveryLocations);
         var marker_color = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
-
         g_DeliveryLocations[g_DeliveryLocations.length - 1].addMapMarker(map, marker_color);
+
         document.getElementById('locationInsertName').value = "";
         document.getElementById('locationInsertQuantity').value = "";
         updateLocationInfoList();
+        places.pop();
     }
 
     $scope.addDepotToObject = function() {
@@ -442,11 +486,15 @@ app.controller("indexController", function($location, $scope) {
         }
 
         var place = googleMapSearchBox.getPlaces();
-
-        var depot_name = place[0].formatted_address;
-        var lat = place[0].geometry.location.lat();
-        var lng = place[0].geometry.location.lng();
-
+        try {
+            var depot_name = place[0].formatted_address;
+            var lat = place[0].geometry.location.lat();
+            var lng = place[0].geometry.location.lng();
+        } catch (err) {
+            alert("Please insert correct data. Depot is not correct.");
+            document.getElementById('depotInsertName').value = "";
+            return;
+        }
         // Add depot location in JSON format
         var depot_location = "{";
         depot_location += "\"depot_name\":\"" + depot_name + "\",";
@@ -459,15 +507,10 @@ app.controller("indexController", function($location, $scope) {
         document.getElementById('depotInsertName').value = "";
         addDepotMarker();
         updateDepotInfoList();
+        place.pop();
     }
 
     $scope.addVehicleToArray = function() {
-
-        if (g_DepotLocation == null) {
-            alert("First you have to add depot location.");
-            cleanVehicleInputField();
-            return;
-        }
 
         if (g_Vehicles.length == 10) {
             alert("Maximum number of vehicles is 10.");
@@ -477,6 +520,18 @@ app.controller("indexController", function($location, $scope) {
 
         var name = document.getElementById("vehicleInsertName").value;
         var capacity = document.getElementById("vehicleInsertCapacity").value;
+
+        if (isEmpty(name) || isEmpty(capacity)) {
+            alert("Insert all required data.");
+            cleanVehicleInputField();
+            return;
+        }
+
+        if (!isNumeric(capacity)) {
+            alert("Capacity must be a number.");
+            cleanVehicleInputField();
+            return;
+        }
 
         g_Vehicles[g_Vehicles.length] = new Vehicles(g_Vehicles.length, name, capacity);
 
@@ -515,7 +570,52 @@ app.controller("indexController", function($location, $scope) {
         return distanceDepotFromLocations;
     }
 
+    function sumVehicleCapacity() {
+        capacity = 0;
+
+        for (i = 0; i < g_Vehicles.length; i++) {
+            capacity += parseFloat(g_Vehicles[i]['vehicle_capacity']);
+        }
+        console.log(capacity);
+        return capacity;
+    }
+
+    function sumLocationQuantity() {
+        quantity = 0;
+
+        for (i = 0; i < g_DeliveryLocations.length; i++) {
+            quantity += parseFloat(g_DeliveryLocations[i].getQuantity());
+        }
+        console.log(quantity);
+        return quantity;
+    }
+
     $scope.calculeteTheBestRoutes = function() {
+
+        try {
+            if (g_DeliveryLocations.length == 0) {
+                throw "Insert delivery locations.";
+            }
+
+            if (g_DepotLocation == null) {
+                throw "Insert depot location."
+            }
+
+            if (g_Vehicles.length == 0) {
+                throw "Insert vehicles."
+            }
+
+            var totalVehicleCapacity = sumVehicleCapacity();
+            var totalLocationQuantity = sumLocationQuantity();
+
+            if (totalLocationQuantity > totalVehicleCapacity) {
+                throw "There is not enough spaces in the vehicles. Please add vehicles.";
+            }
+
+        } catch (err) {
+            alert(err);
+            return;
+        }
 
         var locations = [];
 

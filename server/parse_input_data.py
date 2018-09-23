@@ -18,8 +18,8 @@ def parseVehicleIndexToArray(vehicles):
 	vehiclesIndex = []
 	json_vehicle = json.loads(vehicles)
 
-	for i in json_vehicle['vehicles']:
-		vehiclesIndex.append(int(i['id']))
+	for i in range(len(json_vehicle['vehicles'])):
+		vehiclesIndex.append(i)
 
 	return vehiclesIndex;
 
