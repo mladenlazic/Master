@@ -205,7 +205,11 @@ color: white;
 }
 
 #calculateListItem {
-	color: blue; 
+	 color:blue;
 	font-weight: bold; 
 	background-color: rgba(0, 0, 0, 0.3);
+}
+
+#calculateListItem:hover {
+	color: red;
 }

@@ -11,8 +11,6 @@ vehicles = sys.argv[3]
 method = sys.argv[4]
 locationsGoods = sys.argv[5]
 
-
-
 #matrix
 # 0 2 3
 # 2 0 4

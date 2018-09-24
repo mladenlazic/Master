@@ -19,6 +19,8 @@ var g_lenghtWholeRoute;
 // Past route on the google maps. Those route should be deleted when we draw new routes.
 var g_currentDirections = [];
 
+var g_Method = "BF";
+
 class Location {
     constructor(location_name, lat, lng, quantity) {
         this.location_name = location_name;
@@ -149,6 +151,7 @@ app.controller("indexController", function($location, $scope) {
     document.getElementById("nodata").style.marginTop = mainInputFormHeight / 2 - 80;
     //Hide depot list on the start web app
     document.getElementById("depotInfoItem").style.visibility = "hidden";
+    document.getElementById("chooseMethod").textContent = g_Method;
 
     function setUpDeliveryLocationDesignSettings() {
         // Hide no need input forms
@@ -367,6 +370,11 @@ app.controller("indexController", function($location, $scope) {
             }
         }
         drawRoute(json_data);
+    }
+
+    $scope.changeMethod = function(method) {
+        g_Method = method;
+        document.getElementById("chooseMethod").textContent = g_Method;
     }
 
     $scope.deleteDepotLocation = function() {
@@ -694,7 +702,7 @@ app.controller("indexController", function($location, $scope) {
                                 prepareDataForDraw(res[1]);
                             }
                         }
-                        xmlhttp.open("POST", "server/main.php?l=" + JSON.stringify(distanceBetweenLocations) + "&d=" + JSON.stringify(distanceDepotFromLocations) + "&v=" + strVehicles + "&g=" + JSON.stringify(goodsPerLocations), true);
+                        xmlhttp.open("POST", "server/main.php?l=" + JSON.stringify(distanceBetweenLocations) + "&d=" + JSON.stringify(distanceDepotFromLocations) + "&v=" + strVehicles + "&g=" + JSON.stringify(goodsPerLocations) + "&m=" + g_Method, true);
                         xmlhttp.send();
                     }
                 });
