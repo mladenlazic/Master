@@ -217,7 +217,6 @@ app.controller("indexController", function($location, $scope) {
     }
 
     function updateLocationInfoList() {
-        console.log("Enter in updateLocationInfoList");
         //read location from the class and add to the info list. The list always reflesh after some change.
         for (i = 0; i < g_DeliveryLocations.length; i++) {
             var currentItem = "item" + (i + 1);
@@ -328,26 +327,19 @@ app.controller("indexController", function($location, $scope) {
 
         for (i = 0; i < data.length; i++) {
             var waypts = [];
-            var vehicle_name = "";
-            var vehicle_road = 0;
-            for (j = 0; j < data[i].length; j++) {
-                if (j == 0) {
-                    vehicle_name = data[i][j];
-                } else if (j == 1) {
-                    vehicle_road = data[i][j];
-                } else {
-                    waypts.push({
-                        location: data[i][j],
-                        stopover: true
-                    });
-                }
+            for (j = 0; j < data[i].length - 1; j++) {
+
+                waypts.push({
+                    location: data[i][j],
+                    stopover: true
+                });
+
             }
             requestDirections(depot, depot, waypts, routeColor[i]);
         }
     }
 
     function prepareDataForDraw(data) {
-        console.log(data);
         json_data = JSON.parse(data);
 
         for (i = 0; i < json_data.length; i++) {
@@ -358,15 +350,9 @@ app.controller("indexController", function($location, $scope) {
         }
 
         for (i = 0; i < json_data.length; i++) {
-            for (j = 0; j < json_data[i].length; j++) {
+            for (j = 0; j < json_data[i].length - 1; j++) {
 
-                if (j == 0) {
-                    json_data[i][j] = g_Vehicles[json_data[i][j]].getVehicleName();
-                } else if (j == 1) {
-                    continue;
-                } else {
-                    json_data[i][j] = g_DeliveryLocations[json_data[i][j]].getLocationName();
-                }
+                json_data[i][j] = g_DeliveryLocations[json_data[i][j]].getLocationName();
             }
         }
         drawRoute(json_data);
@@ -548,34 +534,45 @@ app.controller("indexController", function($location, $scope) {
     }
 
     function distanceMatrixBetweenLocations(gmResponse) {
-        console.log(g_DeliveryLocations);
-        var distanceBetweenLocations = [];
-        numberOfLocations = gmResponse['rows'].length;
 
-        for (i = 0; i < numberOfLocations; i++) {
-            var row = [];
-            for (j = 0; j < numberOfLocations; j++) {
-                km = gmResponse['rows'][i]['elements'][j]['distance']['value'];
-                row.push(km / 1000.0);
+        try {
+            var distanceBetweenLocations = [];
+            numberOfLocations = gmResponse['rows'].length;
+
+            for (i = 0; i < numberOfLocations; i++) {
+                var row = [];
+                for (j = 0; j < numberOfLocations; j++) {
+                    km = gmResponse['rows'][i]['elements'][j]['distance']['value'];
+                    row.push(km / 1000.0);
+                }
+
+                distanceBetweenLocations.push(row);
             }
+            //console.log(distanceBetweenLocations);
 
-            distanceBetweenLocations.push(row);
+            return distanceBetweenLocations;
+        } catch (err) {
+            alert("Delivery locations are not valid.");
+            return -1;
         }
-        console.log(distanceBetweenLocations);
-
-        return distanceBetweenLocations;
     }
 
     function distanceDepotArrayBetweenLocations(gmResponse) {
-        var distanceDepotFromLocations = [];
-        numberOfLocations = gmResponse['rows'][0]['elements'].length;
 
-        for (i = 0; i < numberOfLocations; i++) {
-            km = gmResponse['rows'][0]['elements'][i]['distance']['value'];
-            distanceDepotFromLocations.push(km / 1000.0);
+        try {
+            var distanceDepotFromLocations = [];
+            numberOfLocations = gmResponse['rows'][0]['elements'].length;
+
+            for (i = 0; i < numberOfLocations; i++) {
+                km = gmResponse['rows'][0]['elements'][i]['distance']['value'];
+                distanceDepotFromLocations.push(km / 1000.0);
+            }
+
+            return distanceDepotFromLocations;
+        } catch (err) {
+            alert("Depot location is not valid.");
+            return -1;
         }
-
-        return distanceDepotFromLocations;
     }
 
     function sumVehicleCapacity() {
@@ -584,7 +581,6 @@ app.controller("indexController", function($location, $scope) {
         for (i = 0; i < g_Vehicles.length; i++) {
             capacity += parseFloat(g_Vehicles[i]['vehicle_capacity']);
         }
-        console.log(capacity);
         return capacity;
     }
 
@@ -594,7 +590,6 @@ app.controller("indexController", function($location, $scope) {
         for (i = 0; i < g_DeliveryLocations.length; i++) {
             quantity += parseFloat(g_DeliveryLocations[i].getQuantity());
         }
-        console.log(quantity);
         return quantity;
     }
 
@@ -636,8 +631,6 @@ app.controller("indexController", function($location, $scope) {
             locations.push(obj);
         }
 
-        console.log(locations);
-
         var depot = [];
         var obj = {
             "lat": parseFloat(g_DepotLocation['lat']),
@@ -660,7 +653,10 @@ app.controller("indexController", function($location, $scope) {
             }
         }
         strVehicles += "]}";
-        console.log(strVehicles);
+        var v = [];
+        for (i = 0; i < g_Vehicles.length; i++) {
+            v.push(g_Vehicles[i].getVehicleCapacity());
+        }
 
         var service = new google.maps.DistanceMatrixService;
         // call for matrix locations
@@ -677,6 +673,9 @@ app.controller("indexController", function($location, $scope) {
                 //setTimeout(function(){
 
                 var distanceBetweenLocations = distanceMatrixBetweenLocations(gmResponse);
+                if (distanceBetweenLocations == -1) {
+                    return;
+                }
                 //call for depot distance
                 service.getDistanceMatrix({
                     origins: depot,
@@ -689,6 +688,9 @@ app.controller("indexController", function($location, $scope) {
                     } else {
 
                         var distanceDepotFromLocations = distanceDepotArrayBetweenLocations(gmResponse);
+                        if (distanceDepotFromLocations == -1) {
+                            return;
+                        }
 
                         var xmlhttp = new XMLHttpRequest();
                         xmlhttp.onreadystatechange = function() {
@@ -697,12 +699,15 @@ app.controller("indexController", function($location, $scope) {
                                 console.log("Response from VRP server");
                                 response = this.responseText;
                                 console.log(response);
-                                var res = response.split("|");
-                                g_lenghtWholeRoute = Math.round(res[0] * 100) / 100;
-                                prepareDataForDraw(res[1]);
+                                document.getElementById("mainDivLoader").style.zIndex = "0";
+                                prepareDataForDraw(response);
                             }
                         }
-                        xmlhttp.open("POST", "server/main.php?l=" + JSON.stringify(distanceBetweenLocations) + "&d=" + JSON.stringify(distanceDepotFromLocations) + "&v=" + strVehicles + "&g=" + JSON.stringify(goodsPerLocations) + "&m=" + g_Method, true);
+                        if ((g_DeliveryLocations.length > 5 && g_Method == "BF") || g_Method == "SA") {
+                            document.getElementById("mainDivLoader").style.zIndex = "1";
+                        }
+
+                        xmlhttp.open("POST", "server/main.php?l=" + JSON.stringify(distanceBetweenLocations) + "&d=" + JSON.stringify(distanceDepotFromLocations) + "&v=" + JSON.stringify(v) + "&g=" + JSON.stringify(goodsPerLocations) + "&m=" + g_Method, true);
                         xmlhttp.send();
                     }
                 });

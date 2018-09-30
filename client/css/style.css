@@ -1,215 +1,387 @@
 .login-form {
-	margin: 100px auto;
-	max-width: 400px;
-    font: 16px/2em Lato, serif;
+     margin: 100px auto;
+     max-width: 400px;
+     font: 16px/2em Lato, serif;
 }
-
-form[role=login] {
-	background: #3c3c3c;
-	border-radius: 10px;
+ form[role=login] {
+     background: #3c3c3c;
+     border-radius: 10px;
 }
-	form[role=login] > section {
-		background: #1e1e1e;
-		border-top-left-radius: 10px;
-		border-top-right-radius: 10px;
-	}
-	form[role=login] h2 {
-		font-size: 36px;
-		color: #fff;
-		margin-bottom: 1em;
-	}
-	form[role=login] > section input {
-		color: #c1c4c5;
-		background: #fafafa;
-		border: none;
-		border: 1px solid #EDEDED;
-	}
-	form[role=login] > section input,
-	form[role=login] button {
-		font-size: 16px;
-		margin: 16px 0;
-	}
-	form[role=login] button {
-		color: #fff;
-		font-weight: normal;
-		font-size: 17px;
-		text-align: left;
-		text-shadow: 1px 1px 1px #aaa;
-		background: #b4f012;
-	}
-	form[role=login] button:hover {
-		color: #fff;
-		background: #93C50D;
-	}
-	form[role=login] button:active {
-		color: #fff;
-	}
-	form[role=login] button:focus {
-		color: #fff;
-	}
-	form[role=login] > div {
-		font-size: 16px;
-		color: #ededed;
-	}
-		form[role=login] > div a {
-			color: #3487d4;
-		}
-		
-.form-outer {
-	padding: 20px 26px;
+ form[role=login] > section {
+     background: #1e1e1e;
+     border-top-left-radius: 10px;
+     border-top-right-radius: 10px;
 }
-
-.form-links {
-	text-align: center;
-	color: #c8c8c8;
-	margin-top: 1em;
-	margin-bottom: 50px;
+ form[role=login] h2 {
+     font-size: 36px;
+     color: #fff;
+     margin-bottom: 1em;
 }
-
-.form-links a, .form-links a:hover {
-	color: #fff;
-	text-decoration: underline;
+ form[role=login] > section input {
+     color: #c1c4c5;
+     background: #fafafa;
+     border: none;
+     border: 1px solid #EDEDED;
 }
-
-#namePlace {
-	color: black;
+ form[role=login] > section input, form[role=login] button {
+     font-size: 16px;
+     margin: 16px 0;
 }
-
-#gmapLayout {
-	background-color: yellow;
-	height: 600px;
+ form[role=login] button {
+     color: #fff;
+     font-weight: normal;
+     font-size: 17px;
+     text-align: left;
+     text-shadow: 1px 1px 1px #aaa;
+     background: #b4f012;
 }
-
-.gmapContentMap {
-	border: 5px red solid;
+ form[role=login] button:hover {
+     color: #fff;
+     background: #93C50D;
 }
-
-.gmapBtnNavigation {
-	padding: 5px;
+ form[role=login] button:active {
+     color: #fff;
 }
-
-#gmapMenuBar {
-	position: absolute;
-	margin: 10px;
+ form[role=login] button:focus {
+     color: #fff;
 }
-
-.gmapBtnCalculate {
-	padding: 5px;
+ form[role=login] > div {
+     font-size: 16px;
+     color: #ededed;
 }
-
-.dropbtn {
-    background-color: #4CAF50;
-    color: white;
-    width: 100px;
-    height: 40px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
+ form[role=login] > div a {
+     color: #3487d4;
 }
-
-.dropdown {
-    position: relative;
-    display: inline-block;
+ .form-outer {
+     padding: 20px 26px;
 }
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+ .form-links {
+     text-align: center;
+     color: #c8c8c8;
+     margin-top: 1em;
+     margin-bottom: 50px;
 }
-
-.dropdown-content a {
-    color: black;
-    padding: 10px 16px;
-    text-decoration: none;
-    display: block;
+ .form-links a, .form-links a:hover {
+     color: #fff;
+     text-decoration: underline;
 }
-
-.dropdown-content a:hover {background-color: #f1f1f1}
-
-.dropdown:hover .dropdown-content {
-    display: block;
+ #namePlace {
+     color: black;
 }
-
-.dropdown:hover .dropbtn {
-    background-color: #3e8e41;
+ #gmapLayout {
+     background-color: yellow;
+     height: 600px;
 }
-
-#dropDownMenu {
-	width: 100%;
-	height: 40px;
-	background-color: red;
+ .gmapContentMap {
+     border: 5px red solid;
 }
-
-.positionsVehiclesBox {
-	position: absolute;
-	width: 100%;
-	height: 430px;
-	margin-top: 10px;
+ .gmapBtnNavigation {
+     padding: 5px;
 }
-
-#gmapPositionsBox {
-	padding: 10px;
-	padding-top: 20px;
+ #gmapMenuBar {
+     position: absolute;
+     margin: 10px;
 }
-
-#btnInsertPosition {
-	background-color: #4CAF50;
-    color: white;
-    width: 69px;
-    height: 28px;
-    font-size: 16px;
-    border: none;
+ .gmapBtnCalculate {
+     padding: 5px;
 }
-
-.vertical-center {
-  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
-  min-height: 100vh; /* These two lines are counted as one :-)       */
-  display: flex;
-  align-items: center;
+ .dropbtn {
+     background-color: #4CAF50;
+     color: white;
+     width: 100px;
+     height: 40px;
+     font-size: 16px;
+     border: none;
+     cursor: pointer;
 }
-
-.btnGmapCalculate {
-	background-color: red;
+ .dropdown {
+     position: relative;
+     display: inline-block;
 }
-
-.divbtnlistinfo {
-	background-color: #349196; 
-	height: 25px;
+ .dropdown-content {
+     display: none;
+     position: absolute;
+     background-color: #f9f9f9;
+     min-width: 160px;
+     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+     z-index: 1;
 }
-
-.buttonlistinfo {
-height: 25px; 
-width: 20px; 
-padding: 0px;
-background-color: blue;
-color: white;
+ .dropdown-content a {
+     color: black;
+     padding: 10px 16px;
+     text-decoration: none;
+     display: block;
 }
-
-.divplistinfo {
-	background-color: #349196; 
-	height: 25px; 
-	text-align: left;
+ .dropdown-content a:hover {
+    background-color: #f1f1f1
 }
-
-.plistinfo {
-	color: white; 
-	height: 20px;
+ .dropdown:hover .dropdown-content {
+     display: block;
 }
-
-.itemlistinfo {
-	margin-bottom: 5px;
+ .dropdown:hover .dropbtn {
+     background-color: #3e8e41;
 }
-
-#calculateListItem {
-	 color:blue;
-	font-weight: bold; 
-	background-color: rgba(0, 0, 0, 0.3);
+ #dropDownMenu {
+     width: 100%;
+     height: 40px;
+     background-color: red;
 }
-
-#calculateListItem:hover {
-	color: red;
+ .positionsVehiclesBox {
+     position: absolute;
+     width: 100%;
+     height: 430px;
+     margin-top: 10px;
 }
+ #gmapPositionsBox {
+     padding: 10px;
+     padding-top: 20px;
+}
+ #btnInsertPosition {
+     background-color: #4CAF50;
+     color: white;
+     width: 69px;
+     height: 28px;
+     font-size: 16px;
+     border: none;
+}
+ .vertical-center {
+     min-height: 100%;
+    /* Fallback for browsers do NOT support vh unit */
+     min-height: 100vh;
+    /* These two lines are counted as one :-) */
+     display: flex;
+     align-items: center;
+}
+ .btnGmapCalculate {
+     background-color: red;
+}
+ .divbtnlistinfo {
+     background-color: #349196;
+     height: 25px;
+}
+ .buttonlistinfo {
+     height: 25px;
+     width: 20px;
+     padding: 0px;
+     background-color: blue;
+     color: white;
+}
+ .divplistinfo {
+     background-color: #349196;
+     height: 25px;
+     text-align: left;
+}
+ .plistinfo {
+     color: white;
+     height: 20px;
+}
+ .itemlistinfo {
+     margin-bottom: 5px;
+}
+ #calculateListItem {
+     color:blue;
+     font-weight: bold;
+     background-color: rgba(0, 0, 0, 0.3);
+}
+ #calculateListItem:hover {
+     color: red;
+}
+ @keyframes spin {
+     0% {
+         transform: rotate(0deg);
+    }
+     100% {
+         transform: rotate(360deg);
+    }
+}
+ .ring {
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%,-50%);
+     width: 150px;
+     height: 150px;
+     background: transparent;
+     border: 3px solid #3c3c3c;
+     border-radius: 50%;
+     text-align: center;
+     line-height: 150px;
+     font-family: sans-serif;
+     font-size: 20px;
+     color: #fff000;
+     letter-spacing:4px;
+     text-transform: uppercase;
+     text-shadow:0 0 10px #fff000;
+     box-shadow: 0 0 20px rgba(0,0,0,.5);
+}
+ .ring:before {
+     content: '';
+     position: absolute;
+     top: 0px;
+     left: 0px;
+     width: 100%;
+     height: 100%;
+     border: 3px solid transparent;
+     border-top: 3px solid #fff000;
+     border-right: 3px solid #fff000;
+     border-radius: 50%;
+     animation: animateCircle 2s linear infinite;
+}
+ #circle {
+     display: block;
+     position: absolute;
+     top: calc(50% - 2px);
+     left: 50%;
+     width: 50%;
+     height: 4px;
+     background: transparent;
+     transform-origin:left;
+     animation: animate 2s linear infinite;
+}
+ #circle:before {
+     content:'';
+     position: absolute;
+     width: 16px;
+     height: 16px;
+     border-radius: 50%;
+     background-color: #fff000;
+     top: -6px;
+     right: -8px;
+     box-shadow: 0 0 20px #fff000;
+}
+ @keyframes animateCircle {
+     0% {
+         transform: rotate(0deg);
+    }
+     100% {
+         transform: rotate(360deg);
+    }
+}
+ @keyframes animate {
+     0% {
+         transform: rotate(45deg);
+    }
+     100% {
+         transform: rotate(405deg);
+    }
+}
+ #loader {
+     bottom: 0;
+     height: 175px;
+     left: 0;
+     margin: auto;
+     position: absolute;
+     right: 0;
+     top: 0;
+     width: 175px;
+}
+ #loader {
+     bottom: 0;
+     height: 175px;
+     left: 0;
+     margin: auto;
+     position: absolute;
+     right: 0;
+     top: 0;
+     width: 175px;
+}
+ #loader .dot {
+     bottom: 0;
+     height: 100%;
+     left: 0;
+     margin: auto;
+     position: absolute;
+     right: 0;
+     top: 0;
+     width: 87.5px;
+}
+ #loader .dot::before {
+     border-radius: 100%;
+     content: "";
+     height: 87.5px;
+     left: 0;
+     position: absolute;
+     right: 0;
+     top: 0;
+     transform: scale(0);
+     width: 87.5px;
+}
+ #loader .dot:nth-child(7n+1) {
+     transform: rotate(45deg);
+}
+ #loader .dot:nth-child(7n+1)::before {
+     animation: 0.8s linear 0.1s normal none infinite running load;
+     background: #00ff80 none repeat scroll 0 0;
+}
+ #loader .dot:nth-child(7n+2) {
+     transform: rotate(90deg);
+}
+ #loader .dot:nth-child(7n+2)::before {
+     animation: 0.8s linear 0.2s normal none infinite running load;
+     background: #00ffea none repeat scroll 0 0;
+}
+ #loader .dot:nth-child(7n+3) {
+     transform: rotate(135deg);
+}
+ #loader .dot:nth-child(7n+3)::before {
+     animation: 0.8s linear 0.3s normal none infinite running load;
+     background: #00aaff none repeat scroll 0 0;
+}
+ #loader .dot:nth-child(7n+4) {
+     transform: rotate(180deg);
+}
+ #loader .dot:nth-child(7n+4)::before {
+     animation: 0.8s linear 0.4s normal none infinite running load;
+     background: #0040ff none repeat scroll 0 0;
+}
+ #loader .dot:nth-child(7n+5) {
+     transform: rotate(225deg);
+}
+ #loader .dot:nth-child(7n+5)::before {
+     animation: 0.8s linear 0.5s normal none infinite running load;
+     background: #2a00ff none repeat scroll 0 0;
+}
+ #loader .dot:nth-child(7n+6) {
+     transform: rotate(270deg);
+}
+ #loader .dot:nth-child(7n+6)::before {
+     animation: 0.8s linear 0.6s normal none infinite running load;
+     background: #9500ff none repeat scroll 0 0;
+}
+ #loader .dot:nth-child(7n+7) {
+     transform: rotate(315deg);
+}
+ #loader .dot:nth-child(7n+7)::before {
+     animation: 0.8s linear 0.7s normal none infinite running load;
+     background: magenta none repeat scroll 0 0;
+}
+ #loader .dot:nth-child(7n+8) {
+     transform: rotate(360deg);
+}
+ #loader .dot:nth-child(7n+8)::before {
+     animation: 0.8s linear 0.8s normal none infinite running load;
+     background: #ff0095 none repeat scroll 0 0;
+}
+ #loader .lading {
+     background-position: 50% 50%;
+     background-repeat: no-repeat;
+     bottom: -40px;
+     height: 20px;
+     left: 0;
+     position: absolute;
+     right: 0;
+     width: 180px;
+}
+ @keyframes load {
+     100% {
+         opacity: 0;
+         transform: scale(1);
+    }
+}
+ @keyframes load {
+     100% {
+         opacity: 0;
+         transform: scale(1);
+    }
+}
+ 
