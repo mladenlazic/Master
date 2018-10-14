@@ -126,8 +126,8 @@ app.controller("indexController", function($location, $scope) {
             lng: 20.457273
         }
     });
-    //HARDCORDED VALUE FOR TESTING
 
+    //HARDCORDED VALUE FOR TESTING
     // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Vlasenica, Bosnia and Herzegovina", 44.17997740000001, 18.94181960000003, 15);
     // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ugljevik, Bosnia and Herzegovina", 44.6939722, 18.995954900000015, 10);
     // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Belgrade, Serbia", 44.786568, 20.44892159999995, 10);
@@ -144,6 +144,8 @@ app.controller("indexController", function($location, $scope) {
     document.getElementById("addDepotLocation").style.display = "none";
     document.getElementById("addVehicles").style.display = "none";
     document.getElementById("showResultForm").style.display = "none";
+    document.getElementById("mainDivLoader").style.display = "none";
+    document.getElementById("mainDivLoader").style.zIndex = "1";
 
     // Set height size 
     document.getElementById("mainForm").style.height = window.innerHeight;
@@ -837,7 +839,7 @@ app.controller("indexController", function($location, $scope) {
                                 console.log("Response from VRP server");
                                 var response = this.responseText;
                                 console.log(response);
-                                document.getElementById("mainDivLoader").style.zIndex = "0";
+                                document.getElementById("mainDivLoader").style.display = "none";
 
                                 if (response == -1) {
                                     alert("Solution could not be found.\nPlease check:\n1. Vehicle capacity\n2. Network conection");
@@ -849,7 +851,7 @@ app.controller("indexController", function($location, $scope) {
                             }
                         }
                         if ((g_DeliveryLocations.length > 5 && g_Method == "BF") || g_Method == "SA") {
-                            document.getElementById("mainDivLoader").style.zIndex = "1";
+                            document.getElementById("mainDivLoader").style.display = "block";
                         }
 
                         xmlhttp.open("POST", "server/main.php?l=" + JSON.stringify(distanceBetweenLocations) + "&d=" + JSON.stringify(distanceDepotFromLocations) + "&v=" + JSON.stringify(v) + "&g=" + JSON.stringify(goodsPerLocations) + "&m=" + g_Method, true);
