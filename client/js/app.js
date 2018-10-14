@@ -383,6 +383,7 @@ app.controller("indexController", function($location, $scope) {
     // Delete selected location from the array
     $scope.deleteItem = function(index) {
         deleteMapMarker(index);
+        deleteRouteFromMap();
         g_DeliveryLocationsMarkers.splice(index, 1);
         g_DeliveryLocations.splice(index, 1);
         hiddenLocationInfoList();
@@ -842,7 +843,7 @@ app.controller("indexController", function($location, $scope) {
                                 document.getElementById("mainDivLoader").style.display = "none";
 
                                 if (response == -1) {
-                                    alert("Solution could not be found.\nPlease check:\n1. Vehicle capacity\n2. Network conection");
+                                    alert("Solution could not be found.\nPlease check:\n1. Vehicle capacity\n2. Network connection");
                                     return;
                                 } else {
                                     prepareDataForDraw(response);
