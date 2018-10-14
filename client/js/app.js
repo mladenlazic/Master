@@ -1,3 +1,4 @@
+"use strict";
 // Delivery location array
 var g_DeliveryLocations = [];
 
@@ -20,6 +21,8 @@ var g_lenghtWholeRoute;
 var g_currentDirections = [];
 
 var g_Method = "BF";
+
+var g_Result = [];
 
 class Location {
     constructor(location_name, lat, lng, quantity) {
@@ -98,14 +101,14 @@ app.config(function($routeProvider) {
 
 app.controller("indexController", function($location, $scope) {
     function hiddenLocationInfoList() {
-        for (i = 0; i < 10; i++) {
+        for (var i = 0; i < 10; i++) {
             var id = "locationInfoItem" + (i + 1);
             document.getElementById(id).style.visibility = "hidden";
         }
     }
 
     function hiddenVehicleInfoList() {
-        for (i = 0; i < 10; i++) {
+        for (var i = 0; i < 10; i++) {
             var id = "vehicleInfoItem" + (i + 1);
             document.getElementById(id).style.visibility = "hidden";
         }
@@ -125,7 +128,7 @@ app.controller("indexController", function($location, $scope) {
     });
     //HARDCORDED VALUE FOR TESTING
 
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Vlasenica, Bosnia and Herzegovina", 44.17997740000001, 18.94181960000003, 1);
+    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Vlasenica, Bosnia and Herzegovina", 44.17997740000001, 18.94181960000003, 15);
     // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ugljevik, Bosnia and Herzegovina", 44.6939722, 18.995954900000015, 10);
     // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Belgrade, Serbia", 44.786568, 20.44892159999995, 10);
     // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Novi Sad, Serbia", 45.2671352, 19.83354959999997, 40);
@@ -133,18 +136,20 @@ app.controller("indexController", function($location, $scope) {
     // g_DepotLocation = JSON.parse('{"depot_name":  "Bijeljina, Bosnia and Herzegovina", "lat": "44.75695109999999", "lng": "19.215022399999953"}');
     // g_Vehicles[g_Vehicles.length] = new Vehicles(0, "Mercedes", 50);
     // g_Vehicles[g_Vehicles.length] = new Vehicles(1, "Fiat", 40);
+    // g_Vehicles[g_Vehicles.length] = new Vehicles(1, "Toyota", 1);
 
     var mainTitleHeight = 40;
     // Hide all input forms
     document.getElementById("addDeliveryLocation").style.display = "none";
     document.getElementById("addDepotLocation").style.display = "none";
     document.getElementById("addVehicles").style.display = "none";
+    document.getElementById("showResultForm").style.display = "none";
 
     // Set height size 
     document.getElementById("mainForm").style.height = window.innerHeight;
     var mainFormHeight = document.getElementById('mainForm').offsetHeight;
     var menuNavHeight = document.getElementById('menuNav').offsetHeight;
-    mainInputFormHeight = mainFormHeight - mainTitleHeight - menuNavHeight - 12;
+    var mainInputFormHeight = mainFormHeight - mainTitleHeight - menuNavHeight - 12;
     document.getElementById("googleMapContent").style.height = mainFormHeight - mainTitleHeight;
     document.getElementById("mainInputForm").style.height = mainInputFormHeight;
     document.getElementById("mainInputForm").style.border = "1px white solid";
@@ -159,6 +164,7 @@ app.controller("indexController", function($location, $scope) {
         document.getElementById("addDepotLocation").style.display = "none";
         document.getElementById("addDeliveryLocation").style.display = "block";
         document.getElementById("addVehicles").style.display = "none";
+        document.getElementById("showResultForm").style.display = "none";
 
         // Google maps settings
         var locationInsertName = document.getElementById('locationInsertName');
@@ -177,6 +183,8 @@ app.controller("indexController", function($location, $scope) {
         document.getElementById("addDepotLocation").style.display = "block";
         document.getElementById("addDeliveryLocation").style.display = "none";
         document.getElementById("addVehicles").style.display = "none";
+        document.getElementById("showResultForm").style.display = "none";
+
         // Google maps settings
         var depotInsertName = document.getElementById('depotInsertName');
         googleMapSearchBox = new google.maps.places.SearchBox(depotInsertName);
@@ -195,6 +203,7 @@ app.controller("indexController", function($location, $scope) {
         document.getElementById("addDepotLocation").style.display = "none";
         document.getElementById("addDeliveryLocation").style.display = "none";
         document.getElementById("addVehicles").style.display = "block";
+        document.getElementById("showResultForm").style.display = "none";
 
         // Set height size 
         var depotInputText = document.getElementById('vehicleInputValue').offsetHeight;
@@ -218,7 +227,7 @@ app.controller("indexController", function($location, $scope) {
 
     function updateLocationInfoList() {
         //read location from the class and add to the info list. The list always reflesh after some change.
-        for (i = 0; i < g_DeliveryLocations.length; i++) {
+        for (var i = 0; i < g_DeliveryLocations.length; i++) {
             var currentItem = "item" + (i + 1);
             var currentItemDiv = "locationInfoItem" + (i + 1);
             document.getElementById(currentItem).innerHTML = g_DeliveryLocations[i].getLocationName() + " " + g_DeliveryLocations[i].getQuantity();
@@ -233,7 +242,7 @@ app.controller("indexController", function($location, $scope) {
     }
 
     function updateVehicleInfoList() {
-        for (i = 0; i < g_Vehicles.length; i++) {
+        for (var i = 0; i < g_Vehicles.length; i++) {
             var currentItem = "vehicleItem" + (i + 1);
             var currentItemDiv = "vehicleInfoItem" + (i + 1);
             document.getElementById(currentItem).innerHTML = g_Vehicles[i].getVehicleName() + " " + g_Vehicles[i].getVehicleCapacity();
@@ -242,7 +251,7 @@ app.controller("indexController", function($location, $scope) {
     }
 
     function deleteRouteFromMap() {
-        for (i = 0; i < g_currentDirections.length; i++) {
+        for (var i = 0; i < g_currentDirections.length; i++) {
             g_currentDirections[i].setMap(null);
         }
     }
@@ -276,7 +285,6 @@ app.controller("indexController", function($location, $scope) {
     }
 
     function deleteDepotMarker() {
-        console.log("Enter in deleteDepotMarker");
         g_DepotMarker.setMap(null);
     }
 
@@ -323,11 +331,11 @@ app.controller("indexController", function($location, $scope) {
             "#5ecf98", "#17c31f"
         ];
 
-        depot = g_DepotLocation['depot_name'];
+        var depot = g_DepotLocation['depot_name'];
 
-        for (i = 0; i < data.length; i++) {
+        for (var i = 0; i < data.length; i++) {
             var waypts = [];
-            for (j = 0; j < data[i].length - 1; j++) {
+            for (var j = 0; j < data[i].length - 1; j++) {
 
                 waypts.push({
                     location: data[i][j],
@@ -340,17 +348,17 @@ app.controller("indexController", function($location, $scope) {
     }
 
     function prepareDataForDraw(data) {
-        json_data = JSON.parse(data);
+        var json_data = JSON.parse(data);
 
-        for (i = 0; i < json_data.length; i++) {
+        for (var i = 0; i < json_data.length; i++) {
             if (json_data[i].length == 1) {
                 json_data.splice(i, 1);
                 i--;
             }
         }
 
-        for (i = 0; i < json_data.length; i++) {
-            for (j = 0; j < json_data[i].length - 1; j++) {
+        for (var i = 0; i < json_data.length; i++) {
+            for (var j = 0; j < json_data[i].length - 1; j++) {
 
                 json_data[i][j] = g_DeliveryLocations[json_data[i][j]].getLocationName();
             }
@@ -425,6 +433,99 @@ app.controller("indexController", function($location, $scope) {
         document.getElementById('locationInsertQuantity').value = "";
     }
 
+    function inArray(needle, haystack) {
+        for (var i = 0; i < haystack.length; i++) {
+            if (haystack[i].getLocationName() === needle) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function putDataToResultInfoList(response) {
+        var data = JSON.parse(response);
+
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].length == 0) {
+                continue;
+            }
+            var item = [];
+            item.push(g_Vehicles[i].getVehicleName());
+            for (var j = 0; j < data[i].length; j++) {
+
+                if (j == data[i].length - 1) {
+                    item.push(data[i][j]);
+                } else {
+                    item.push(g_DeliveryLocations[data[i][j]].getLocationName());
+                }
+            }
+            g_Result.push(item);
+        }
+        document.getElementById('idresult').click();
+
+    }
+
+    $scope.showResult = function() {
+
+        if (g_Result.length == 0) {
+            alert("Result can not be found. Please insert data and press start.");
+            return;
+        }
+
+        document.getElementById("nodata").style.display = "none";
+        document.getElementById("addDepotLocation").style.display = "none";
+        document.getElementById("addDeliveryLocation").style.display = "none";
+        document.getElementById("addVehicles").style.display = "none";
+        document.getElementById("showResultForm").style.display = "block";
+        document.getElementById("resultList").style.height = mainInputFormHeight;
+
+        var parent = document.getElementById("resultListContent");
+
+        while (parent.firstChild) {
+
+            parent.removeChild(parent.firstChild);
+        }
+
+        for (var i = 0; i < g_Result.length; i++) {
+            var loc = 0;
+            var item = document.createElement("span");
+            item.textContent = "Vehicle name: " + g_Result[i][0];
+            parent.appendChild(item);
+            parent.appendChild(document.createElement("br"));
+            for (var j = 1; j < g_Result[i].length; j++) {
+                if (j == g_Result[i].length - 1) {
+                    var item1 = document.createElement("span");
+                    item1.textContent = "   - " + g_DepotLocation['depot_name'];
+                    parent.appendChild(item1);
+                    parent.appendChild(document.createElement("br"));
+
+                    var item = document.createElement("span");
+                    item.textContent = "Total kilometers: " + g_Result[i][j].toFixed(1) + "km";
+                    parent.appendChild(item);
+                    parent.appendChild(document.createElement("br"));
+                } else {
+                    if (loc == 0) {
+                        var item = document.createElement("span");
+                        item.textContent = "Route:";
+                        parent.appendChild(item);
+                        parent.appendChild(document.createElement("br"));
+                        var item1 = document.createElement("span");
+                        item1.textContent = "   - " + g_DepotLocation['depot_name'];
+                        parent.appendChild(item1);
+                        parent.appendChild(document.createElement("br"));
+                    }
+                    var item2 = document.createElement("span");
+                    item2.textContent = " - " + g_Result[i][j];
+                    parent.appendChild(item2);
+                    parent.appendChild(document.createElement("br"));
+                    loc = 1;
+                }
+
+            }
+            parent.appendChild(document.createElement("br"));
+        }
+    }
+
     // Add delivery location to the global array g_DeliveryLocations
     $scope.addDeliveryLocationAndGoodsToArray = function() {
 
@@ -454,9 +555,31 @@ app.controller("indexController", function($location, $scope) {
             clearInputDeliveryFields();
             return;
         }
+
         if (!isNumeric(quantity)) {
             alert("Quantity must be a number.");
             clearInputDeliveryFields();
+            return;
+        }
+
+        if (quantity <= 0) {
+            alert("Quantity must be greader than 0.");
+            clearInputDeliveryFields();
+            return;
+        }
+
+        if (g_DepotLocation != null && g_DepotLocation['depot_name'] == location_name) {
+            alert("Location name is already as depot name. It is not allowed.");
+            document.getElementById('locationInsertName').value = "";
+            document.getElementById('locationInsertQuantity').value = "";
+            return;
+
+        }
+
+        if (inArray(location_name, g_DeliveryLocations)) {
+            alert("Location name is already added. It can not be added it again.");
+            document.getElementById('locationInsertName').value = "";
+            document.getElementById('locationInsertQuantity').value = "";
             return;
         }
 
@@ -489,6 +612,13 @@ app.controller("indexController", function($location, $scope) {
             document.getElementById('depotInsertName').value = "";
             return;
         }
+
+        if (inArray(depot_name, g_DeliveryLocations)) {
+            alert("Depot location is already added as delivery location. It is not allowed.");
+            document.getElementById('depotInsertName').value = "";
+            return;
+        }
+
         // Add depot location in JSON format
         var depot_location = "{";
         depot_location += "\"depot_name\":\"" + depot_name + "\",";
@@ -527,6 +657,12 @@ app.controller("indexController", function($location, $scope) {
             return;
         }
 
+        if (capacity <= 0) {
+            alert("Capacity must be greader than 0.");
+            cleanVehicleInputField();
+            return;
+        }
+
         g_Vehicles[g_Vehicles.length] = new Vehicles(g_Vehicles.length, name, capacity);
 
         cleanVehicleInputField();
@@ -537,12 +673,12 @@ app.controller("indexController", function($location, $scope) {
 
         try {
             var distanceBetweenLocations = [];
-            numberOfLocations = gmResponse['rows'].length;
+            var numberOfLocations = gmResponse['rows'].length;
 
-            for (i = 0; i < numberOfLocations; i++) {
+            for (var i = 0; i < numberOfLocations; i++) {
                 var row = [];
-                for (j = 0; j < numberOfLocations; j++) {
-                    km = gmResponse['rows'][i]['elements'][j]['distance']['value'];
+                for (var j = 0; j < numberOfLocations; j++) {
+                    var km = gmResponse['rows'][i]['elements'][j]['distance']['value'];
                     row.push(km / 1000.0);
                 }
 
@@ -561,10 +697,10 @@ app.controller("indexController", function($location, $scope) {
 
         try {
             var distanceDepotFromLocations = [];
-            numberOfLocations = gmResponse['rows'][0]['elements'].length;
+            var numberOfLocations = gmResponse['rows'][0]['elements'].length;
 
-            for (i = 0; i < numberOfLocations; i++) {
-                km = gmResponse['rows'][0]['elements'][i]['distance']['value'];
+            for (var i = 0; i < numberOfLocations; i++) {
+                var km = gmResponse['rows'][0]['elements'][i]['distance']['value'];
                 distanceDepotFromLocations.push(km / 1000.0);
             }
 
@@ -576,18 +712,18 @@ app.controller("indexController", function($location, $scope) {
     }
 
     function sumVehicleCapacity() {
-        capacity = 0;
+        var capacity = 0;
 
-        for (i = 0; i < g_Vehicles.length; i++) {
+        for (var i = 0; i < g_Vehicles.length; i++) {
             capacity += parseFloat(g_Vehicles[i]['vehicle_capacity']);
         }
         return capacity;
     }
 
     function sumLocationQuantity() {
-        quantity = 0;
+        var quantity = 0;
 
-        for (i = 0; i < g_DeliveryLocations.length; i++) {
+        for (var i = 0; i < g_DeliveryLocations.length; i++) {
             quantity += parseFloat(g_DeliveryLocations[i].getQuantity());
         }
         return quantity;
@@ -624,7 +760,7 @@ app.controller("indexController", function($location, $scope) {
 
         for (var i = 0; i < g_DeliveryLocations.length; i++) {
             //console.log(g_DeliveryLocations[i].getLocationName() + g_DeliveryLocations[i].getLatitude() + g_DeliveryLocations[i].getLongitude());
-            obj = {
+            var obj = {
                 "lat": g_DeliveryLocations[i].getLatitude(),
                 "lng": g_DeliveryLocations[i].getLongitude()
             };
@@ -657,6 +793,8 @@ app.controller("indexController", function($location, $scope) {
         for (i = 0; i < g_Vehicles.length; i++) {
             v.push(g_Vehicles[i].getVehicleCapacity());
         }
+
+        g_Result = [];
 
         var service = new google.maps.DistanceMatrixService;
         // call for matrix locations
@@ -697,10 +835,17 @@ app.controller("indexController", function($location, $scope) {
                             if (this.readyState == 4 && this.status == 200) {
                                 // Response from vrp server
                                 console.log("Response from VRP server");
-                                response = this.responseText;
+                                var response = this.responseText;
                                 console.log(response);
                                 document.getElementById("mainDivLoader").style.zIndex = "0";
-                                prepareDataForDraw(response);
+
+                                if (response == -1) {
+                                    alert("Solution could not be found.\nPlease check:\n1. Vehicle capacity\n2. Network conection");
+                                    return;
+                                } else {
+                                    prepareDataForDraw(response);
+                                    putDataToResultInfoList(response);
+                                }
                             }
                         }
                         if ((g_DeliveryLocations.length > 5 && g_Method == "BF") || g_Method == "SA") {
