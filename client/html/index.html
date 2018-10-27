@@ -65,7 +65,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="nav-item" >
-                        <a class="nav-link calculateHover" href="" id="calculateListItem" ng-click="calculeteTheBestRoutes()">Start</a>
+                        <a class="nav-link calculateHover" href="" id="calculateListItem" ng-click="start()">Start</a>
                     </li>
                 </ul>
 
@@ -102,90 +102,10 @@
 
             <div class="row" >
               <div class="col-lg-12">
-                <div id="locationInfoList" style="background-color: white;padding-top: 5px; position: relative;">
-                  <div class="container-fluid">
-                    <div class="row itemlistinfo" id="locationInfoItem1">
-                      <div class="col-lg-11 divplistinfo">
-                        <p class="plistinfo" id="item1">  </p>
-                      </div>
-                      <div class="col-lg-1 divbtnlistinfo">
-                        <button class="buttonlistinfo" ng-click="deleteItem(0)">X</button>
-                      </div>
-                    </div>
-                    <div class="row itemlistinfo" id="locationInfoItem2">
-                      <div class="col-lg-11 divplistinfo">
-                        <p class="plistinfo" id="item2">  </p>
-                      </div>
-                      <div class="col-lg-1 divbtnlistinfo">
-                        <button class="buttonlistinfo" ng-click="deleteItem(1)">X</button>
-                      </div>
-                    </div>
-                    <div class="row itemlistinfo" id="locationInfoItem3">
-                      <div class="col-lg-11 divplistinfo">
-                        <p class="plistinfo" id="item3">  </p>
-                      </div>
-                      <div class="col-lg-1 divbtnlistinfo">
-                        <button class="buttonlistinfo" ng-click="deleteItem(2)">X</button>
-                      </div>
-                    </div>
-                    <div class="row itemlistinfo" id="locationInfoItem4">
-                      <div class="col-lg-11 divplistinfo">
-                        <p class="plistinfo" id="item4">  </p>
-                      </div>
-                      <div class="col-lg-1 divbtnlistinfo">
-                        <button class="buttonlistinfo" ng-click="deleteItem(3)">X</button>
-                      </div>
-                    </div>
-                    <div class="row itemlistinfo" id="locationInfoItem5">
-                      <div class="col-lg-11 divplistinfo">
-                        <p class="plistinfo" id="item5">  </p>
-                      </div>
-                      <div class="col-lg-1 divbtnlistinfo">
-                        <button class="buttonlistinfo" ng-click="deleteItem(4)">X</button>
-                      </div>
-                    </div>
-                    <div class="row itemlistinfo" id="locationInfoItem6">
-                      <div class="col-lg-11 divplistinfo">
-                        <p class="plistinfo" id="item6">  </p>
-                      </div>
-                      <div class="col-lg-1 divbtnlistinfo">
-                        <button class="buttonlistinfo" ng-click="deleteItem(5)">X</button>
-                      </div>
-                    </div>
-                    <div class="row itemlistinfo" id="locationInfoItem7">
-                      <div class="col-lg-11 divplistinfo">
-                        <p class="plistinfo" id="item7">  </p>
-                      </div>
-                      <div class="col-lg-1 divbtnlistinfo">
-                        <button class="buttonlistinfo" ng-click="deleteItem(6)">X</button>
-                      </div>
-                    </div>
-                    <div class="row itemlistinfo" id="locationInfoItem8">
-                      <div class="col-lg-11 divplistinfo">
-                        <p class="plistinfo" id="item8">  </p>
-                      </div>
-                      <div class="col-lg-1 divbtnlistinfo">
-                        <button class="buttonlistinfo" ng-click="deleteItem(7)">X</button>
-                      </div>
-                    </div>
-                    <div class="row itemlistinfo" id="locationInfoItem9">
-                      <div class="col-lg-11 divplistinfo">
-                        <p class="plistinfo" id="item9">  </p>
-                      </div>
-                      <div class="col-lg-1 divbtnlistinfo">
-                        <button class="buttonlistinfo" ng-click="deleteItem(8)">X</button>
-                      </div>
-                    </div>
-                    <div class="row itemlistinfo" id="locationInfoItem10">
-                      <div class="col-lg-11 divplistinfo">
-                        <p class="plistinfo" id="item10">  </p>
-                      </div>
-                      <div class="col-lg-1 divbtnlistinfo">
-                        <button class="buttonlistinfo" ng-click="deleteItem(9)">X</button>
-                      </div>
-                    </div>
+                <div id="locationInfoList" style="background-color: white;padding-top: 5px; position: relative; overflow: scroll;">
+                  <div class="container-fluid" id = "deliveryLocationsInfoListContent">
+                    <!-- Items will be added dinamically -->
                   </div>
-
                 </div>
               </div>
             </div>
@@ -208,7 +128,6 @@
               <div class="col-lg-8">
               </div>
             </div> 
-
 
             <div class="row" >
               <div class="col-lg-12">
@@ -235,7 +154,7 @@
           <div id="addVehicles">
 
             <div class="row" id="vehicleInputValue">
-              <div class="col-lg-12"  style="padding-top: 5px; text-align: left">
+              <div class="col-lg-12"  style="padding-top: 5px; text-align: left;">
                 <p style="color:white; margin-bottom: 0px";>Insert vehicle name and capacity</p>
                 <input type="text" id="vehicleInsertName" style="width: 100%; padding-left: 5px; height: 30px;">
                 <input type="text" id="vehicleInsertCapacity" style="width: 100%; padding-left: 5px; height: 30px;">
@@ -252,88 +171,9 @@
 
             <div class="row" >
               <div class="col-lg-12">
-                <div id="vehiclesInfoList" style="background-color: white;padding-top: 5px; position: relative;">
-                  <div class="container-fluid">
-                    <div class="row itemlistinfo" id="vehicleInfoItem1">
-                      <div class="col-lg-11 divplistinfo">
-                        <p class="plistinfo" id="vehicleItem1">  </p>
-                      </div>
-                      <div class="col-lg-1 divbtnlistinfo">
-                        <button class="buttonlistinfo" ng-click="deleteVehicleItem(0)">X</button>
-                      </div>
-                    </div>
-                    <div class="row itemlistinfo" id="vehicleInfoItem2">
-                      <div class="col-lg-11 divplistinfo">
-                        <p class="plistinfo" id="vehicleItem2">  </p>
-                      </div>
-                      <div class="col-lg-1 divbtnlistinfo">
-                        <button class="buttonlistinfo" ng-click="deleteVehicleItem(1)">X</button>
-                      </div>
-                    </div>
-                    <div class="row itemlistinfo" id="vehicleInfoItem3">
-                      <div class="col-lg-11 divplistinfo">
-                        <p class="plistinfo" id="vehicleItem3">  </p>
-                      </div>
-                      <div class="col-lg-1 divbtnlistinfo">
-                        <button class="buttonlistinfo" ng-click="deleteVehicleItem(2)">X</button>
-                      </div>
-                    </div>
-                    <div class="row itemlistinfo" id="vehicleInfoItem4">
-                      <div class="col-lg-11 divplistinfo">
-                        <p class="plistinfo" id="vehicleItem4">  </p>
-                      </div>
-                      <div class="col-lg-1 divbtnlistinfo">
-                        <button class="buttonlistinfo" ng-click="deleteVehicleItem(3)">X</button>
-                      </div>
-                    </div>
-                    <div class="row itemlistinfo" id="vehicleInfoItem5">
-                      <div class="col-lg-11 divplistinfo">
-                        <p class="plistinfo" id="vehicleItem5">  </p>
-                      </div>
-                      <div class="col-lg-1 divbtnlistinfo">
-                        <button class="buttonlistinfo" ng-click="deleteVehicleItem(4)">X</button>
-                      </div>
-                    </div>
-                    <div class="row itemlistinfo" id="vehicleInfoItem6">
-                      <div class="col-lg-11 divplistinfo">
-                        <p class="plistinfo" id="vehicleItem6">  </p>
-                      </div>
-                      <div class="col-lg-1 divbtnlistinfo">
-                        <button class="buttonlistinfo" ng-click="deleteVehicleItem(5)">X</button>
-                      </div>
-                    </div>
-                    <div class="row itemlistinfo" id="vehicleInfoItem7">
-                      <div class="col-lg-11 divplistinfo">
-                        <p class="plistinfo" id="vehicleItem7">  </p>
-                      </div>
-                      <div class="col-lg-1 divbtnlistinfo">
-                        <button class="buttonlistinfo" ng-click="deleteVehicleItem(6)">X</button>
-                      </div>
-                    </div>
-                    <div class="row itemlistinfo" id="vehicleInfoItem8">
-                      <div class="col-lg-11 divplistinfo">
-                        <p class="plistinfo" id="vehicleItem8">  </p>
-                      </div>
-                      <div class="col-lg-1 divbtnlistinfo">
-                        <button class="buttonlistinfo" ng-click="deleteVehicleItem(7)">X</button>
-                      </div>
-                    </div>
-                    <div class="row itemlistinfo" id="vehicleInfoItem9">
-                      <div class="col-lg-11 divplistinfo">
-                        <p class="plistinfo" id="vehicleItem9">  </p>
-                      </div>
-                      <div class="col-lg-1 divbtnlistinfo">
-                        <button class="buttonlistinfo" ng-click="deleteVehicleItem(8)">X</button>
-                      </div>
-                    </div>
-                    <div class="row itemlistinfo" id="vehicleInfoItem10">
-                      <div class="col-lg-11 divplistinfo">
-                        <p class="plistinfo" id="vehicleItem10">  </p>
-                      </div>
-                      <div class="col-lg-1 divbtnlistinfo">
-                        <button class="buttonlistinfo" ng-click="deleteVehicleItem(9)">X</button>
-                      </div>
-                    </div>
+                <div id="vehiclesInfoList" style="background-color: white;padding-top: 5px; position: relative; overflow: scroll;">
+                  <div class="container-fluid" id="vehiclesInfoListContent">
+                    <!-- Items will be added dinamically -->
                   </div>
 
                 </div>
@@ -374,7 +214,6 @@
         <!-- End google maps content -->
       </div>
     </div>
-
 
   </div>
 </div>

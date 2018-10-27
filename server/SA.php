@@ -5,6 +5,7 @@ function SA($locationsIndex, $distanceBetweenLocations, $distanceDepotFromLocati
     $currentTemperature = 100.0;
     $coolingRate = 0.9999;
     $minimalTemperature = 0.0001;
+    // uraditi shuffle
     $candidate = generateRandomPermutation($locationsIndex);
     while ($currentTemperature > $minimalTemperature) {
         $dCandidate = getDistance($candidate, $goodsPerLocations, $vehiclesIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations);
