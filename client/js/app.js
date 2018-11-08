@@ -556,15 +556,6 @@ app.controller("indexController", function($location, $scope) {
         drawRoute(index, k);
     }
 
-    function vehicleCapacityByName(name) {
-        
-        for(var i = 0; i < g_Vehicles.length; i++) {
-            if(g_Vehicles[i].getVehicleName() == name) {
-                return g_Vehicles[i].getVehicleCapacity();
-            }
-        }
-    }
-
     $scope.showResult = function() {
 
         // g_Result
@@ -596,7 +587,7 @@ app.controller("indexController", function($location, $scope) {
         for (var i = 0; i < g_Result.length; i++) {
 
             var item = document.createElement("span");
-            item.textContent = "Vehicle name: " + g_Vehicles[g_Result[i][0]].getVehicleName();
+            item.textContent = "Vehicle name: " + vehicles[g_Result[i][0]].getVehicleName();
             parent.appendChild(item);
 
             var showRoute = document.createElement("button");
@@ -628,7 +619,7 @@ app.controller("indexController", function($location, $scope) {
                     parent.appendChild(document.createElement("br"));
 
                     var item4 = document.createElement("span");
-                    item4.textContent = "Vehicle capacity: " + g_Vehicles[g_Result[i][0]].getVehicleCapacity();
+                    item4.textContent = "Vehicle capacity: " + vehicles[g_Result[i][0]].getVehicleCapacity();
                     parent.appendChild(item4);
                     parent.appendChild(document.createElement("br"));
 
@@ -874,6 +865,7 @@ app.controller("indexController", function($location, $scope) {
     }
 
     var vehicles = [];
+    var vehiclesCapacity = [];
     var goodsPerLocations = [];
     var matrixBetweenDeliveryLocations = [];
     var matrixBetweenLocationsAndDepot = [];
@@ -949,7 +941,7 @@ app.controller("indexController", function($location, $scope) {
         var data = "[";
         data += "["+JSON.stringify(matrixBetweenDeliveryLocations)+"],";
         data += "["+JSON.stringify(matrixBetweenLocationsAndDepot)+"],";
-        data += "["+JSON.stringify(vehicles)+"],";
+        data += "["+JSON.stringify(vehiclesCapacity)+"],";
         data += "["+JSON.stringify(goodsPerLocations)+"],";
         data += "["+JSON.stringify(g_Method)+"]";
         data += "]";
@@ -1123,9 +1115,21 @@ app.controller("indexController", function($location, $scope) {
     // VEHICLES
     function prepareVehiclesForServer() {
         vehicles = [];
+        vehiclesCapacity = [];
         for (var i = 0; i < g_Vehicles.length; i++) {
-            vehicles.push(g_Vehicles[i].getVehicleCapacity());
+            vehicles.push(g_Vehicles[i]);
         }
+
+        vehicles.sort(function(a, b) {
+            return b.getVehicleCapacity() - a.getVehicleCapacity();
+        });
+
+        for (var i = 0; i < vehicles.length; i++) {
+            vehiclesCapacity.push(vehicles[i].getVehicleCapacity());
+        }
+
+        console.log(vehiclesCapacity);
+
     }
 
     //GOODS PER LOCATIONS
