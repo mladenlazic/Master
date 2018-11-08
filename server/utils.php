@@ -107,14 +107,15 @@ function generateRandomPermutation($permutation)
     if ($n == 1) {
         return $permutation;
     }
-
-    $a = rand(0, $n - 1);
-    do {
-        $b = rand(0, $n - 1);
+    else if ($n == 2) {
+        $i = 0;
+    }
+    else {
+        $i = rand(0, $i - 2);
     }
 
-    while ($a == $b);
-    $permutation = swap($a, $b, $permutation);
+    $permutation = swap($i, $i+1, $permutation);
+
     return $permutation;
 }
 
