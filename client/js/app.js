@@ -110,9 +110,9 @@ app.controller("indexController", function($location, $scope) {
         if (x == 5 || x == 10 || x == 15 || x == 25 || x == 50) {
             g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Vlasenica, Bosnia and Herzegovina", 44.17997740000001, 18.94181960000003, 5);
             g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ugljevik, Bosnia and Herzegovina", 44.6939722, 18.995954900000015, 10);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Belgrade, Serbia", 44.786568, 20.44892159999995, 20);
-            // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Vlasenica, Bosnia and Herzegovina", 44.17997740000001, 18.94181960000003, 5);
-            // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ugljevik, Bosnia and Herzegovina", 44.6939722, 18.995954900000015, 10);
+            //g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Belgrade, Serbia", 44.786568, 20.44892159999995, 20);
+            //g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Vlasenica, Bosnia and Herzegovina", 44.17997740000001, 18.94181960000003, 5);
+            //g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ugljevik, Bosnia and Herzegovina", 44.6939722, 18.995954900000015, 10);
         }
         if (x == 10 || x == 15 || x == 25 || x == 50) {
             g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Belgrade, Serbia", 44.786568, 20.44892159999995, 10);
@@ -186,8 +186,8 @@ app.controller("indexController", function($location, $scope) {
     function addTestVehicles(x) {
 
         if (x == 5 || x == 10 || x == 15 || x == 25 || x == 50) {
-            g_Vehicles[g_Vehicles.length] = new Vehicles(0, "BMW", 6);
-            g_Vehicles[g_Vehicles.length] = new Vehicles(1, "Fiat", 34);
+            g_Vehicles[g_Vehicles.length] = new Vehicles(0, "BMW", 5);
+            g_Vehicles[g_Vehicles.length] = new Vehicles(1, "Fiat", 10);
         }
         if (x == 10 || x == 15 || x == 25 || x == 50) {
             g_Vehicles[g_Vehicles.length] = new Vehicles(2, "Mercedes", 100);
@@ -525,7 +525,7 @@ app.controller("indexController", function($location, $scope) {
             var item = [];
             var goods = 0;
             // dodajemo ime vozila
-            item.push(g_Vehicles[i].getVehicleName());
+            item.push(i);
             for (var j = 0; j < data[i].length; j++) {
 
                 // ako je kilometraza po vozilu samo je dodamo
@@ -567,7 +567,11 @@ app.controller("indexController", function($location, $scope) {
 
     $scope.showResult = function() {
 
-        console.log(g_Result);
+        // g_Result
+        // g_Result[0] - vehicle id
+        // g_Result[g_Result.lenght-1] - goods in vehicle
+        // g_Result[g_Result.lenght-2] - kilometars per vehicle
+        // another elements - locations per vehicles
 
         if (g_Result.length == 0) {
             alert("Result can not be found. Please insert data and press start.");
@@ -590,13 +594,13 @@ app.controller("indexController", function($location, $scope) {
         var total_kilometers = 0;
         var total_goods = 0;
         for (var i = 0; i < g_Result.length; i++) {
-            var loc = 0;
+
             var item = document.createElement("span");
-            item.textContent = "Vehicle name: " + g_Result[i][0];
+            item.textContent = "Vehicle name: " + g_Vehicles[g_Result[i][0]].getVehicleName();
             parent.appendChild(item);
+
             var showRoute = document.createElement("button");
-            var t = document.createTextNode("route");       // Create a text node
-            
+            var t = document.createTextNode("route");
             showRoute.id = i;
             showRoute.onclick = function() {
                 drawSeparateRoute(this.id);
@@ -604,75 +608,71 @@ app.controller("indexController", function($location, $scope) {
             showRoute.style = "float: right";
             showRoute.appendChild(t);
             parent.appendChild(showRoute);
-
             parent.appendChild(document.createElement("br"));
+
+            var item1 = document.createElement("span");
+            item1.textContent = "Route:";
+            parent.appendChild(item1);
+            parent.appendChild(document.createElement("br"));
+
+            var item2 = document.createElement("span");
+            item2.textContent = "   - " + g_DepotLocation['depot_name'];
+            parent.appendChild(item2);
+            parent.appendChild(document.createElement("br"));
+
             for (var j = 1; j < g_Result[i].length-1; j++) {
-                // zadnji - koliko je popunjeno vozilo
-                // predzadnji - koliko kilometara prelazi
                 if (j == g_Result[i].length - 2) {
-                    var item1 = document.createElement("span");
-                    item1.textContent = "   - " + g_DepotLocation['depot_name'];
-                    parent.appendChild(item1);
-                    parent.appendChild(document.createElement("br"));
-
-                    var item2 = document.createElement("span");
-                    //TODO fix vehicleCapacityByName
-                    item2.textContent = "Vehicle capacity: " + vehicleCapacityByName(g_Result[i][0]);
-                    parent.appendChild(item2);
-                    parent.appendChild(document.createElement("br"));
-
                     var item3 = document.createElement("span");
-                    item3.textContent = "Goods in vehicle: " + g_Result[i][j+1];
+                    item3.textContent = "   - " + g_DepotLocation['depot_name'];
                     parent.appendChild(item3);
                     parent.appendChild(document.createElement("br"));
 
                     var item4 = document.createElement("span");
-                    item4.textContent = "Kilometers: " + g_Result[i][j].toFixed(1) + "km";
+                    item4.textContent = "Vehicle capacity: " + g_Vehicles[g_Result[i][0]].getVehicleCapacity();
                     parent.appendChild(item4);
                     parent.appendChild(document.createElement("br"));
+
+                    var item5 = document.createElement("span");
+                    item5.textContent = "Goods in vehicle: " + g_Result[i][j+1];
+                    parent.appendChild(item5);
+                    parent.appendChild(document.createElement("br"));
+
+                    var item6 = document.createElement("span");
+                    item6.textContent = "Kilometers: " + g_Result[i][j].toFixed(1) + "km";
+                    parent.appendChild(item6);
+                    parent.appendChild(document.createElement("br"));
+
                     total_kilometers += parseFloat(g_Result[i][j]);
                     total_goods += parseFloat(g_Result[i][j+1]);
                 } else {
-                    if (loc == 0) {
-                        var item = document.createElement("span");
-                        item.textContent = "Route:";
-                        parent.appendChild(item);
-                        parent.appendChild(document.createElement("br"));
-                        var item1 = document.createElement("span");
-                        item1.textContent = "   - " + g_DepotLocation['depot_name'];
-                        parent.appendChild(item1);
-                        parent.appendChild(document.createElement("br"));
-                    }
-                    var item2 = document.createElement("span");
-                    item2.textContent = " - " + g_Result[i][j];
-                    parent.appendChild(item2);
+
+                    var item7 = document.createElement("span");
+                    item7.textContent = " - " + g_Result[i][j];
+                    parent.appendChild(item7);
                     parent.appendChild(document.createElement("br"));
-                    loc = 1;
                 }
 
             }
             parent.appendChild(document.createElement("br"));
         }
 
-        var item = document.createElement("span");
-        item.textContent = "Total goods: " + total_goods.toFixed(0);
-        parent.appendChild(item);
+        var item8 = document.createElement("span");
+        item8.textContent = "Total goods: " + total_goods.toFixed(0);
+        parent.appendChild(item8);
         parent.appendChild(document.createElement("br"));
     
-        var item1 = document.createElement("span");
-        item1.textContent = "Total kilometers: " + total_kilometers.toFixed(1) + "km";
-        parent.appendChild(item1);
+        var item9 = document.createElement("span");
+        item9.textContent = "Total kilometers: " + total_kilometers.toFixed(1) + "km";
+        parent.appendChild(item9);
 
-
-            var resetRoute = document.createElement("button");
-            var t = document.createTextNode("all route");       // Create a text node
-            
-            resetRoute.onclick = function() {
-                drawRoute(0);
-            };
-            resetRoute.style = "float: right";
-            resetRoute.appendChild(t);
-            parent.appendChild(resetRoute);
+        var resetRoute = document.createElement("button");
+        var t = document.createTextNode("all route");
+        resetRoute.onclick = function() {
+            drawRoute(0);
+        };
+        resetRoute.style = "float: right";
+        resetRoute.appendChild(t);
+        parent.appendChild(resetRoute);
 
 
     }
@@ -866,7 +866,6 @@ app.controller("indexController", function($location, $scope) {
 
                 distanceBetweenLocations.push(row);
             }
-            //console.log(distanceBetweenLocations);
             return distanceBetweenLocations;
         } catch (err) {
             alert("Delivery locations are not valid.");
@@ -878,7 +877,7 @@ app.controller("indexController", function($location, $scope) {
     var goodsPerLocations = [];
     var matrixBetweenDeliveryLocations = [];
     var matrixBetweenLocationsAndDepot = [];
-    
+
     function distanceDepotArrayBetweenLocations(response) {
 
         try {
@@ -938,7 +937,7 @@ app.controller("indexController", function($location, $scope) {
                 document.getElementById("mainDivLoader").style.display = "none";
 
                 if (response == -1) {
-                    alert("Solution could not be found.\nPlease check:\n1. Vehicle capacity\n2. Network connection");
+                    alert("Solution could not be found.\nPlease check:\n1. Network connection\n2. Vehicle capacity\n\nTry again!");
                     return;
                 } else {
                     putDataToResultInfoList(response);
@@ -983,6 +982,13 @@ app.controller("indexController", function($location, $scope) {
         }
     }
 
+    function showErrorFrom(status) {
+
+        document.getElementById("mainDivLoader").style.display = "none";
+        alert("Error on google map api server side.\nStatus: " + status + "\nPlease try again.");
+
+    }
+
     function calculateDistanceDeliveryDelivery(locationsInGroup, i, j, current, numberOfRequest) {
 
         if (current == numberOfRequest) {
@@ -999,7 +1005,6 @@ app.controller("indexController", function($location, $scope) {
 
                         var m = distanceMatrixBetweenLocations(response);
                         updateDeliveryMatrixLocations(m, i*10, j*10);
-                        console.log("ok");
                         var k = Math.sqrt(numberOfRequest);
                         if (j < k-1) {
                             j++;
@@ -1008,11 +1013,10 @@ app.controller("indexController", function($location, $scope) {
                             j = 0;
                             i++;
                         }
-
                         calculateDistanceDeliveryDelivery(locationsInGroup, i, j, current+1, numberOfRequest);                    
                     }
                     else {
-                        alert("TO DO napravi funkciju, server ne valja");
+                        showErrorFrom(response['status']);
                         return;
                     }
                 }
@@ -1025,6 +1029,37 @@ app.controller("indexController", function($location, $scope) {
         }
     }
 
+    function calculateDistanceDepotDelivery(origins, splitedLocations, current, numberOfDepotRequest) {
+
+        if (current == numberOfDepotRequest) {
+            console.log("Distance between depot and delivery are calculated.");
+            prepareVehiclesForServer();
+            prepareGoodsForServer();
+            sendDataToServer();
+        }
+        else {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var response = JSON.parse(this.responseText);
+                    if(response['status'] == "OK") {
+                        distanceDepotArrayBetweenLocations(response);
+                        calculateDistanceDepotDelivery(origins, splitedLocations, current+1, numberOfDepotRequest);
+                    }
+                    else {
+                        showErrorFrom(response['status']);
+                        return;
+                    }
+                }
+            }
+            var destinations = convertLocationFromArrayToString(splitedLocations[current]);
+            var url = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins="+origins+"&destinations="+destinations+"&key=AIzaSyCl4x54NRlMWqsfyOW13ebDRFNZhHPVqKI";
+            xmlhttp.open("POST", url, true);
+            xmlhttp.send();
+        }
+    }
+
+    // DELIVERY LOCARION
     function prepereDeliveryLocationsForServer() {
 
         matrixBetweenDeliveryLocations = [];
@@ -1059,45 +1094,14 @@ app.controller("indexController", function($location, $scope) {
         calculateDistanceDeliveryDelivery(locationsInGroup, 0, 0, 0, numberOfRequest*numberOfRequest);
     }
 
-    function calculateDistanceDepotDelivery(origins, splitedLocations, current, numberOfDepotRequest) {
-
-        if (current == numberOfDepotRequest) {
-            console.log("Distance between depot and delivery are calculated.");
-            prepareVehiclesForServer();
-            prepareGoodsForServer();
-            sendDataToServer();
-        }
-        else {
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    var response = JSON.parse(this.responseText);
-                    if(response['status'] == "OK") {
-                        distanceDepotArrayBetweenLocations(response);
-                        calculateDistanceDepotDelivery(origins, splitedLocations, current+1, numberOfDepotRequest);
-                    }
-                    else {
-                        alert("TO DO napravi funkciju, server ne valja");
-                        return;
-                    }
-                }
-            }
-            var destinations = convertLocationFromArrayToString(splitedLocations[current]);
-            var url = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins="+origins+"&destinations="+destinations+"&key=AIzaSyCl4x54NRlMWqsfyOW13ebDRFNZhHPVqKI";
-            xmlhttp.open("POST", url, true);
-            xmlhttp.send();
-        }
-    }
-
+    //DEPOT LOCATION
     function prepereDeliveryDepotLocationForServer() {
-
         matrixBetweenLocationsAndDepot = [];
         var splitedLocations = [];
         var numberOfDepotRequest = 1;
         var locations = convertDeliveryLocationForGoogleMapApi();
         var step = 25;
 
-        // Delivery location
         if (locations.length > step) {
             numberOfDepotRequest = Math.ceil(locations.length / step);
             for (var i = 0; i < numberOfDepotRequest; i++) {
@@ -1112,21 +1116,20 @@ app.controller("indexController", function($location, $scope) {
             splitedLocations.push(locations);
         }
 
-        // Depot location
         var origins = g_DepotLocation['lat'] + "," + g_DepotLocation['lng'];
         calculateDistanceDepotDelivery(origins, splitedLocations, 0, numberOfDepotRequest);
     }
 
+    // VEHICLES
     function prepareVehiclesForServer() {
-        // VEHICLES
         vehicles = [];
         for (var i = 0; i < g_Vehicles.length; i++) {
             vehicles.push(g_Vehicles[i].getVehicleCapacity());
         }
     }
 
+    //GOODS PER LOCATIONS
     function prepareGoodsForServer() {
-         //GOODS PER LOCARIONS
         goodsPerLocations = [];
         for (var i = 0; i < g_DeliveryLocations.length; i++) {
             goodsPerLocations.push(g_DeliveryLocations[i].getQuantity());
