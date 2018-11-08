@@ -103,18 +103,119 @@ app.config(function($routeProvider) {
 
 app.controller("indexController", function($location, $scope) {
 
-    function hiddenVehicleInfoList() {
-        for (var i = 0; i < 10; i++) {
-            var id = "vehicleInfoItem" + (i + 1);
-            document.getElementById(id).style.visibility = "hidden";
+    function addTestDeliveryLocation(x) {
+
+        setUpDeliveryLocationDesignSettings();
+
+        if (x == 5 || x == 10 || x == 15 || x == 25 || x == 50) {
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Vlasenica, Bosnia and Herzegovina", 44.17997740000001, 18.94181960000003, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ugljevik, Bosnia and Herzegovina", 44.6939722, 18.995954900000015, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Belgrade, Serbia", 44.786568, 20.44892159999995, 20);
+            // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Vlasenica, Bosnia and Herzegovina", 44.17997740000001, 18.94181960000003, 5);
+            // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ugljevik, Bosnia and Herzegovina", 44.6939722, 18.995954900000015, 10);
+        }
+        if (x == 10 || x == 15 || x == 25 || x == 50) {
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Belgrade, Serbia", 44.786568, 20.44892159999995, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Novi Sad, Serbia", 45.2671352, 19.83354959999997, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Valjevo, Serbia", 44.2743141, 19.890339799999992, 20);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Kneza Miloša, Beograd, Serbia", 44.80833010000001, 20.463559600000053, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ruzveltova, Beograd, Serbia", 44.8068906, 20.48032330000001, 20);
+        }
+        if (x == 15 || x == 25 || x == 50) {
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Pariska, Beograd, Serbia", 44.81969899999999, 20.452750299999934, 20);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Studentski trg, Beograd, Serbia", 44.8189483, 20.457383899999968, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Jurija Gagarina 115, Beograd, Serbia", 44.8019511, 20.3918132, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Cara Nikolaja II, Beograd, Serbia", 44.79799680000001, 20.479631499999982, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Rade Končara, Beograd, Serbia", 44.7900054, 20.477248099999997, 10);
+        }
+        if (x == 25 || x == 50) {
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ustanička, Beograd, Serbia", 44.78385670000001, 20.487746799999968, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Vlasenica, Bosnia and Herzegovina", 44.17997740000001, 18.94181960000003, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ugljevik, Bosnia and Herzegovina", 44.6939722, 18.995954900000015, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Belgrade, Serbia", 44.786568, 20.44892159999995, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Novi Sad, Serbia", 45.2671352, 19.83354959999997, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Valjevo, Serbia", 44.2743141, 19.890339799999992, 20);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Kneza Miloša, Beograd, Serbia", 44.80833010000001, 20.463559600000053, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ruzveltova, Beograd, Serbia", 44.8068906, 20.48032330000001, 20);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Pariska, Beograd, Serbia", 44.81969899999999, 20.452750299999934, 20);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Studentski trg, Beograd, Serbia", 44.8189483, 20.457383899999968, 10);
+        }
+        if (x == 50) {
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Jurija Gagarina 115, Beograd, Serbia", 44.8019511, 20.3918132, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Cara Nikolaja II, Beograd, Serbia", 44.79799680000001, 20.479631499999982, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Rade Končara, Beograd, Serbia", 44.7900054, 20.477248099999997, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Cara Nikolaja II, Beograd, Serbia", 44.79799680000001, 20.479631499999982, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Rade Končara, Beograd, Serbia", 44.7900054, 20.477248099999997, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ugljevik, Bosnia and Herzegovina", 44.6939722, 18.995954900000015, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Belgrade, Serbia", 44.786568, 20.44892159999995, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Novi Sad, Serbia", 45.2671352, 19.83354959999997, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Valjevo, Serbia", 44.2743141, 19.890339799999992, 20);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Kneza Miloša, Beograd, Serbia", 44.80833010000001, 20.463559600000053, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ruzveltova, Beograd, Serbia", 44.8068906, 20.48032330000001, 20);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Pariska, Beograd, Serbia", 44.81969899999999, 20.452750299999934, 20);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Studentski trg, Beograd, Serbia", 44.8189483, 20.457383899999968, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Jurija Gagarina 115, Beograd, Serbia", 44.8019511, 20.3918132, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Cara Nikolaja II, Beograd, Serbia", 44.79799680000001, 20.479631499999982, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Rade Končara, Beograd, Serbia", 44.7900054, 20.477248099999997, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ustanička, Beograd, Serbia", 44.78385670000001, 20.487746799999968, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Vlasenica, Bosnia and Herzegovina", 44.17997740000001, 18.94181960000003, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ugljevik, Bosnia and Herzegovina", 44.6939722, 18.995954900000015, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Belgrade, Serbia", 44.786568, 20.44892159999995, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Novi Sad, Serbia", 45.2671352, 19.83354959999997, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Valjevo, Serbia", 44.2743141, 19.890339799999992, 20);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Kneza Miloša, Beograd, Serbia", 44.80833010000001, 20.463559600000053, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ruzveltova, Beograd, Serbia", 44.8068906, 20.48032330000001, 20);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Pariska, Beograd, Serbia", 44.81969899999999, 20.452750299999934, 20);
+        }
+
+        updateLocationInfoList();
+
+        var marker_color = "https://maps.google.com/mapfiles/ms/icons/red-dot.png";
+        for (var i = 0; i < g_DeliveryLocations.length; i++) {
+            g_DeliveryLocations[i].addMapMarker(map, marker_color);
         }
     }
 
-    // hiddenLocationInfoList();
-    //hiddenVehicleInfoList();
-    var locationKind;
-    var googleMapSearchBox;
+    function addTestDepotLocation() {
+        g_DepotLocation = JSON.parse('{"depot_name":  "Bijeljina, Bosnia and Herzegovina", "lat": "44.75695109999999", "lng": "19.215022399999953"}');
+        addDepotMarker();
+        updateDepotInfoList();
 
+    }
+
+    function addTestVehicles(x) {
+
+        if (x == 5 || x == 10 || x == 15 || x == 25 || x == 50) {
+            g_Vehicles[g_Vehicles.length] = new Vehicles(0, "BMW", 6);
+            g_Vehicles[g_Vehicles.length] = new Vehicles(1, "Fiat", 34);
+        }
+        if (x == 10 || x == 15 || x == 25 || x == 50) {
+            g_Vehicles[g_Vehicles.length] = new Vehicles(2, "Mercedes", 100);
+        }
+        if (x == 15 || x == 25 || x == 50) {
+            g_Vehicles[g_Vehicles.length] = new Vehicles(3, "Ford", 50);
+        }
+        if (x == 25 || x == 50) {
+            g_Vehicles[g_Vehicles.length] = new Vehicles(4, "Opel", 50);
+        }
+        if (x == 50) {
+            g_Vehicles[g_Vehicles.length] = new Vehicles(5, "Subaru", 500);
+        }
+        updateVehicleInfoList();        
+    }
+
+    $scope.TEST_X_INSTANCE = function(x) {
+        
+        g_Vehicles = [];
+        g_DepotLocation = [];
+        g_DeliveryLocations = [];
+
+        addTestDeliveryLocation(x);
+        addTestDepotLocation();
+        addTestVehicles(x);    
+    }
+    
+    var googleMapSearchBox;
     var map = new google.maps.Map(document.getElementById('googleMapContent'), {
         zoom: 4,
         center: {
@@ -122,40 +223,6 @@ app.controller("indexController", function($location, $scope) {
             lng: 20.457273
         }
     });
-
-    //HARDCORDED VALUE FOR TESTING
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Vlasenica, Bosnia and Herzegovina", 44.17997740000001, 18.94181960000003, 5);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ugljevik, Bosnia and Herzegovina", 44.6939722, 18.995954900000015, 10);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Belgrade, Serbia", 44.786568, 20.44892159999995, 10);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Novi Sad, Serbia", 45.2671352, 19.83354959999997, 5);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location(" Valjevo, Serbia", 44.2743141, 19.890339799999992, 20);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Kneza Miloša, Beograd, Serbia", 44.80833010000001, 20.463559600000053, 5);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ruzveltova, Beograd, Serbia", 44.8068906, 20.48032330000001, 20);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Pariska, Beograd, Serbia", 44.81969899999999, 20.452750299999934, 20);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Studentski trg, Beograd, Serbia", 44.8189483, 20.457383899999968, 10);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Jurija Gagarina 115, Beograd, Serbia", 44.8019511, 20.3918132, 5);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Cara Nikolaja II, Beograd, Serbia", 44.79799680000001, 20.479631499999982, 5);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Rade Končara, Beograd, Serbia", 44.7900054, 20.477248099999997, 10);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ustanička, Beograd, Serbia", 44.78385670000001, 20.487746799999968, 5);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Vlasenica, Bosnia and Herzegovina", 44.17997740000001, 18.94181960000003, 5);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ugljevik, Bosnia and Herzegovina", 44.6939722, 18.995954900000015, 10);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Belgrade, Serbia", 44.786568, 20.44892159999995, 10);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Novi Sad, Serbia", 45.2671352, 19.83354959999997, 5);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Valjevo, Serbia", 44.2743141, 19.890339799999992, 20);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Kneza Miloša, Beograd, Serbia", 44.80833010000001, 20.463559600000053, 5);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ruzveltova, Beograd, Serbia", 44.8068906, 20.48032330000001, 20);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Pariska, Beograd, Serbia", 44.81969899999999, 20.452750299999934, 20);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Studentski trg, Beograd, Serbia", 44.8189483, 20.457383899999968, 10);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Jurija Gagarina 115, Beograd, Serbia", 44.8019511, 20.3918132, 5);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Cara Nikolaja II, Beograd, Serbia", 44.79799680000001, 20.479631499999982, 5);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Rade Končara, Beograd, Serbia", 44.7900054, 20.477248099999997, 10);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Cara Nikolaja II, Beograd, Serbia", 44.79799680000001, 20.479631499999982, 5);
-    // g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Rade Končara, Beograd, Serbia", 44.7900054, 20.477248099999997, 10);
-
-    // g_DepotLocation = JSON.parse('{"depot_name":  "Bijeljina, Bosnia and Herzegovina", "lat": "44.75695109999999", "lng": "19.215022399999953"}');
-    // g_Vehicles[g_Vehicles.length] = new Vehicles(0, "Mercedes", 50);
-    // g_Vehicles[g_Vehicles.length] = new Vehicles(1, "Fiat", 50);
-    // g_Vehicles[g_Vehicles.length] = new Vehicles(2, "Toyota", 1000);
 
     var mainTitleHeight = 40;
     // Hide all input forms
@@ -196,6 +263,9 @@ app.controller("indexController", function($location, $scope) {
         document.getElementById("locationInfoList").style.height = mainInputFormHeight - locationInputText - locationAddButton;
         // Hide border for the mainInputForm
         document.getElementById("mainInputForm").style.border = "none";
+        document.getElementById("locationInsertName").placeholder = "Enter location name...";
+        document.getElementById("locationInsertQuantity").placeholder = "Enter quantity of goods...";
+
     }
 
     function setUpDepotLocationDesignSettings() {
@@ -301,7 +371,7 @@ app.controller("indexController", function($location, $scope) {
         var marker = new google.maps.Marker({
             position: latlng,
             map: map,
-            icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+            icon: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
         });
 
         g_DepotMarker = marker;
@@ -349,7 +419,7 @@ app.controller("indexController", function($location, $scope) {
         });
     }
 
-    function drawRoute(data) {
+    function drawRoute(index, data=g_Result) {
 
         deleteRouteFromMap();
 
@@ -362,7 +432,7 @@ app.controller("indexController", function($location, $scope) {
 
         for (var i = 0; i < data.length; i++) {
             var waypts = [];
-            for (var j = 0; j < data[i].length - 1; j++) {
+            for (var j = 1; j < data[i].length - 2; j++) {
 
                 waypts.push({
                     location: data[i][j],
@@ -370,27 +440,8 @@ app.controller("indexController", function($location, $scope) {
                 });
 
             }
-            requestDirections(depot, depot, waypts, routeColor[i]);
+            requestDirections(depot, depot, waypts, routeColor[i + parseInt(index)]);
         }
-    }
-
-    function prepareDataForDraw(data) {
-        var json_data = JSON.parse(data);
-
-        for (var i = 0; i < json_data.length; i++) {
-            if (json_data[i].length == 1) {
-                json_data.splice(i, 1);
-                i--;
-            }
-        }
-
-        for (var i = 0; i < json_data.length; i++) {
-            for (var j = 0; j < json_data[i].length - 1; j++) {
-
-                json_data[i][j] = g_DeliveryLocations[json_data[i][j]].getLocationName();
-            }
-        }
-        drawRoute(json_data);
     }
 
     $scope.changeMethod = function(method) {
@@ -429,8 +480,6 @@ app.controller("indexController", function($location, $scope) {
     // Set main settings and add placeholder to the input text
     $scope.addDeliveryLocation = function() {
         setUpDeliveryLocationDesignSettings();
-        document.getElementById("locationInsertName").placeholder = "Enter location name...";
-        document.getElementById("locationInsertQuantity").placeholder = "Enter quantity of goods...";
     }
 
     $scope.addDepotLocation = function() {
@@ -474,22 +523,51 @@ app.controller("indexController", function($location, $scope) {
                 continue;
             }
             var item = [];
+            var goods = 0;
+            // dodajemo ime vozila
             item.push(g_Vehicles[i].getVehicleName());
             for (var j = 0; j < data[i].length; j++) {
 
+                // ako je kilometraza po vozilu samo je dodamo
                 if (j == data[i].length - 1) {
                     item.push(data[i][j]);
                 } else {
+                    // sabiramo koliko vozilo dostavlja na tu lokaciju
+                    goods += parseInt(g_DeliveryLocations[data[i][j]].getQuantity());
+                    
+                    // dodajemo ime lokacije
                     item.push(g_DeliveryLocations[data[i][j]].getLocationName());
                 }
             }
+            // dodajemo koliko vozilo vozi
+            item.push(goods);
+
             g_Result.push(item);
         }
-        document.getElementById('idresult').click();
 
+        document.getElementById('idresult').click();
+    }
+
+    function drawSeparateRoute(index) {
+        
+        var k = [];
+        var t = g_Result[index].slice();
+        k.push(t);
+        drawRoute(index, k);
+    }
+
+    function vehicleCapacityByName(name) {
+        
+        for(var i = 0; i < g_Vehicles.length; i++) {
+            if(g_Vehicles[i].getVehicleName() == name) {
+                return g_Vehicles[i].getVehicleCapacity();
+            }
+        }
     }
 
     $scope.showResult = function() {
+
+        console.log(g_Result);
 
         if (g_Result.length == 0) {
             alert("Result can not be found. Please insert data and press start.");
@@ -509,23 +587,51 @@ app.controller("indexController", function($location, $scope) {
             parent.removeChild(parent.firstChild);
         }
 
+        var total_kilometers = 0;
+        var total_goods = 0;
         for (var i = 0; i < g_Result.length; i++) {
             var loc = 0;
             var item = document.createElement("span");
             item.textContent = "Vehicle name: " + g_Result[i][0];
             parent.appendChild(item);
+            var showRoute = document.createElement("button");
+            var t = document.createTextNode("route");       // Create a text node
+            
+            showRoute.id = i;
+            showRoute.onclick = function() {
+                drawSeparateRoute(this.id);
+            };
+            showRoute.style = "float: right";
+            showRoute.appendChild(t);
+            parent.appendChild(showRoute);
+
             parent.appendChild(document.createElement("br"));
-            for (var j = 1; j < g_Result[i].length; j++) {
-                if (j == g_Result[i].length - 1) {
+            for (var j = 1; j < g_Result[i].length-1; j++) {
+                // zadnji - koliko je popunjeno vozilo
+                // predzadnji - koliko kilometara prelazi
+                if (j == g_Result[i].length - 2) {
                     var item1 = document.createElement("span");
                     item1.textContent = "   - " + g_DepotLocation['depot_name'];
                     parent.appendChild(item1);
                     parent.appendChild(document.createElement("br"));
 
-                    var item = document.createElement("span");
-                    item.textContent = "Total kilometers: " + g_Result[i][j].toFixed(1) + "km";
-                    parent.appendChild(item);
+                    var item2 = document.createElement("span");
+                    //TODO fix vehicleCapacityByName
+                    item2.textContent = "Vehicle capacity: " + vehicleCapacityByName(g_Result[i][0]);
+                    parent.appendChild(item2);
                     parent.appendChild(document.createElement("br"));
+
+                    var item3 = document.createElement("span");
+                    item3.textContent = "Goods in vehicle: " + g_Result[i][j+1];
+                    parent.appendChild(item3);
+                    parent.appendChild(document.createElement("br"));
+
+                    var item4 = document.createElement("span");
+                    item4.textContent = "Kilometers: " + g_Result[i][j].toFixed(1) + "km";
+                    parent.appendChild(item4);
+                    parent.appendChild(document.createElement("br"));
+                    total_kilometers += parseFloat(g_Result[i][j]);
+                    total_goods += parseFloat(g_Result[i][j+1]);
                 } else {
                     if (loc == 0) {
                         var item = document.createElement("span");
@@ -547,6 +653,28 @@ app.controller("indexController", function($location, $scope) {
             }
             parent.appendChild(document.createElement("br"));
         }
+
+        var item = document.createElement("span");
+        item.textContent = "Total goods: " + total_goods.toFixed(0);
+        parent.appendChild(item);
+        parent.appendChild(document.createElement("br"));
+    
+        var item1 = document.createElement("span");
+        item1.textContent = "Total kilometers: " + total_kilometers.toFixed(1) + "km";
+        parent.appendChild(item1);
+
+
+            var resetRoute = document.createElement("button");
+            var t = document.createTextNode("all route");       // Create a text node
+            
+            resetRoute.onclick = function() {
+                drawRoute(0);
+            };
+            resetRoute.style = "float: right";
+            resetRoute.appendChild(t);
+            parent.appendChild(resetRoute);
+
+
     }
 
     function createNewVehicleItemInList(index, name, capacity) {
@@ -561,7 +689,6 @@ app.controller("indexController", function($location, $scope) {
                                            </div>');
 
         var vname = "v" + index;
-        console.log(vname);
         var button = document.getElementById(vname);
         var itemID = vname[vname.length - 1];
         button.onclick = function() {
@@ -646,7 +773,8 @@ app.controller("indexController", function($location, $scope) {
         }
 
         g_DeliveryLocations[g_DeliveryLocations.length] = new Location(location_name, lat, lng, quantity);
-        var marker_color = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+        
+        var marker_color = "https://maps.google.com/mapfiles/ms/icons/red-dot.png";
         g_DeliveryLocations[g_DeliveryLocations.length - 1].addMapMarker(map, marker_color);
 
         document.getElementById('locationInsertName').value = "";
@@ -688,7 +816,6 @@ app.controller("indexController", function($location, $scope) {
         depot_location += "}";
         g_DepotLocation = JSON.parse(depot_location);
 
-        console.log(g_DepotLocation);
         document.getElementById('depotInsertName').value = "";
         addDepotMarker();
         updateDepotInfoList();
@@ -747,6 +874,11 @@ app.controller("indexController", function($location, $scope) {
         }
     }
 
+    var vehicles = [];
+    var goodsPerLocations = [];
+    var matrixBetweenDeliveryLocations = [];
+    var matrixBetweenLocationsAndDepot = [];
+    
     function distanceDepotArrayBetweenLocations(response) {
 
         try {
@@ -755,11 +887,10 @@ app.controller("indexController", function($location, $scope) {
 
             for (var i = 0; i < numberOfLocations; i++) {
                 var km = response['rows'][0]['elements'][i]['distance']['value'];
-                distanceDepotFromLocations.push(km / 1000.0);
+                matrixBetweenLocationsAndDepot.push(km / 1000.0);
             }
-
-            return distanceDepotFromLocations;
         } catch (err) {
+            // TO DO ugasiti formu, prikazati gresku od servera, napraviti jednu funkciju za to.
             alert("Depot location is not valid.");
             return -1;
         }
@@ -783,19 +914,6 @@ app.controller("indexController", function($location, $scope) {
         return quantity;
     }
 
-    var g_NumberOfRequest;
-    var g_MatrixBetweenLocations = [];
-    var g_MatrixBetweenLocationsAndDepot = [];
-    var g_ArrayOfDeliveryLocationsSubMatrix = [];
-
-    function updateDeliveryLocationMatrix(gMat, k, l) {
-        for (var i = 0; i < gMat.length; i++) {
-            for (var j = 0; j < gMat[0].length; j++) {
-                g_MatrixBetweenLocations[i + k][j + l] = gMat[i][j];
-            }
-        }
-    }
-
     function convertDeliveryLocationForGoogleMapApi() {
         var locations = [];
         for (var i = 0; i < g_DeliveryLocations.length; i++) {
@@ -810,18 +928,6 @@ app.controller("indexController", function($location, $scope) {
 
     function sendDataToServer() {
 
-        //GOODS PER LOCARIONS
-        var goodsPerLocations = [];
-        for (var i = 0; i < g_DeliveryLocations.length; i++) {
-            goodsPerLocations.push(g_DeliveryLocations[i].getQuantity());
-        }
-
-        // VEHICLES
-        var vehicles = [];
-        for (i = 0; i < g_Vehicles.length; i++) {
-            vehicles.push(g_Vehicles[i].getVehicleCapacity());
-        }
-
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
@@ -835,62 +941,165 @@ app.controller("indexController", function($location, $scope) {
                     alert("Solution could not be found.\nPlease check:\n1. Vehicle capacity\n2. Network connection");
                     return;
                 } else {
-                    prepareDataForDraw(response);
                     putDataToResultInfoList(response);
+                    drawRoute(0);
                 }
             }
         }
 
-        xmlhttp.open("POST", "server/main.php?l=" + JSON.stringify(g_MatrixBetweenLocations) + "&d=" + JSON.stringify(g_MatrixBetweenLocationsAndDepot) + "&v=" + JSON.stringify(vehicles) + "&g=" + JSON.stringify(goodsPerLocations) + "&m=" + g_Method, true);
-        xmlhttp.send();
+        var data = "[";
+        data += "["+JSON.stringify(matrixBetweenDeliveryLocations)+"],";
+        data += "["+JSON.stringify(matrixBetweenLocationsAndDepot)+"],";
+        data += "["+JSON.stringify(vehicles)+"],";
+        data += "["+JSON.stringify(goodsPerLocations)+"],";
+        data += "["+JSON.stringify(g_Method)+"]";
+        data += "]";
+
+        xmlhttp.open("POST", "server/main.php?", true);
+        xmlhttp.send(data);
         console.log("DATA IS SENT TO SERVER");
     }
 
-    function createDepotLocationMatrix(splitedLocations, depot, current, numberOfDepotRequest) {
+    function convertLocationFromArrayToString(locations) {
 
-        if (current == numberOfDepotRequest) {
-            console.log("CANCULATING IS DONE");
+        var l = "";
 
-            var newArr = [];
-            for (var i = 0; i < g_MatrixBetweenLocationsAndDepot.length; i++) {
-                newArr = newArr.concat(g_MatrixBetweenLocationsAndDepot[i]);
+        for(var i = 0; i < locations.length; i++) {
+            l += locations[i].lat + "," + locations[i].lng;
+            if (i != locations.length - 1) {
+                l+= "|";
             }
-            g_MatrixBetweenLocationsAndDepot = newArr;
+        }
 
-            sendDataToServer();
-        } else {
-            var service = new google.maps.DistanceMatrixService;
-            service.getDistanceMatrix({
-                origins: depot,
-                destinations: splitedLocations[current],
-                travelMode: 'DRIVING',
-                unitSystem: google.maps.UnitSystem.METRIC,
-            }, function(response, status) {
-                if (status !== 'OK') {
-                    if (status == "OVER_QUERY_LIMIT") {
-                        console.log("DEPOT: OVER_QUERY_LIMIT");
-                        setTimeout(function() {
-                            createDepotLocationMatrix(splitedLocations, depot, current, numberOfDepotRequest);
-                        }, 1000);
-                    } else {
-                        alert("DEPOT LOCATION REQUEST: " + status);
-                    }
-                } else {
-                    g_MatrixBetweenLocationsAndDepot.push(distanceDepotArrayBetweenLocations(response));
-                    createDepotLocationMatrix(splitedLocations, depot, current + 1, numberOfDepotRequest);
-                }
-            });
+        return l;
+    }
+
+    function updateDeliveryMatrixLocations(m, k, l) {
+        
+        for(var i = 0; i < m.length; i++) {
+            for(var j = 0; j < m[0].length; j++) {
+                matrixBetweenDeliveryLocations[i+k][j+l] = m[i][j];
+            }
         }
     }
 
-    function prepereDepotDataToServer(locations, depot) {
+    function calculateDistanceDeliveryDelivery(locationsInGroup, i, j, current, numberOfRequest) {
 
+        if (current == numberOfRequest) {
+            console.log("Distances between delivery locations are calculated");
+            prepereDeliveryDepotLocationForServer();
+        }
+        else {
+
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var response = JSON.parse(this.responseText);
+                    if(response['status'] == "OK") {
+
+                        var m = distanceMatrixBetweenLocations(response);
+                        updateDeliveryMatrixLocations(m, i*10, j*10);
+                        console.log("ok");
+                        var k = Math.sqrt(numberOfRequest);
+                        if (j < k-1) {
+                            j++;
+                        }
+                        else {
+                            j = 0;
+                            i++;
+                        }
+
+                        calculateDistanceDeliveryDelivery(locationsInGroup, i, j, current+1, numberOfRequest);                    
+                    }
+                    else {
+                        alert("TO DO napravi funkciju, server ne valja");
+                        return;
+                    }
+                }
+            }
+            var origins = convertLocationFromArrayToString(locationsInGroup[i]);
+            var destinations = convertLocationFromArrayToString(locationsInGroup[j]);
+            var url = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins="+origins+"&destinations="+destinations+"&key=AIzaSyCl4x54NRlMWqsfyOW13ebDRFNZhHPVqKI";
+            xmlhttp.open("POST", url, true);
+            xmlhttp.send();
+        }
+    }
+
+    function prepereDeliveryLocationsForServer() {
+
+        matrixBetweenDeliveryLocations = [];
+        var locations = convertDeliveryLocationForGoogleMapApi();
+        for (var i = 0; i < locations.length; i++) {
+            var row = [];
+            for (var j = 0; j < locations.length; j++) {
+                row.push(0);
+            }
+            matrixBetweenDeliveryLocations.push(row);
+        }
+
+        var step = 10;
+        var numberOfRequest = 1;
+
+        if (locations.length > step) {
+            numberOfRequest = Math.ceil(locations.length/step);
+        }
+
+        var locationsInGroup = [];
+
+        for(var i = 0; i < numberOfRequest; i++) {
+            var first = i*step;
+            var second = (i+1)*step;
+            if (second > locations.length) {
+                second = locations.length;
+            }
+            locationsInGroup.push(locations.slice(first, second));
+        }
+
+
+        calculateDistanceDeliveryDelivery(locationsInGroup, 0, 0, 0, numberOfRequest*numberOfRequest);
+    }
+
+    function calculateDistanceDepotDelivery(origins, splitedLocations, current, numberOfDepotRequest) {
+
+        if (current == numberOfDepotRequest) {
+            console.log("Distance between depot and delivery are calculated.");
+            prepareVehiclesForServer();
+            prepareGoodsForServer();
+            sendDataToServer();
+        }
+        else {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var response = JSON.parse(this.responseText);
+                    if(response['status'] == "OK") {
+                        distanceDepotArrayBetweenLocations(response);
+                        calculateDistanceDepotDelivery(origins, splitedLocations, current+1, numberOfDepotRequest);
+                    }
+                    else {
+                        alert("TO DO napravi funkciju, server ne valja");
+                        return;
+                    }
+                }
+            }
+            var destinations = convertLocationFromArrayToString(splitedLocations[current]);
+            var url = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins="+origins+"&destinations="+destinations+"&key=AIzaSyCl4x54NRlMWqsfyOW13ebDRFNZhHPVqKI";
+            xmlhttp.open("POST", url, true);
+            xmlhttp.send();
+        }
+    }
+
+    function prepereDeliveryDepotLocationForServer() {
+
+        matrixBetweenLocationsAndDepot = [];
         var splitedLocations = [];
         var numberOfDepotRequest = 1;
+        var locations = convertDeliveryLocationForGoogleMapApi();
         var step = 25;
+
+        // Delivery location
         if (locations.length > step) {
             numberOfDepotRequest = Math.ceil(locations.length / step);
-
             for (var i = 0; i < numberOfDepotRequest; i++) {
                 var first = i * step;
                 var second = i * step + step;
@@ -903,112 +1112,25 @@ app.controller("indexController", function($location, $scope) {
             splitedLocations.push(locations);
         }
 
-        createDepotLocationMatrix(splitedLocations, depot, 0, numberOfDepotRequest);
+        // Depot location
+        var origins = g_DepotLocation['lat'] + "," + g_DepotLocation['lng'];
+        calculateDistanceDepotDelivery(origins, splitedLocations, 0, numberOfDepotRequest);
     }
 
-    function createDeliveryLocationMatrix(locationsInGroup, current, numberOfDeliveryRequest) {
-        if (current == numberOfDeliveryRequest) {
-            var l = 0;
-            for (var i = 0; i < g_ArrayOfDeliveryLocationsSubMatrix.length; i++) {
-                var k = Math.floor(i / g_NumberOfRequest);
-                if (l == g_NumberOfRequest) {
-                    l = 0;
-                }
-                updateDeliveryLocationMatrix(g_ArrayOfDeliveryLocationsSubMatrix[i], k * 10, l * 10);
-                l++;
-            }
-
-            var locations = convertDeliveryLocationForGoogleMapApi();
-
-            // Depot location
-            var depot = [];
-            var obj = {
-                "lat": parseFloat(g_DepotLocation['lat']),
-                "lng": parseFloat(g_DepotLocation['lng'])
-            };
-            depot.push(obj);
-
-            prepereDepotDataToServer(locations, depot);
-
-        } else {
-            var service = new google.maps.DistanceMatrixService;
-            service.getDistanceMatrix({
-                origins: locationsInGroup[current],
-                destinations: locationsInGroup[current + 1],
-                travelMode: 'DRIVING',
-                unitSystem: google.maps.UnitSystem.METRIC,
-            }, function(response, status) {
-                if (status !== 'OK') {
-                    if (status == "OVER_QUERY_LIMIT") {
-                        console.log("DELIVERY: OVER_QUERY_LIMIT");
-                        setTimeout(function() {
-                            createDeliveryLocationMatrix(locationsInGroup, current, numberOfDeliveryRequest);
-                        }, 3000);
-                    } else {
-                        alert("DELIVERY LOCATION REQUEST: " + status);
-                    }
-                } else {
-                    g_ArrayOfDeliveryLocationsSubMatrix.push(distanceMatrixBetweenLocations(response));
-
-                    if (locationsInGroup.length > 2) {
-                        setTimeout(function() {
-                            createDeliveryLocationMatrix(locationsInGroup, current + 2, numberOfDeliveryRequest);
-                        }, 3000);
-                    } else {
-                        createDeliveryLocationMatrix(locationsInGroup, current + 2, numberOfDeliveryRequest);
-                    }
-                }
-            });
+    function prepareVehiclesForServer() {
+        // VEHICLES
+        vehicles = [];
+        for (var i = 0; i < g_Vehicles.length; i++) {
+            vehicles.push(g_Vehicles[i].getVehicleCapacity());
         }
     }
 
-    function prepareLocationDataToServer() {
-
-        // Show loader
-        document.getElementById("mainDivLoader").style.display = "block";
-
-        // Reset global variables
-        g_Result = [];
-        g_MatrixBetweenLocations = [];
-        g_MatrixBetweenLocationsAndDepot = [];
-        g_ArrayOfDeliveryLocationsSubMatrix = [];
-
-        var locations = convertDeliveryLocationForGoogleMapApi();
-
-        var locationsInGroup = [];
-
-        for (var i = 0; i < locations.length; i++) {
-            var tmp = [];
-            for (var j = 0; j < locations.length; j++) {
-                tmp.push(0);
-            }
-            g_MatrixBetweenLocations.push(tmp);
+    function prepareGoodsForServer() {
+         //GOODS PER LOCARIONS
+        goodsPerLocations = [];
+        for (var i = 0; i < g_DeliveryLocations.length; i++) {
+            goodsPerLocations.push(g_DeliveryLocations[i].getQuantity());
         }
-
-        g_NumberOfRequest = Math.ceil(locations.length / 10);
-        var step = 10;
-        for (i = 0; i < g_NumberOfRequest; i++) { //3
-            var firstIndexI = i * step;
-            var secondIndexI = ((i + 1) * step);
-            if (secondIndexI > locations.length) {
-                secondIndexI = locations.length;
-            }
-            var sublocation1 = locations.slice(firstIndexI, secondIndexI);
-
-            for (j = 0; j < g_NumberOfRequest; j++) {
-                var firstIndexJ = j * step;
-                var secondIndexJ = ((j + 1) * step);
-                if (secondIndexJ > locations.length) {
-                    secondIndexJ = locations.length;
-                }
-                var sublocation2 = locations.slice(firstIndexJ, secondIndexJ);
-                locationsInGroup.push(sublocation1);
-                locationsInGroup.push(sublocation2);
-            }
-        }
-
-        createDeliveryLocationMatrix(locationsInGroup, 0, g_NumberOfRequest * g_NumberOfRequest * 2);
-
     }
 
     $scope.start = function() {
@@ -1032,8 +1154,12 @@ app.controller("indexController", function($location, $scope) {
             if (totalLocationQuantity > totalVehicleCapacity) {
                 throw "There is not enough spaces in the vehicles. Please add vehicles.";
             }
-
-            prepareLocationDataToServer();
+            
+            g_Result = [];
+            //Show loader
+            document.getElementById("mainDivLoader").style.display = "block";
+            prepereDeliveryLocationsForServer();
+            
         } catch (err) {
             alert(err);
             return;

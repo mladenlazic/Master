@@ -38,9 +38,9 @@
                     </a>
 
                       <div class="dropdown-menu">
-                        <a class="dropdown-item" href="" ng-click="addDeliveryLocation()">Delivery Locations</a>
-                        <a class="dropdown-item" href="" ng-click="addDepotLocation()">Depot Location</a>
-                        <a class="dropdown-item" href="" ng-click="addVehicles()">Vehicles </a>
+                        <a class="dropdown-item" href="" ng-click="addDeliveryLocation()"style="font-size: 14px">Delivery Locations</a>
+                        <a class="dropdown-item" href="" ng-click="addDepotLocation()"style="font-size: 14px">Depot Location</a>
+                        <a class="dropdown-item" href="" ng-click="addVehicles()"style="font-size: 14px">Vehicles </a>
                       </div>
 
                   </li>
@@ -50,17 +50,40 @@
                     </a>
 
                       <div class="dropdown-menu">
-                        <a class="dropdown-item" href="" ng-click="changeMethod('BF')">
+                        <a class="dropdown-item" href="" ng-click="changeMethod('BF')"style="font-size: 14px">
                           Brute force
                         </a>
-                        <a class="dropdown-item" href="" ng-click="changeMethod('SA')">
+                        <a class="dropdown-item" href="" ng-click="changeMethod('SA')"style="font-size: 14px">
                           Simulated annealing
                         </a>
                       </div>
 
                   </li>
-                  <li class="nav-item" style="">
-                    <a id = "idresult" class="nav-link" href="" ng-click="showResult()">Result</a>
+                   <li class="nav-item dropdown" >
+                    <a  class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More <span id="chooseMethod"></span>
+                    </a>
+
+                      <div class="dropdown-menu">
+                        <a id = "idresult" class="dropdown-item" href="" ng-click="showResult()" style="font-size: 14px">
+                          Result
+                        </a>
+                          <a class="dropdown-item" href="" ng-click="TEST_X_INSTANCE(5)" style="font-size: 14px">
+                          Add 5 Instance
+                        </a>
+                          <a class="dropdown-item" href="" ng-click="TEST_X_INSTANCE(10)" style="font-size: 14px">
+                          Add 10 Instance
+                        </a>
+                          <a class="dropdown-item" href="" ng-click="TEST_X_INSTANCE(25)" style="font-size: 14px">
+                          Add 25 Instance
+                        </a>
+                          <a class="dropdown-item" href="" ng-click="TEST_X_INSTANCE(50)" style="font-size: 14px">
+                          Add 50 Instance
+                        </a>
+
+
+                      </div>
+
                   </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -73,6 +96,7 @@
             </nav>
           </div>
         </div>
+
         <!-- End navbar -->
 
         <!-- Main input form for inserting data -->

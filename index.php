@@ -10,8 +10,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.32/angular.min.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.32/angular-route.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBmcxLHw3pFl9hDSxp3P1nVGUeZTJW6GY&libraries=places"></script>
-    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCl4x54NRlMWqsfyOW13ebDRFNZhHPVqKI&libraries=places"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="client/js/app.js"></script>
     <link rel="stylesheet" href="client/css/style.css">
