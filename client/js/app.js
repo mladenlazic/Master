@@ -110,7 +110,7 @@ app.controller("indexController", function($location, $scope) {
         if (x == 5 || x == 10 || x == 15 || x == 25 || x == 50) {
             g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Vlasenica, Bosnia and Herzegovina", 44.17997740000001, 18.94181960000003, 5);
             g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ugljevik, Bosnia and Herzegovina", 44.6939722, 18.995954900000015, 10);
-            //g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Belgrade, Serbia", 44.786568, 20.44892159999995, 20);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Belgrade, Serbia", 44.786568, 20.44892159999995, 20);
             //g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Vlasenica, Bosnia and Herzegovina", 44.17997740000001, 18.94181960000003, 5);
             //g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ugljevik, Bosnia and Herzegovina", 44.6939722, 18.995954900000015, 10);
         }
@@ -187,7 +187,7 @@ app.controller("indexController", function($location, $scope) {
 
         if (x == 5 || x == 10 || x == 15 || x == 25 || x == 50) {
             g_Vehicles[g_Vehicles.length] = new Vehicles(0, "BMW", 5);
-            g_Vehicles[g_Vehicles.length] = new Vehicles(1, "Fiat", 10);
+            g_Vehicles[g_Vehicles.length] = new Vehicles(1, "Fiat", 30);
         }
         if (x == 10 || x == 15 || x == 25 || x == 50) {
             g_Vehicles[g_Vehicles.length] = new Vehicles(2, "Mercedes", 100);

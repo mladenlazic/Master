@@ -103,6 +103,7 @@ function swap($i, $j, $permutation)
 
 function generateRandomPermutation($permutation)
 {
+    $i = 0;
     $n = count($permutation);
     if ($n == 1) {
         return $permutation;
@@ -111,7 +112,7 @@ function generateRandomPermutation($permutation)
         $i = 0;
     }
     else {
-        $i = rand(0, $i - 2);
+        $i = rand(0, $n - 2);
     }
 
     $permutation = swap($i, $i+1, $permutation);
