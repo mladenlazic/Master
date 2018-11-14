@@ -216,6 +216,7 @@ app.controller("indexController", function($location, $scope) {
         g_Vehicles = [];
         g_DepotLocation = [];
         g_DeliveryLocations = [];
+        g_DeliveryLocationsMarkers = [];
 
         addTestDeliveryLocation(x);
         addTestDepotLocation();
