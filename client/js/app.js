@@ -108,64 +108,66 @@ app.controller("indexController", function($location, $scope) {
         setUpDeliveryLocationDesignSettings();
 
         if (x == 5 || x == 10 || x == 15 || x == 25 || x == 50) {
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Vlasenica, Bosnia and Herzegovina", 44.17997740000001, 18.94181960000003, 5);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ugljevik, Bosnia and Herzegovina", 44.6939722, 18.995954900000015, 10);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Belgrade, Serbia", 44.786568, 20.44892159999995, 20);
-            //g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Vlasenica, Bosnia and Herzegovina", 44.17997740000001, 18.94181960000003, 5);
-            //g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ugljevik, Bosnia and Herzegovina", 44.6939722, 18.995954900000015, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Stjepana Ljubiše, Beograd, Serbia", 44.8073777, 20.483595700000023, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Prilaz, Beograd, Serbia", 44.84125299999999, 20.400103899999976, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Birčaninova, Beograd, Serbia", 44.8031462, 20.461751800000002, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Gandijeva, Beograd, Serbia", 44.8076454, 20.38473929999998, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Mije Kovačevića, Beograd, Serbia", 44.8124612, 20.48856849999993, 20);
+
+
         }
         if (x == 10 || x == 15 || x == 25 || x == 50) {
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Belgrade, Serbia", 44.786568, 20.44892159999995, 10);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Novi Sad, Serbia", 45.2671352, 19.83354959999997, 5);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Valjevo, Serbia", 44.2743141, 19.890339799999992, 20);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Kneza Miloša, Beograd, Serbia", 44.80833010000001, 20.463559600000053, 5);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ruzveltova, Beograd, Serbia", 44.8068906, 20.48032330000001, 20);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Vojvode Stepe, Beograd, Serbia", 44.7609797, 20.484824200000048, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Đorđa Stanojevića, Beograd, Serbia", 44.8076298, 20.406594900000073, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Nehruova, Beograd, Serbia", 44.8010286, 20.38146089999998, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Bulevar kralja Aleksandra, Beograd, Serbia", 44.7879673, 20.516884000000005, 20);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Bulevar Mihajla Pupina, Beograd, Serbia", 44.8209833, 20.42021239999997, 10);
         }
         if (x == 15 || x == 25 || x == 50) {
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Pariska, Beograd, Serbia", 44.81969899999999, 20.452750299999934, 20);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Studentski trg, Beograd, Serbia", 44.8189483, 20.457383899999968, 10);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Jurija Gagarina 115, Beograd, Serbia", 44.8019511, 20.3918132, 5);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Cara Nikolaja II, Beograd, Serbia", 44.79799680000001, 20.479631499999982, 5);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Rade Končara, Beograd, Serbia", 44.7900054, 20.477248099999997, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Kneza Danila 23, Beograd, Serbia", 44.81075630000001, 20.47658960000001, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Dalmatinska, Beograd, Serbia", 44.81128969999999, 20.47789750000004, 20);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Španskih boraca, Beograd, Serbia", 44.8148853, 20.419678699999963, 20);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Resavska, Beograd, Serbia", 44.80470870000001, 20.462097800000038, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Beogradska, Beograd, Serbia", 44.80561639999999, 20.469803800000022, 5);
         }
         if (x == 25 || x == 50) {
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ustanička, Beograd, Serbia", 44.78385670000001, 20.487746799999968, 5);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Vlasenica, Bosnia and Herzegovina", 44.17997740000001, 18.94181960000003, 5);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ugljevik, Bosnia and Herzegovina", 44.6939722, 18.995954900000015, 10);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Belgrade, Serbia", 44.786568, 20.44892159999995, 10);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Novi Sad, Serbia", 45.2671352, 19.83354959999997, 5);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Valjevo, Serbia", 44.2743141, 19.890339799999992, 20);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Kneza Miloša, Beograd, Serbia", 44.80833010000001, 20.463559600000053, 5);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ruzveltova, Beograd, Serbia", 44.8068906, 20.48032330000001, 20);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Pariska, Beograd, Serbia", 44.81969899999999, 20.452750299999934, 20);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Studentski trg, Beograd, Serbia", 44.8189483, 20.457383899999968, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Kneza Miloša, Beograd, Serbia", 44.80833010000001, 20.463559600000053, 30);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Kralja Milana, Beograd, Serbia", 44.8067686, 20.464405400000032, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Nemanjina, Beograd, Serbia", 44.8025943, 20.4658905, 25);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Cvijićeva, Beograd, Serbia", 44.81230970000001, 20.47841310000001, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Mozerova, Beograd, Serbia", 44.83795509999999, 20.389651400000048, 20);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Dimitrija Tucovića, Beograd, Serbia", 44.8070204, 20.482852999999977, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Mije Kovačevića, Beograd, Serbia", 44.8124612, 20.48856849999993, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Starine Novaka, Beograd, Serbia", 44.8101142, 20.476716500000066, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Mirijevo, Belgrade, Serbia", 44.7854051, 20.54615469999999, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Karaburma, Belgrade, Serbia", 44.8172662, 20.50955799999997, 10);
         }
         if (x == 50) {
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Jurija Gagarina 115, Beograd, Serbia", 44.8019511, 20.3918132, 5);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Cara Nikolaja II, Beograd, Serbia", 44.79799680000001, 20.479631499999982, 5);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Rade Končara, Beograd, Serbia", 44.7900054, 20.477248099999997, 10);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Cara Nikolaja II, Beograd, Serbia", 44.79799680000001, 20.479631499999982, 5);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Rade Končara, Beograd, Serbia", 44.7900054, 20.477248099999997, 10);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ugljevik, Bosnia and Herzegovina", 44.6939722, 18.995954900000015, 10);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Belgrade, Serbia", 44.786568, 20.44892159999995, 10);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Novi Sad, Serbia", 45.2671352, 19.83354959999997, 5);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Valjevo, Serbia", 44.2743141, 19.890339799999992, 20);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Kneza Miloša, Beograd, Serbia", 44.80833010000001, 20.463559600000053, 5);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ruzveltova, Beograd, Serbia", 44.8068906, 20.48032330000001, 20);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Pariska, Beograd, Serbia", 44.81969899999999, 20.452750299999934, 20);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Studentski trg, Beograd, Serbia", 44.8189483, 20.457383899999968, 10);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Jurija Gagarina 115, Beograd, Serbia", 44.8019511, 20.3918132, 5);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Cara Nikolaja II, Beograd, Serbia", 44.79799680000001, 20.479631499999982, 5);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Rade Končara, Beograd, Serbia", 44.7900054, 20.477248099999997, 10);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ustanička, Beograd, Serbia", 44.78385670000001, 20.487746799999968, 5);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Vlasenica, Bosnia and Herzegovina", 44.17997740000001, 18.94181960000003, 5);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ugljevik, Bosnia and Herzegovina", 44.6939722, 18.995954900000015, 10);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Belgrade, Serbia", 44.786568, 20.44892159999995, 10);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Novi Sad, Serbia", 45.2671352, 19.83354959999997, 5);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Valjevo, Serbia", 44.2743141, 19.890339799999992, 20);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Kneza Miloša, Beograd, Serbia", 44.80833010000001, 20.463559600000053, 5);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ruzveltova, Beograd, Serbia", 44.8068906, 20.48032330000001, 20);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Pariska, Beograd, Serbia", 44.81969899999999, 20.452750299999934, 20);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Francuska, Beograd, Serbia", 44.81837669999999, 20.463725899999986, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Kapetan-Mišina, Beograd, Serbia", 44.8219103, 20.461915500000032, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Visokog Stevana, Beograd, Serbia", 44.8252236, 20.459705100000065, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Kneginje Zorke, Beograd, Serbia", 44.8022677, 20.47119440000006, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Kneginje Ljubice, Beograd, Serbia", 44.8213939, 20.463648899999953, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Svetogorska, Beograd, Serbia", 44.8141223, 20.467663399999992, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Svetozara Markovića, Beograd, Serbia", 44.80471439999999, 20.46517659999995, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Zeleni Venac, Belgrade, Serbia", 44.8120378, 20.45822279999993, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Savska, Beograd, Serbia", 44.8044885, 20.453331299999945, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Narodnih heroja, Beograd, Serbia", 44.82158039999999, 20.404714300000023, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Tošin bunar, Beograd, Serbia", 44.8299484, 20.399313500000062, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ugrinovačka, Beograd, Serbia", 44.8460312, 20.400541100000055, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Dobanovački put, Beograd, Serbia", 44.845915, 20.354593799999975, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Vojni put 2, Beograd, Serbia", 44.8430965, 20.374193800000057, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Svetog Nikole, Beograd, Serbia", 44.8047685, 20.492585200000008, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Braće Ribnikar, Beograd, Serbia", 44.8064615, 20.48447090000002, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Pop Stojanova, Beograd, Serbia", 44.7971083, 20.49021540000001, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Ustanička, Beograd, Serbia", 44.78385670000001, 20.487746799999968, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Bulevar Oslobođenja, Beograd, Serbia", 44.7558186, 20.483123200000023, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Bulevar Nikole Tesle, Beograd, Serbia", 44.8223964, 20.42695230000004, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Bulevar Zorana Đinđića, Beograd, Serbia", 44.8175329, 20.417997199999945, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Dragoslava Srejovića, Beograd, Serbia", 44.8098336, 20.511362200000008, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Severni bulevar, Beograd, Serbia", 44.81037389999999, 20.493359699999928, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Crveni Krst, Belgrade, Serbia", 44.79585599999999, 20.488229199999978, 10);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Bulevar despota Stefana, Beograd, Serbia", 44.8172371, 20.477729700000054, 10);
         }
 
         updateLocationInfoList();
@@ -177,7 +179,7 @@ app.controller("indexController", function($location, $scope) {
     }
 
     function addTestDepotLocation() {
-        g_DepotLocation = JSON.parse('{"depot_name":  "Bijeljina, Bosnia and Herzegovina", "lat": "44.75695109999999", "lng": "19.215022399999953"}');
+        g_DepotLocation = JSON.parse('{"depot_name":  "Ušće, Beograd, Serbia", "lat": "44.81897360000001", "lng": "20.438372699999945"}');
         addDepotMarker();
         updateDepotInfoList();
 
@@ -186,38 +188,43 @@ app.controller("indexController", function($location, $scope) {
     function addTestVehicles(x) {
 
         if (x == 5 || x == 10 || x == 15 || x == 25 || x == 50) {
-            g_Vehicles[g_Vehicles.length] = new Vehicles(0, "BMW", 5);
-            g_Vehicles[g_Vehicles.length] = new Vehicles(1, "Fiat", 30);
+            g_Vehicles[g_Vehicles.length] = new Vehicles(0, "BMW", 20);
+            g_Vehicles[g_Vehicles.length] = new Vehicles(1, "Fiat", 50);
         }
         if (x == 10 || x == 15 || x == 25 || x == 50) {
-            g_Vehicles[g_Vehicles.length] = new Vehicles(2, "Mercedes", 100);
+            g_Vehicles[g_Vehicles.length] = new Vehicles(2, "Mercedes", 50);
         }
         if (x == 15 || x == 25 || x == 50) {
-            g_Vehicles[g_Vehicles.length] = new Vehicles(3, "Ford", 50);
+            g_Vehicles[g_Vehicles.length] = new Vehicles(3, "Ford", 80);
         }
         if (x == 25 || x == 50) {
-            g_Vehicles[g_Vehicles.length] = new Vehicles(4, "Opel", 50);
+            g_Vehicles[g_Vehicles.length] = new Vehicles(4, "Opel", 150);
         }
         if (x == 50) {
-            g_Vehicles[g_Vehicles.length] = new Vehicles(5, "Subaru", 500);
+            g_Vehicles[g_Vehicles.length] = new Vehicles(5, "Subaru", 250);
         }
         updateVehicleInfoList();        
     }
 
     $scope.TEST_X_INSTANCE = function(x) {
         
+        // Delete delivery markers if thare are
+        for (var i = 0; i < g_DeliveryLocations.length; i++) {
+            deleteMapMarker(i);
+        }
+
         g_Vehicles = [];
         g_DepotLocation = [];
         g_DeliveryLocations = [];
 
         addTestDeliveryLocation(x);
         addTestDepotLocation();
-        addTestVehicles(x);    
+        addTestVehicles(x);
     }
     
     var googleMapSearchBox;
     var map = new google.maps.Map(document.getElementById('googleMapContent'), {
-        zoom: 4,
+        zoom: 12,
         center: {
             lat: 44.787197,
             lng: 20.457273
@@ -435,11 +442,13 @@ app.controller("indexController", function($location, $scope) {
             for (var j = 1; j < data[i].length - 2; j++) {
 
                 waypts.push({
-                    location: data[i][j],
-                    stopover: true
+                    location: data[i][j]
                 });
 
             }
+
+            console.log(waypts);
+            console.log(depot);
             requestDirections(depot, depot, waypts, routeColor[i + parseInt(index)]);
         }
     }
@@ -772,6 +781,7 @@ app.controller("indexController", function($location, $scope) {
         document.getElementById('locationInsertQuantity').value = "";
         updateLocationInfoList();
         places.pop();
+        console.log(g_DeliveryLocations);
     }
 
     $scope.addDepotToObject = function() {

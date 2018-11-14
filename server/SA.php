@@ -5,7 +5,7 @@ function SA($locationsIndex, $distanceBetweenLocations, $distanceDepotFromLocati
     $currentTemperature = 100.0;
     $coolingRate = 0.9999;
     $minimalTemperature = 0.0001;
-    $n = 10;
+    $n = 500;
     $i = 0;
     $candidate = $locationsIndex;
     shuffle($candidate);
