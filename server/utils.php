@@ -53,6 +53,63 @@ function nextPermutation($array)
     return $array;
 }
 
+function callGetDistance($locations, $goodsPerLocations, $vehicleIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations)
+{
+
+    $numberOfPermutationVehicle = factorial(count($vehicleIndex));
+
+    $distance = 99999999;
+    for ($k = 0; $k < $numberOfPermutationVehicle; $k++) {
+        if ($k != 0) {
+            $vehicleIndex = nextPermutation($vehicleIndex);
+        }
+
+        $newDistance = getDistance($locations, $goodsPerLocations, $vehicleIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations);
+
+
+        if ($newDistance == -1)
+            continue;
+
+        if ($newDistance < $distance) {
+            $distance = $newDistance;
+        }
+    }
+        
+
+        if($distance == 99999999)
+            return -1;
+    return $distance;
+}    
+
+
+function getNewVehicleIndex($locations, $goodsPerLocations, $vehicleIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations)
+{
+
+    $numberOfPermutationVehicle = factorial(count($vehicleIndex));
+    $v = $vehicleIndex;
+    $distance = 99999999;
+    for ($k = 0; $k < $numberOfPermutationVehicle; $k++) {
+        if ($k != 0) {
+            $vehicleIndex = nextPermutation($vehicleIndex);
+        }
+
+        $newDistance = getDistance($locations, $goodsPerLocations, $vehicleIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations);
+
+
+
+        if ($newDistance == -1)
+            continue;
+
+
+        if ($newDistance < $distance) {
+            $distance = $newDistance;
+            $v = $vehicleIndex;
+        }
+    }
+        
+    return $v;
+}    
+
 function fillVehicle($locations, $goodsPerLocations, $vehicleIndex, $vehiclesCapacity)
 {
     $numberOfLocations = count($locations);

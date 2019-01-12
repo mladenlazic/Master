@@ -410,7 +410,6 @@ app.controller("indexController", function($location, $scope) {
         var directionsDisplay = new google.maps.DirectionsRenderer({
             polylineOptions: {
                 strokeColor: color,
-
             }
         });
         directionsDisplay.setDirections(result);
@@ -1191,7 +1190,7 @@ var t1 = 0;
             vehiclesCapacity.push(vehicles[i].getVehicleCapacity());
         }
 
-        console.log(vehiclesCapacity);
+        // console.log(vehiclesCapacity);
 
     }
 

@@ -2,14 +2,14 @@
 
 function SA($locationsIndex, $distanceBetweenLocations, $distanceDepotFromLocations, $goodsPerLocations, $vehiclesIndex, $vehiclesCapacity)
 {
+
     $currentTemperature = 100.0;
-    $coolingRate = 0.9999;
-    $minimalTemperature = 0.0001;
-    $n = 500;
-    $i = 0;
+    $coolingRate = 0.99;
+    $minimalTemperature = 0.001;
+
     $candidate = $locationsIndex;
     shuffle($candidate);
-    $dCandidate = getDistance($candidate, $goodsPerLocations, $vehiclesIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations);
+    $dCandidate = callGetDistance($candidate, $goodsPerLocations, $vehiclesIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations);
 
     if ($dCandidate == -1) {
         $dCandidate = 999999;
@@ -17,13 +17,12 @@ function SA($locationsIndex, $distanceBetweenLocations, $distanceDepotFromLocati
 
     while ($currentTemperature > $minimalTemperature) {
         $randomCandidate = generateRandomPermutation($candidate);
-        $dRandomCandidate = getDistance($randomCandidate, $goodsPerLocations, $vehiclesIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations);
+        $dRandomCandidate = callGetDistance($randomCandidate, $goodsPerLocations, $vehiclesIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations);
         if ($dRandomCandidate != - 1) {
-            $i++;
+            
             if ($dRandomCandidate < $dCandidate) {
                 $candidate = $randomCandidate;
                 $dCandidate = $dRandomCandidate;
-                $i = 0;
             }
             else {
                 $E = $dCandidate - $dRandomCandidate;
@@ -32,19 +31,16 @@ function SA($locationsIndex, $distanceBetweenLocations, $distanceDepotFromLocati
                 if ($random < (exp($E / $T))) {
                     $candidate = $randomCandidate;
                     $dCandidate = $dRandomCandidate;
-                    $i = 0;
                 }
-            }
-
-            if ($i == $n) {
-                break;
             }
         }
 
         $currentTemperature = $currentTemperature * $coolingRate;
     }
 
-    $result = getResult($candidate, $goodsPerLocations, $vehiclesIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations);
+    $newVehicleIndex = getNewVehicleIndex($candidate, $goodsPerLocations, $vehiclesIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations);
+
+    $result = getResult($candidate, $goodsPerLocations, $newVehicleIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations);
     return $result;
 }
 
