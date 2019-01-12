@@ -410,7 +410,6 @@ app.controller("indexController", function($location, $scope) {
         var directionsDisplay = new google.maps.DirectionsRenderer({
             polylineOptions: {
                 strokeColor: color,
-
             }
         });
         directionsDisplay.setDirections(result);
@@ -455,8 +454,6 @@ app.controller("indexController", function($location, $scope) {
 
             }
 
-            console.log(waypts);
-            console.log(depot);
             requestDirections(depot, depot, waypts, routeColor[i + parseInt(index)]);
         }
     }
@@ -792,7 +789,7 @@ app.controller("indexController", function($location, $scope) {
         document.getElementById('locationInsertQuantity').value = "";
         updateLocationInfoList();
         places.pop();
-        console.log(g_DeliveryLocations);
+        //console.log(g_DeliveryLocations);
     }
 
     $scope.addDepotToObject = function() {
@@ -951,11 +948,12 @@ var t1 = 0;
                 console.log("Response from VRP server");
                 var response = this.responseText;
                 
-
                 console.log(response);
+                
                 document.getElementById("mainDivLoader").style.display = "none";
                 t1 = performance.now();
-                console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.")
+                console.log("Time execution: " + ((t1 - t0)/1000).toFixed(2) + " s.");
+                console.log("Time execution: " + ((t1 - t0)/1000/60).toFixed(2) + " m.");
 
                 if (response == -1) {
                     alert("Solution could not be found.\nPlease check:\n1. Network connection\n2. Vehicle capacity\n\nTry again!");
@@ -1005,8 +1003,8 @@ var t1 = 0;
         data += "["+JSON.stringify(g_Method)+"]";
         data += "]";
 
-        console.log(JSON.stringify(matrixBetweenDeliveryLocations));
-        console.log(JSON.stringify(matrixBetweenLocationsAndDepot));
+        // console.log(JSON.stringify(matrixBetweenDeliveryLocations));
+        // console.log(JSON.stringify(matrixBetweenLocationsAndDepot));
 
         xmlhttp.open("POST", "server/main.php?", true);
         xmlhttp.send(data);
@@ -1057,7 +1055,7 @@ var t1 = 0;
                 if (this.readyState == 4 && this.status == 200) {
                     var response = JSON.parse(this.responseText);
                     if(response['status'] == "OK") {
-                        console.log(response);
+                        //console.log(response);
                         var m = distanceMatrixBetweenLocations(response);
                         updateDeliveryMatrixLocations(m, i*10, j*10);
                         var k = Math.sqrt(numberOfRequest);
@@ -1191,7 +1189,7 @@ var t1 = 0;
             vehiclesCapacity.push(vehicles[i].getVehicleCapacity());
         }
 
-        console.log(vehiclesCapacity);
+        // console.log(vehiclesCapacity);
 
     }
 

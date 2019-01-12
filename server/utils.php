@@ -53,6 +53,70 @@ function nextPermutation($array)
     return $array;
 }
 
+function getDistance($locations, $goodsPerLocations, $vehicleIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations)
+{
+
+    $numberOfPermutationVehicle = factorial(count($vehicleIndex));
+    
+    // Assume that solution will not be bigger than 99999999
+    $distance = 99999999;
+
+    for ($k = 0; $k < $numberOfPermutationVehicle; $k++) {
+        if ($k != 0) {
+            $vehicleIndex = nextPermutation($vehicleIndex);
+        }
+
+        // Calculate new solution
+        $newDistance = getDistanceForCurrentVehiclePermutation($locations, $goodsPerLocations, $vehicleIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations);
+
+        // If new solution is not acceptable
+        if ($newDistance == -1)
+            continue;
+
+        // If new solution better than old
+        if ($newDistance < $distance) {
+            $distance = $newDistance;
+        }
+    }
+        
+
+    // If solution is not acceptable
+    if($distance == 99999999)
+        return -1;
+    
+    // Return the best solution
+    return $distance;
+}    
+
+
+function getTheBestVehicleIndexPermutation($locations, $goodsPerLocations, $vehicleIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations)
+{
+
+    $numberOfPermutationVehicle = factorial(count($vehicleIndex));
+    $v = $vehicleIndex;
+    $distance = 99999999;
+    for ($k = 0; $k < $numberOfPermutationVehicle; $k++) {
+        if ($k != 0) {
+            $vehicleIndex = nextPermutation($vehicleIndex);
+        }
+
+        $newDistance = getDistanceForCurrentVehiclePermutation($locations, $goodsPerLocations, $vehicleIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations);
+
+
+
+        if ($newDistance == -1)
+            continue;
+
+
+        if ($newDistance < $distance) {
+            $distance = $newDistance;
+            $v = $vehicleIndex;
+        }
+    }
+        
+    return $v;
+}    
+
 function fillVehicle($locations, $goodsPerLocations, $vehicleIndex, $vehiclesCapacity)
 {
     $numberOfLocations = count($locations);
@@ -140,7 +204,7 @@ function getResult($locations, $goodsPerLocations, $vehicleIndex, $vehiclesCapac
     return $k;
 }
 
-function getDistance($locations, $goodsPerLocations, $vehicleIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations)
+function getDistanceForCurrentVehiclePermutation($locations, $goodsPerLocations, $vehicleIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations)
 {
     $k = fillVehicle($locations, $goodsPerLocations, $vehicleIndex, $vehiclesCapacity);
     if ($k == - 1) {

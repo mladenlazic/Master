@@ -2,6 +2,9 @@
 
 function BF($locations, $distanceBetweenLocations, $distanceDepotFromLocations, $goodsPerLocations, $vehiclesIndex, $vehiclesCapacity)
 {
+    $end_time = time() + 3600;
+    $time_is_up = false;
+
     $bestDistance = 99999999;
     $goodsPerVehiles = - 1;
     $loc = $locations;
@@ -14,6 +17,10 @@ function BF($locations, $distanceBetweenLocations, $distanceDepotFromLocations, 
         }
 
         for ($k = 0; $k < $numberOfPermutationVehicle; $k++) {
+            if (time() >= $end_time) {
+                $time_is_up = true;
+                break;
+            }
             if ($k != 0) {
                 $vehiclesIndex = nextPermutation($vehiclesIndex);
             }
@@ -49,6 +56,10 @@ function BF($locations, $distanceBetweenLocations, $distanceDepotFromLocations, 
         }
 
         $vehiclesIndex = $vi;
+
+        if ($time_is_up == true) {
+            break;
+        }
     }
 
     return $goodsPerVehiles;

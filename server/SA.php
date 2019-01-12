@@ -2,11 +2,13 @@
 
 function SA($locationsIndex, $distanceBetweenLocations, $distanceDepotFromLocations, $goodsPerLocations, $vehiclesIndex, $vehiclesCapacity)
 {
+
     $currentTemperature = 100.0;
-    $coolingRate = 0.9999;
+    $coolingRate = 0.99;
     $minimalTemperature = 0.0001;
-    $n = 500;
-    $i = 0;
+
+    $t = time() + 600;
+
     $candidate = $locationsIndex;
     shuffle($candidate);
     $dCandidate = getDistance($candidate, $goodsPerLocations, $vehiclesIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations);
@@ -15,15 +17,14 @@ function SA($locationsIndex, $distanceBetweenLocations, $distanceDepotFromLocati
         $dCandidate = 999999;
     }
 
-    while ($currentTemperature > $minimalTemperature) {
+    while ($currentTemperature > $minimalTemperature && $t > time()) {
         $randomCandidate = generateRandomPermutation($candidate);
         $dRandomCandidate = getDistance($randomCandidate, $goodsPerLocations, $vehiclesIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations);
         if ($dRandomCandidate != - 1) {
-            $i++;
+            
             if ($dRandomCandidate < $dCandidate) {
                 $candidate = $randomCandidate;
                 $dCandidate = $dRandomCandidate;
-                $i = 0;
             }
             else {
                 $E = $dCandidate - $dRandomCandidate;
@@ -32,19 +33,16 @@ function SA($locationsIndex, $distanceBetweenLocations, $distanceDepotFromLocati
                 if ($random < (exp($E / $T))) {
                     $candidate = $randomCandidate;
                     $dCandidate = $dRandomCandidate;
-                    $i = 0;
                 }
             }
-
-            if ($i == $n) {
-                break;
-            }
         }
-
         $currentTemperature = $currentTemperature * $coolingRate;
     }
 
-    $result = getResult($candidate, $goodsPerLocations, $vehiclesIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations);
+    $theBestVehicleIndexPermutation = getTheBestVehicleIndexPermutation($candidate, $goodsPerLocations, $vehiclesIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations);
+
+    $result = getResult($candidate, $goodsPerLocations, $theBestVehicleIndexPermutation, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations);
+
     return $result;
 }
 
