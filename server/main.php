@@ -53,8 +53,8 @@ if ($method == "BF") {
 }
 else {
 	$result = SA($locationsIndex, $distanceBetweenLocations, $distanceDepotFromLocations, $goodsPerLocations, $vehiclesIndex, $vehiclesCapacity);
-	// $r = json_encode($result);
-	// echo $r;
+	$r = json_encode($result);
+	echo $r;
 }
 
 ?>
