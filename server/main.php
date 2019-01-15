@@ -10,6 +10,7 @@ include "utils.php";
 // 	array(3,4,0,5),
 // 	array(3,4,5,0),
 // );
+
 $data = file_get_contents('php://input');
 $dataFromClient = json_decode($data);
 
@@ -19,8 +20,8 @@ $dataFromClient = json_decode($data);
 // $goodsPerLocations = array(10,20,10,10);
 // $locationsIndex = array(0,1,2,3);
 
-ini_set('max_execution_time', 4000);
-ini_set('memory_limit', '2000M');
+ini_set('max_execution_time', 5400); // 1.5h
+ini_set('memory_limit', '2048M'); // 2GB
 ini_set('always_populate_raw_post_data', '-1');
 
 

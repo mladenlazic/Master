@@ -4,7 +4,7 @@ function SA($locationsIndex, $distanceBetweenLocations, $distanceDepotFromLocati
 {
 
     $currentTemperature = 100.0;
-    $coolingRate = 0.99;
+    $coolingRate = 0.999;
     $minimalTemperature = 0.0001;
 
     $t = time() + 600;
