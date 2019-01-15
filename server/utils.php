@@ -57,27 +57,34 @@ function callGetDistance($locations, $goodsPerLocations, $vehicleIndex, $vehicle
 {
 
     $numberOfPermutationVehicle = factorial(count($vehicleIndex));
-
+    
+    // Assume that solution will not be bigger than 99999999
     $distance = 99999999;
+
     for ($k = 0; $k < $numberOfPermutationVehicle; $k++) {
         if ($k != 0) {
             $vehicleIndex = nextPermutation($vehicleIndex);
         }
 
+        // Calculate new solution
         $newDistance = getDistance($locations, $goodsPerLocations, $vehicleIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations);
 
-
+        // If new solution is not acceptable
         if ($newDistance == -1)
             continue;
 
+        // If new solution better than old
         if ($newDistance < $distance) {
             $distance = $newDistance;
         }
     }
         
 
-        if($distance == 99999999)
-            return -1;
+    // If solution is not acceptable
+    if($distance == 99999999)
+        return -1;
+    
+    // Return the best solution
     return $distance;
 }    
 

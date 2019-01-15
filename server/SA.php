@@ -4,9 +4,9 @@ function SA($locationsIndex, $distanceBetweenLocations, $distanceDepotFromLocati
 {
 
     $currentTemperature = 100.0;
-    $coolingRate = 0.99;
-    $minimalTemperature = 0.001;
-
+    $coolingRate = 0.9999;
+    $minimalTemperature = 0.0001;
+$i = 0;
     $candidate = $locationsIndex;
     shuffle($candidate);
     $dCandidate = callGetDistance($candidate, $goodsPerLocations, $vehiclesIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations);
@@ -34,14 +34,15 @@ function SA($locationsIndex, $distanceBetweenLocations, $distanceDepotFromLocati
                 }
             }
         }
-
+//115123
         $currentTemperature = $currentTemperature * $coolingRate;
+        $i++;
     }
 
-    $newVehicleIndex = getNewVehicleIndex($candidate, $goodsPerLocations, $vehiclesIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations);
+    // $newVehicleIndex = getNewVehicleIndex($candidate, $goodsPerLocations, $vehiclesIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations);
 
-    $result = getResult($candidate, $goodsPerLocations, $newVehicleIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations);
-    return $result;
+    // $result = getResult($candidate, $goodsPerLocations, $newVehicleIndex, $vehiclesCapacity, $distanceBetweenLocations, $distanceDepotFromLocations);
+     print_r($i);
 }
 
 ?>
