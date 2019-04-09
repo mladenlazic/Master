@@ -109,7 +109,7 @@ app.controller("indexController", function($location, $scope) {
 
         setUpDeliveryLocationDesignSettings();
 
-        if (x == 5 || x == 10 || x == 15 || x == 25 || x == 50) {
+        if (x == 5 || x == 10 || x == 12 || x == 15 || x == 25 || x == 50) {
             g_UseTestExample = 5;
             g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Stjepana Ljubiše, Beograd, Serbia", 44.8073777, 20.483595700000023, 10);
             g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Prilaz, Beograd, Serbia", 44.84125299999999, 20.400103899999976, 10);
@@ -119,7 +119,7 @@ app.controller("indexController", function($location, $scope) {
 
 
         }
-        if (x == 10 || x == 15 || x == 25 || x == 50) {
+        if (x == 10 || x == 12 || x == 15 || x == 25 || x == 50) {
             g_UseTestExample = 10;
             g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Vojvode Stepe, Beograd, Serbia", 44.7609797, 20.484824200000048, 10);
             g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Đorđa Stanojevića, Beograd, Serbia", 44.8076298, 20.406594900000073, 5);
@@ -127,13 +127,17 @@ app.controller("indexController", function($location, $scope) {
             g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Bulevar kralja Aleksandra, Beograd, Serbia", 44.7879673, 20.516884000000005, 20);
             g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Bulevar Mihajla Pupina, Beograd, Serbia", 44.8209833, 20.42021239999997, 10);
         }
+        if (x == 12 || x == 15 || x == 25 || x == 50) {
+            g_UseTestExample = 12;
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Resavska, Beograd, Serbia", 44.80470870000001, 20.462097800000038, 5);
+            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Beogradska, Beograd, Serbia", 44.80561639999999, 20.469803800000022, 5);
+
+        }
         if (x == 15 || x == 25 || x == 50) {
             g_UseTestExample = 15;
             g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Kneza Danila 23, Beograd, Serbia", 44.81075630000001, 20.47658960000001, 10);
             g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Dalmatinska, Beograd, Serbia", 44.81128969999999, 20.47789750000004, 20);
             g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Španskih boraca, Beograd, Serbia", 44.8148853, 20.419678699999963, 20);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Resavska, Beograd, Serbia", 44.80470870000001, 20.462097800000038, 5);
-            g_DeliveryLocations[g_DeliveryLocations.length] = new Location("Beogradska, Beograd, Serbia", 44.80561639999999, 20.469803800000022, 5);
         }
         if (x == 25 || x == 50) {
             g_UseTestExample = 25;
@@ -194,11 +198,11 @@ app.controller("indexController", function($location, $scope) {
 
     function addTestVehicles(x) {
 
-        if (x == 5 || x == 10 || x == 15 || x == 25 || x == 50) {
+        if (x == 5 || x == 10 || x == 12 || x == 15 || x == 25 || x == 50) {
             g_Vehicles[g_Vehicles.length] = new Vehicles(0, "BMW", 20);
             g_Vehicles[g_Vehicles.length] = new Vehicles(1, "Fiat", 50);
         }
-        if (x == 10 || x == 15 || x == 25 || x == 50) {
+        if (x == 10 || x == 12 || x == 15 || x == 25 || x == 50) {
             g_Vehicles[g_Vehicles.length] = new Vehicles(2, "Mercedes", 50);
         }
         if (x == 15 || x == 25 || x == 50) {
@@ -271,7 +275,9 @@ app.controller("indexController", function($location, $scope) {
 
         // Google maps settings
         var locationInsertName = document.getElementById('locationInsertName');
+
         googleMapSearchBox = new google.maps.places.SearchBox(locationInsertName);
+
         // Set height size 
         var locationInputText = document.getElementById('locationInputText').offsetHeight;
         var locationAddButton = document.getElementById('locationAddButton').offsetHeight;
@@ -976,6 +982,10 @@ var t1 = 0;
                 matrixBetweenDeliveryLocations = "[[0,11.421,2.648,11.404,1.014,7.729,8.419,10.327,3.9,6.76],[12.173,0,9.264,4.836,12.022,13.409,5.03,6.121,14.652,3.63],[2.533,8.753,0,8.736,3.304,5.726,5.751,7.659,7.114,6.617],[10.302,5.014,7.393,0,10.151,11.538,2.425,1.285,12.781,4.609],[0.743,11.705,3.034,11.688,0,7.638,8.703,10.611,4.651,7.014],[7.368,13.601,5.93,13.584,7.797,0,10.599,12.507,5.949,11.465],[10.075,4.959,7.166,2.413,9.924,11.312,0,2.655,12.555,3.077],[10.376,6.021,7.467,1.237,10.225,11.612,2.499,0,12.855,4.693],[3.713,14.271,7.923,14.254,4.507,6.039,11.27,13.177,0,12.135],[5.997,5.119,5.86,5.499,6.288,10.006,2.495,5.081,11.249,0]]";
                 matrixBetweenLocationsAndDepot = "[4.886,4.71,3.583,5.667,5.177,9.464,3.729,5.909,10.707,2.431]";
             }
+            else if(g_UseTestExample == 12) {
+                matrixBetweenDeliveryLocations = "[[0, 11.435, 2.648, 11.418, 1.014, 7.729, 8.433, 10.341, 3.919, 6.76, 2.592, 1.747],[9.626, 0, 9.264, 4.836, 12.022, 13.409, 5.919, 6.121, 14.652, 3.63, 9.321, 11.424],[2.533, 8.753, 0, 8.736, 3.304, 5.726, 5.751, 7.659, 7.114, 6.617, 0.243, 0.994],[10.068, 5.002, 7.393, 0, 10.151, 11.538, 2.425, 1.285, 12.781, 4.597, 7.45, 9.553],[0.743, 11.705, 3.123, 11.688, 0, 7.638, 8.703, 10.611, 4.651, 6.86, 3.066, 2.222],[7.368, 13.601, 5.93, 13.584, 7.797, 0, 10.599, 12.507, 5.949, 11.465, 5.874, 5.83],[9.841, 4.942, 7.166, 2.413, 9.924, 11.312, 0, 2.655, 12.555, 3.077, 7.224, 9.326],[10.142, 6.021, 7.467, 1.237, 10.225, 11.612, 2.499, 0, 12.855, 4.693, 7.524, 9.627],[3.713, 14.271, 7.923, 14.254, 4.507, 6.039, 11.27, 13.177, 0, 12.135, 7.981, 4.527],[5.997, 5.119, 5.88, 5.499, 6.288, 10.026, 2.495, 5.081, 11.269, 0, 4.45, 4.878],[2.508, 8.81, 0.243, 8.793, 3.057, 5.906, 5.808, 7.716, 7.295, 4.801, 0, 0.97],[1.538, 9.654, 0.901, 9.637, 1.968, 5.982, 6.652, 8.56, 4.424, 5.459, 0.845, 0]]";
+                matrixBetweenLocationsAndDepot = "[4.886,4.71,3.583,5.667,5.177,9.464,3.729,5.909,10.707,2.492,3.339,3.767]";
+            }
             else if(g_UseTestExample == 15) {
                 matrixBetweenDeliveryLocations = "[[0,11.421,2.648,11.404,1.014,7.729,8.419,10.327,3.9,6.76,1.38,0.908,7.131,2.592,1.747],[12.173,0,9.264,4.836,12.022,13.409,5.03,6.121,14.652,3.63,10.86,11.127,4.931,9.321,11.424],[2.533,8.753,0,8.736,3.304,5.726,5.751,7.659,7.114,6.617,2.142,1.976,4.463,0.243,0.994],[10.302,5.014,7.393,0,10.151,11.538,2.425,1.285,12.781,4.609,8.989,9.256,4.664,7.45,9.553],[0.743,11.705,3.034,11.688,0,7.638,8.703,10.611,4.651,7.014,1.766,1.293,7.415,2.978,2.133],[7.368,13.601,5.93,13.584,7.797,0,10.599,12.507,5.949,11.465,6.996,6.811,9.311,5.874,5.83],[10.075,4.959,7.166,2.413,9.924,11.312,0,2.655,12.555,3.077,8.762,9.029,1.993,7.224,9.326],[10.376,6.021,7.467,1.237,10.225,11.612,2.499,0,12.855,4.693,9.063,9.33,4.525,7.524,9.627],[3.713,14.271,7.923,14.254,4.507,6.039,11.27,13.177,0,12.135,4.873,4.401,9.981,7.981,4.526],[5.997,5.119,5.86,5.499,6.288,10.006,2.495,5.081,11.249,0,4.946,5.44,0.917,4.45,4.877],[1.255,10.518,1.732,10.501,1.45,6.813,7.517,9.425,4.661,5.843,0,0.296,6.228,1.675,0.831],[1.285,10.513,2.215,10.496,1.48,7.296,7.512,9.419,4.691,5.822,0.472,0,6.223,2.064,1.313],[7.853,4.599,4.943,4.582,7.702,9.089,1.578,4.164,10.332,1.42,6.54,6.807,0,5.001,7.104],[2.508,8.81,0.243,8.793,3.057,5.906,5.808,7.716,7.295,4.801,1.895,1.951,4.52,0,0.97],[1.538,9.654,0.901,9.637,1.968,5.982,6.652,8.56,4.424,5.646,1.167,0.982,5.364,0.845,0]]";
                 matrixBetweenLocationsAndDepot = "[4.886,4.71,3.583,5.667,5.177,9.464,3.729,5.909,10.707,2.431,3.835,4.33,2.141,3.339,3.767]";
@@ -994,7 +1004,7 @@ var t1 = 0;
         }
         else {
             data += "["+JSON.stringify(matrixBetweenDeliveryLocations)+"],";
-            data += "["+JSON.stringify(matrixBetweenLocationsAndDepot)+"],";   
+            data += "["+JSON.stringify(matrixBetweenLocationsAndDepot)+"],";
         }
 
        
